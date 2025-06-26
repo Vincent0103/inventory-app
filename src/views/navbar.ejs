@@ -1,0 +1,47 @@
+<nav>
+  <section><h1>Y2Plush</h1></section>
+  <section>
+    <ul class="navlinks" role="menubar">
+      <li>
+        <a href="/">
+          <img class="svg" src="/icons/home.svg" alt="" />
+          <span>Home</span>
+        </a>
+      </li>
+      <li>
+        <a href="/inventory" method="GET">
+          <img class="svg" src="/icons/toolbox.svg" alt="" />
+          <span>Inventory</span>
+        </a>
+      </li>
+      <li>
+        <a href="/create">
+          <img class="svg" src="/icons/plus-circle.svg" alt="" />
+          <span>Create</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <form action="/search" method="GET">
+      <img class="svg" src="/icons/magnify.svg" alt="" />
+      <input
+        type="search"
+        name="q"
+        id="searchInput"
+        placeholder="Search"
+        autocomplete="on"
+        aria-label="Search products"
+        aria-describedby="search-help"
+      />
+      <button type="submit" aria-label="Submit search">
+        <img
+          class="svg"
+          src="/icons/chevron-right.svg"
+          alt=""
+          aria-hidden="true"
+        />
+      </button>
+    </form>
+  </section>
+</nav>
