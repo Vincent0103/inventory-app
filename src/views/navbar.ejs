@@ -1,22 +1,32 @@
-<nav>
+<nav class="mx-6 flex justify-between">
   <section><h1>Y2Plush</h1></section>
   <section>
-    <ul class="navlinks" role="menubar">
+    <ul class="flex list-none gap-5" role="menubar">
       <li>
-        <a href="/">
-          <img class="svg" src="/icons/home.svg" alt="" />
+        <a
+          class="bg-dark border-border text-text flex items-center gap-1.5 rounded-4xl border-[1px] px-5 py-1.5 no-underline"
+          href="/"
+        >
+          <img class="fill-text size-8" src="./icons/home.svg" alt="" />
           <span>Home</span>
         </a>
       </li>
       <li>
-        <a href="/inventory" method="GET">
-          <img class="svg" src="/icons/toolbox.svg" alt="" />
+        <a
+          class="bg-dark border-border text-text flex items-center gap-1.5 rounded-4xl border-[1px] px-5 py-1.5 no-underline"
+          href="/inventory"
+          method="GET"
+        >
+          <img class="fill-text size-8" src="/icons/toolbox.svg" alt="" />
           <span>Inventory</span>
         </a>
       </li>
       <li>
-        <a href="/create">
-          <img class="svg" src="/icons/plus-circle.svg" alt="" />
+        <a
+          class="bg-dark border-border text-text flex items-center gap-1.5 rounded-4xl border-[1px] px-5 py-1.5 no-underline"
+          href="/create"
+        >
+          <img class="fill-text size-8" src="/icons/plus-circle.svg" alt="" />
           <span>Create</span>
         </a>
       </li>
@@ -24,7 +34,7 @@
   </section>
   <section>
     <form action="/search" method="GET">
-      <img class="svg" src="/icons/magnify.svg" alt="" />
+      <img class="fill-text size-8" src="/icons/magnify.svg" alt="" />
       <input
         type="search"
         name="q"
@@ -36,7 +46,7 @@
       />
       <button type="submit" aria-label="Submit search">
         <img
-          class="svg"
+          class="fill-text size-8"
           src="/icons/chevron-right.svg"
           alt=""
           aria-hidden="true"
