@@ -4,14 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "bun --watch src/app.js",
+    "dev:css": "bunx @tailwindcss/cli -i ./src/styles.css -o ./src/public/css/styles.css --watch",
     "start": "bun src/app.js"
   },
   "dependencies": {
+    "@tailwindcss/cli": "^4.1.11",
     "dotenv": "^16.5.0",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
-    "pg": "^8.16.2"
+    "pg": "^8.16.2",
+    "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",

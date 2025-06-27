@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 @font-face {
   font-family: "Comico";
   src:
@@ -34,7 +36,7 @@
 }
 
 body {
-  background-color: #fff3ff;
+  /* background-color: #fff3ff; */
 }
 
 body::before {
