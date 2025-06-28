@@ -18,7 +18,7 @@
     <%- include("partials/navbar.ejs") %>
     <main>
       <section
-        class="border-border-dark from-primary to-primary-dark fixed top-22 overflow-y-scroll h-[calc(100vh-105px)] w-[200px] rounded-r-xl border-2 bg-linear-to-b p-1 font-semibold"
+        class="border-border-dark from-primary to-primary-dark fixed top-22 overflow-y-scroll h-[calc(100vh-105px)] w-[200px] rounded-r-xl border-y-2 border-r-2 bg-linear-to-b p-1 font-semibold"
       >
         <form action="/inventory" method="post">
           <% filters.forEach((filter) => { %>
@@ -34,7 +34,11 @@
           </div>
         </form>
       </section>
-      <section></section>
+      <section class="ml-[200px] mt-[67px] p-6 flex gap-10">
+        <% items.forEach((item) => { %>
+          <%- include("partials/itemCard.ejs", {...item}) %>
+        <% }); %>
+      </section>
     </main>
   </body>
 </html>

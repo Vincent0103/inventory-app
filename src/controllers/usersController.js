@@ -6,24 +6,6 @@ const usersController = (() => {
   };
 
   const inventoryGet = (req, res) => {
-    // res.render("inventory", {
-    //   categories: [
-    //     { formName: "y2k", name: "Y2K" },
-    //     { formName: "japanese-style" },
-    //     { formName: "cottagecore" },
-    //     { formName: "gothic" },
-    //     { formName: "pastel-emo", name: "Pastel Emo" },
-    //     { formName: "retro" },
-    //   ],
-    //   animals: [
-    //     { formName: "bear" },
-    //     { formName: "cat" },
-    //     { formName: "dog" },
-    //     { formName: "fox" },
-    //   ],
-    //   toTitleCase,
-    // });
-
     res.render("inventory", {
       filters: [
         {
@@ -58,6 +40,18 @@ const usersController = (() => {
             { formName: "black" },
             { formName: "white" },
           ],
+        }
+      ],
+      items: [
+        {
+          imgSrc: "/images/plushies/black-gloomy-bear.jpg",
+          imgAlt: "Black gloomy bear plushy",
+          name: "Black gloomy bear"
+        },
+        {
+          imgSrc: "/images/plushies/black-halloween-bear.jpg",
+          imgAlt: "Black halloween bear plushy",
+          name: "Balck halloween bear"
         }
       ],
       toTitleCase,
