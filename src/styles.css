@@ -14,6 +14,13 @@
   --color-text-dark: oklch(0.3061 0.1381 332.03);
   --color-text-muted: oklch(0.7488 0.2481 326.12);
   --color-bg: #fff3ff;
+  --color-neutral-bg: oklch(1 0 0);
+  --color-neutral-bg-dark: oklch(0.9521 0 0);
+  --color-neutral-border: oklch(0.7155 0 0);
+  --color-neutral-text-dark: oklch(0.1591 0 0);
+  --color-neutral-text-light: oklch(0.9612 0 0);
+  --color-neutral-text-muted: oklch(0.4202 0 0);
+
 }
 
 @layer components {
@@ -34,6 +41,10 @@
 
   .navlink:hover {
     border-color: var(--color-border-light);
+  }
+
+  .radial-gradient-fade {
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
   }
 }
 

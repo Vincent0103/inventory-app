@@ -46,12 +46,25 @@ const usersController = (() => {
         {
           imgSrc: "/images/plushies/black-gloomy-bear.jpg",
           imgAlt: "Black gloomy bear plushy",
-          name: "Black gloomy bear"
+          name: "Black gloomy bear",
+          price: "19€",
+          tags: [
+            { tag: "Y2K", bgColor: "#602100", textColor: "#fff", borderColor: "#4D1A00" },
+            { tag: "GOTHIC", bgColor: "#000000", textColor: "#fff", borderColor: "#494949" },
+          ],
+          amountAvailable: 9
         },
         {
           imgSrc: "/images/plushies/black-halloween-bear.jpg",
           imgAlt: "Black halloween bear plushy",
-          name: "Balck halloween bear"
+          name: "Black halloween bear",
+          price: "28,99€",
+          tags: [
+            { tag: "Y2K", bgColor: "#602100", textColor: "#fff", borderColor: "#4D1A00" },
+            { tag: "COTTAGECORE", bgColor: "#593800", textColor: "#fff", borderColor: "#332000" },
+            { tag: "PASTEL EMO", bgColor: "#75006B", textColor: "#fff", borderColor: "#52004B" },
+          ],
+          amountAvailable: 4
         }
       ],
       toTitleCase,

@@ -11,9 +11,20 @@
       rel="stylesheet"
     />
     <title>Inventory | Y2Plush</title>
+    <script>
+      function toggleFilter(e, categoryId) {
+        const list = document.getElementById(categoryId);
+        const svg = e.target.closest('BUTTON').querySelector("svg");
+        svg.classList.toggle("-rotate-180")
+        list.classList.toggle("max-h-0");
+        list.classList.toggle("max-h-96");
+        list.classList.toggle("p-0");
+        list.classList.toggle("py-2");
+      }
+      </script>
   </head>
   <body
-    class="font-montserrat text-text-light fill-text-light from-secondary to-secondary-dark min-h-screen w-full bg-linear-to-b before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-[url('/homepage-bgi.png')] before:bg-repeat before:opacity-[0.03] before:content-['']"
+    class="font-montserrat text-text-light fill-text-light from-secondary to-secondary-dark min-h-screen w-full bg-linear-to-b before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-[url('/images/wallpapers/homepage-bgi.png')] before:bg-repeat before:opacity-[0.03] before:content-['']"
   >
     <%- include("partials/navbar.ejs") %>
     <main>

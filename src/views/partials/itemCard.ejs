@@ -1,10 +1,17 @@
 <div
-  class="bg-secondary-dark border-border-light text-text-dark h-74 w-52 rounded-md border-2 font-medium"
+  class="text-sm relative bg-neutral-bg shadow-md p-1.5 border-neutral-border text-neutral-text-dark h-96 w-52 max-h-96 border-2 font-medium hover:bg-neutral-bg-dark cursor-pointer"
 >
   <img
     class="h-3/5 w-full object-cover object-center"
     src="<%= imgSrc %>"
     alt="<%= imgAlt %>"
   />
-  <h3><%= name %></h3>
+  <h3 class="font-medium mt-2"><%= name %></h3>
+  <p class="font-bold text-xl"><%= price %></p>
+  <div class="flex flex-wrap mt-2 gap-1">
+    <% tags.forEach(tag => { %>
+      <%- include('tag', {...tag}) %>
+    <% }); %>
+  </div>
+  <small class="absolute bottom-0 right-0 py-0.5 px-1 text-neutral-text-muted"><%= amountAvailable %> available</small>
 </div>

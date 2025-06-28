@@ -1,6 +1,6 @@
-<button type="button" class="flex cursor-pointer items-center gap-2">
+<button onclick="toggleFilter(event, '<%= filterName %>-options')" type="button" class="flex cursor-pointer items-center gap-2">
   <svg
-    class="size-10"
+    class="size-10 transition-transform"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     >
@@ -10,7 +10,7 @@
   </svg>
   <h3 class="text-lg"><%= toTitleCase(filterName) %></h3>
 </button>
-<ul class="py-2 pl-8 space-y-1 font-normal" id="<%= filterName %>-options">
+<ul class="p-0 pl-8 space-y-1 font-normal max-h-0 overflow-hidden transition-all" id="<%= filterName %>-options">
   <% list.forEach((item) => { %>
     <li class="space-x-2">
       <input type="checkbox" name="<%= item.formName %>-filter" id="<%= item.formName %>-filter" aria-label="<%= item.name || toTitleCase(item.formName) %> <%= toTitleCase(filterChildName) %> filter">
