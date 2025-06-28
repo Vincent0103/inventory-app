@@ -1,0 +1,20 @@
+<button type="button" class="flex cursor-pointer items-center gap-2">
+  <svg
+    class="size-10"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    >
+    <path
+      d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"
+    />
+  </svg>
+  <h3 class="text-lg"><%= toTitleCase(filterName) %></h3>
+</button>
+<ul class="py-2 pl-8 space-y-1 font-normal" id="<%= filterName %>-options">
+  <% list.forEach((item) => { %>
+    <li class="space-x-2">
+      <input type="checkbox" name="<%= item.formName %>-filter" id="<%= item.formName %>-filter" aria-label="<%= item.name || toTitleCase(item.formName) %> <%= toTitleCase(filterChildName) %> filter">
+      <span><%= item.name || toTitleCase(item.formName) %></span>
+    </li>
+  <% }); %>
+</ul>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Inventory | Y2Plush</title>
+  </head>
+  <body
+    class="font-montserrat text-text-light fill-text-light from-secondary to-secondary-dark min-h-screen w-full bg-linear-to-b before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-[url('/homepage-bgi.png')] before:bg-repeat before:opacity-[0.03] before:content-['']"
+  >
+    <%- include("partials/navbar.ejs") %>
+    <main>
+      <section
+        class="border-border-dark from-primary to-primary-dark fixed top-22 overflow-y-scroll h-[calc(100vh-105px)] w-[200px] rounded-r-xl border-2 bg-linear-to-b p-1 font-semibold"
+      >
+        <form action="/inventory" method="post">
+          <% filters.forEach((filter) => { %>
+            <%- include("partials/filter.ejs", {...filter}) %>
+          <% }); %>
+          <div class="flex w-full justify-center mt-4">
+            <button
+              class="bg-secondary text-text-dark border-border-dark hover:border-border-light cursor-pointer rounded-4xl border-2 px-8 py-2 shadow-sm transition-colors"
+              type="submit"
+            >
+              Apply
+            </button>
+          </div>
+        </form>
+      </section>
+      <section></section>
+    </main>
+  </body>
+</html>

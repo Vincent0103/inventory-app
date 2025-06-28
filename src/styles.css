@@ -6,9 +6,10 @@
 
   --color-primary: oklch(0.4662 0.1959 332.44);
   --color-primary-dark: oklch(0.3845 0.1586 332.64);
-  --color-secondary: oklch(0.9078 0.0833 325.59);
-  --color-secondary-dark: oklch(0.8196 0.1733 326.32);
-  --color-border: oklch(0.3292 0.133 332.43);
+  --color-secondary: oklch(0.8412 0.1519 327.21);
+  --color-secondary-dark: oklch(0.7725 0.2289 328.07);
+  --color-border-dark: oklch(0.3292 0.133 332.43);
+  --color-border-light: oklch(0.9321 0.0614 326.06);
   --color-text-light: oklch(0.9078 0.0833 325.59);
   --color-text-dark: oklch(0.3061 0.1381 332.03);
   --color-text-muted: oklch(0.7488 0.2481 326.12);
@@ -17,8 +18,8 @@
 
 @layer components {
   .navlink {
-    border: 2px solid oklch(0.3292 0.133 332.43);
-    background-color: oklch(0.3845 0.1586 332.64);
+    border: 2px solid var(--color-border-dark);
+    background-color: var(--color-primary);
     display: flex;
     align-items: center;
     gap: 6px;
@@ -32,7 +33,7 @@
   }
 
   .navlink:hover {
-    border-color: var(--color-text-light);
+    border-color: var(--color-border-light);
   }
 }
 
