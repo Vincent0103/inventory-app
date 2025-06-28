@@ -1,4 +1,40 @@
-@import "tailwindcss" source("./views");
+@import "tailwindcss";
+
+@theme {
+  --font-comico: Comico, Montserrat, sans-serif;
+  --font-montserrat: Montserrat, sans-serif;
+
+  --color-primary: oklch(0.4662 0.1959 332.44);
+  --color-primary-dark: oklch(0.3845 0.1586 332.64);
+  --color-secondary: oklch(0.9078 0.0833 325.59);
+  --color-secondary-dark: oklch(0.8196 0.1733 326.32);
+  --color-border: oklch(0.3292 0.133 332.43);
+  --color-text-light: oklch(0.9078 0.0833 325.59);
+  --color-text-dark: oklch(0.3061 0.1381 332.03);
+  --color-text-muted: oklch(0.7488 0.2481 326.12);
+  --color-bg: #fff3ff;
+}
+
+@layer components {
+  .navlink {
+    border: 2px solid oklch(0.3292 0.133 332.43);
+    background-color: oklch(0.3845 0.1586 332.64);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 32px;
+    padding: 4px 20px;
+    text-decoration-line: none;
+    font-weight: 500;
+    transition-duration: 150ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-property: border-color;
+  }
+
+  .navlink:hover {
+    border-color: var(--color-text-light);
+  }
+}
 
 @font-face {
   font-family: "Comico";
@@ -9,16 +45,4 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-}
-
-@theme {
-  --font-comico: "Comico", "Monsterrat", "sans-serif";
-  --font-monsterrat: "Monsterrat", "sans-serif";
-
-  --color-primary: --color-primary: "oklch(0.4662 0.1959 332.44)";
-  --color-primary-dark: "oklch(0.3845 0.1586 332.64)";
-  --color-border: "oklch(0.3292 0.133 332.43)";
-  --color-text: "oklch(0.9078 0.0833 325.59)";
-  --color-text-muted: "oklch(0.7488 0.2481 326.12)";
-  --color-bg: "#fff3ff";
 }

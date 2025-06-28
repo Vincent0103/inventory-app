@@ -13,14 +13,50 @@
     <title>Homepage | Y2Plush</title>
   </head>
   <body
-    class="before:bg-(image:'./inventory-app-bgi.png') bg-[#fff3ff] before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-size-[200px] before:bg-repeat before:opacity-[0.05] before:content-['']"
+    class="font-montserrat text-text-dark from-secondary to-secondary-dark min-h-screen w-full bg-linear-to-b before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-[url('/homepage-bgi.png')] before:bg-repeat before:opacity-[0.03] before:content-['']"
   >
-    <%- include("./navbar.ejs") %>
-    <main>
-      <header>
-        <h1 class="font-comico">Y2Plush</h1>
+    <%- include("partials/navbar.ejs") %>
+    <main class="flex size-full min-h-screen items-center justify-center">
+      <header class="flex flex-col items-center justify-center gap-5">
+        <h1 class="font-comico text-7xl">Y2Plush</h1>
+        <h2 class="flex flex-col text-center text-2xl font-medium">
+          <span>Your Plush, Your Power.</span>
+          <span>Inventory Made Iconic.</span>
+        </h2>
+        <ul
+          class="fill-text-light text-text-light mt-5 flex list-none flex-col items-center justify-center gap-6"
+          role="list"
+        >
+          <li>
+            <a class="navlink text-xl shadow-sm" href="/inventory">
+              <svg
+                class="size-6"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M18 16H16V15H8V16H6V15H2V20H22V15H18V16M20 8H17V6C17 4.9 16.1 4 15 4H9C7.9 4 7 4.9 7 6V8H4C2.9 8 2 8.9 2 10V14H6V12H8V14H16V12H18V14H22V10C22 8.9 21.1 8 20 8M15 8H9V6H15V8Z"
+                />
+              </svg>
+              <span>Inventory</span>
+            </a>
+          </li>
+          <li>
+            <a class="navlink text-xl shadow-sm" href="/create">
+              <svg
+                class="size-6"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z"
+                />
+              </svg>
+              <span>Create</span>
+            </a>
+          </li>
+        </ul>
       </header>
-      <div class=""><%= content %></div>
     </main>
   </body>
 </html>
