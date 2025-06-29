@@ -27,17 +27,6 @@ const inventoryController = (() => {
             { formName: "fox" },
           ],
         },
-        {
-          filterName: "colors",
-          filterChildName: "color",
-          list: [
-            { formName: "red" },
-            { formName: "green" },
-            { formName: "orange" },
-            { formName: "black" },
-            { formName: "white" },
-          ],
-        }
       ],
       items: [
         {

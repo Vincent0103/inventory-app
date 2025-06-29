@@ -5,7 +5,7 @@ const inventoryRouter = Router();
 
 inventoryRouter.get("/", inventoryController.inventoryGet);
 inventoryRouter.get("/:itemUrlName", inventoryController.itemGet);
-// inventoryRouter.get("/edit", inventoryController.itemEditGet);
-// inventoryRouter.post("/edit", inventoryController.itemEditPost);
+// inventoryRouter.get("/:itemUrlName/edit", inventoryController.itemEditGet);
+// inventoryRouter.post("/:itemUrlName/edit", inventoryController.itemEditPost);
 
 export default inventoryRouter;

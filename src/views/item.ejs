@@ -17,11 +17,14 @@
   >
     <%- include("partials/navbar.ejs") %>
     <main
-      class="grid-rows-[auto_1fr] fixed top-22 grid h-[600px] w-full grid-cols-[2fr_3fr] justify-center gap-x-10 gap-y-4 px-8"
+      class="fixed top-22 grid h-[600px] w-full grid-cols-[2fr_3fr] grid-rows-[auto_1fr] justify-center gap-x-10 gap-y-4 px-8"
     >
-      <section class="col-span-2 h-min" aria-labelledby="back-to-inventory-link">
+      <section
+        class="col-span-2 h-min"
+        aria-labelledby="back-to-inventory-link"
+      >
         <a
-          class="group bg-neutral-800 font-medium border-neutral-300 text-neutral-100 fill-neutral-100 flex w-min items-center rounded-md border-2 py-0.5 px-2 shadow-sm"
+          class="group bg-primary-dark border-border-light text-text-light fill-text-light flex w-min items-center rounded-md border-2 px-2 py-0.5 font-medium shadow-sm"
           id="back-to-inventory-link"
           href="/inventory"
         >
@@ -34,7 +37,7 @@
               d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"
             />
           </svg>
-          <span class="text-nowrap text-xs">Go back</span>
+          <span class="text-xs text-nowrap">Go back</span>
         </a>
       </section>
       <section aria-labelledby="product-image-heading">
@@ -61,7 +64,16 @@
         </div>
       </section>
       <section class="relative" aria-labelledby="product-details-heading">
-        <div class="absolute right-0 top-0 bg-red-200 w-8 h-6"></div>
+        <a 
+        class="flex absolute gap-1 top-0 right-0 p-2 rounded-md bg-primary cursor-pointer shadow-sm border-border-light text-text-light fill-text-light px-2 py-0.5 border-2 text-sm"
+        href="/inventory/<%= urlName %>/edit">
+          <svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path
+              d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"
+            />
+          </svg>
+          <span class="font-medium">Edit</span>
+        </a>
         <h2
           id="product-details-heading"
           class="text-text-dark text-3xl font-bold"
