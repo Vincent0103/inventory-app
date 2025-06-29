@@ -783,6 +783,13 @@
       }
     }
   }
+  .group-hover\:border-border-dark {
+    &:is(:where(.group):hover *) {
+      @media (hover: hover) {
+        border-color: var(--color-border-dark);
+      }
+    }
+  }
   .before\:pointer-events-none {
     &::before {
       content: var(--tw-content);
@@ -830,6 +837,13 @@
       content: var(--tw-content);
       --tw-content: '';
       content: var(--tw-content);
+    }
+  }
+  .hover\:border-border-dark {
+    &:hover {
+      @media (hover: hover) {
+        border-color: var(--color-border-dark);
+      }
     }
   }
   .hover\:border-border-light {
