@@ -12,7 +12,8 @@
   --color-border-light: oklch(0.9321 0.0614 326.06);
   --color-text-light: oklch(0.9078 0.0833 325.59);
   --color-text-dark: oklch(0.3061 0.1381 332.03);
-  --color-text-muted: oklch(0.7488 0.2481 326.12);
+  --color-text-muted-light: oklch(0.7488 0.2481 326.12);
+  --color-text-muted-dark: oklch(0.4488 0.2481 326.12);
   --color-bg: #fff3ff;
   --color-neutral-bg: oklch(1 0 0);
   --color-neutral-bg-dark: oklch(0.9521 0 0);
