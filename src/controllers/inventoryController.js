@@ -39,6 +39,7 @@ const inventoryController = (() => {
             { tag: "Y2K", bgColor: "#602100", textColor: "#fff", borderColor: "#4D1A00" },
             { tag: "GOTHIC", bgColor: "#000000", textColor: "#fff", borderColor: "#494949" },
           ],
+          animal: "bear",
           amountAvailable: 9
         },
         {
@@ -52,6 +53,7 @@ const inventoryController = (() => {
             { tag: "COTTAGECORE", bgColor: "#593800", textColor: "#fff", borderColor: "#332000" },
             { tag: "PASTEL EMO", bgColor: "#75006B", textColor: "#fff", borderColor: "#52004B" },
           ],
+          animal: "bear",
           amountAvailable: 4
         },
         {
@@ -64,6 +66,7 @@ const inventoryController = (() => {
             { tag: "Y2K", bgColor: "#602100", textColor: "#fff", borderColor: "#4D1A00" },
             { tag: "GOTHIC", bgColor: "#000000", textColor: "#fff", borderColor: "#494949" },
           ],
+          animal: "bear",
           amountAvailable: 2
         },
         {
@@ -75,6 +78,7 @@ const inventoryController = (() => {
           tags: [
             { tag: "PASTEL EMO", bgColor: "#75006B", textColor: "#fff", borderColor: "#52004B" },
           ],
+          animal: "unknown",
           amountAvailable: 15
         },
       ],

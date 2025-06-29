@@ -83,13 +83,16 @@
         <small class="text-text-muted-dark"
           >Released at: <%= creationDate %></small
         >
-        <p class="text-text-dark text-md my-4 font-medium"><%= bio %></p>
+        <p class="text-text-dark text-md my-4"><%= bio %></p>
         <span class="bold text-text-dark my-4 block text-2xl font-bold"
           ><%= price %></span
         >
         <div class="my-4 flex flex-wrap gap-1">
           <% tags.forEach(tag => { %> <%- include('partials/tag.ejs', {...tag})
           %> <% }); %>
+        </div>
+        <div class="my-4 flex flex-wrap gap-1 text-text-dark">
+          <p><b>Animal:</b> <%= animal %></p>
         </div>
         <div
           class="text-text-muted-light bg-text-light border-neutral-bg w-min rounded-md border-2 px-2 py-1 font-medium shadow-sm"

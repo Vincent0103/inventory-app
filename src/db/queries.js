@@ -22,6 +22,7 @@ const itemsData = [
         borderColor: "#494949",
       },
     ],
+    animal: "bear",
     amountAvailable: 9,
   },
   {
@@ -53,6 +54,7 @@ const itemsData = [
         borderColor: "#52004B",
       },
     ],
+    animal: "bear",
     amountAvailable: 4,
   },
   {
@@ -78,6 +80,7 @@ const itemsData = [
         borderColor: "#494949",
       },
     ],
+    animal: "bear",
     amountAvailable: 2,
   },
   {
@@ -97,6 +100,7 @@ const itemsData = [
         borderColor: "#52004B",
       },
     ],
+    animal: "unknown",
     amountAvailable: 15,
   },
 ];
