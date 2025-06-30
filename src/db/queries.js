@@ -1,29 +1,34 @@
 import pool from "./pool";
 
 const getItem = async (itemUrlName) => {
-  // if (!item) throw new Error(`Item of url ${itemUrlName} is not found`);
   const plushyRow = (
     await pool.query("SELECT * FROM PLUSHY WHERE urlNamePlushy = $1", [
       itemUrlName,
     ])
   ).rows[0];
-  const { valuesize } = (
+
+  if (!plushyRow) throw new Error(`Item of url ${itemUrlName} is not found`);
+
+  const sizeRow = (
     await pool.query("SELECT valueSize FROM SIZE WHERE idSize = $1", [
       plushyRow.idsize,
     ])
   ).rows[0];
-  const { valuesquishiness } = (
+  const valuesize = sizeRow?.valuesize ?? "";
+
+  const squishinessRow = (
     await pool.query(
       "SELECT valueSquishiness FROM SQUISHINESS WHERE idSquishiness = $1",
       [plushyRow.idsquishiness],
     )
   ).rows[0];
+  const valuesquishiness = squishinessRow?.valuesquishiness ?? "";
+
   const animalRow = (
     await pool.query("SELECT nameAnimal FROM ANIMAL WHERE idAnimal = $1", [
       plushyRow.idanimal,
     ])
   ).rows[0];
-
   const nameanimal = animalRow?.nameanimal ?? "Unknown";
 
   const materialRows = (
@@ -32,8 +37,9 @@ const getItem = async (itemUrlName) => {
       [plushyRow.idplushy],
     )
   ).rows;
+
   const materials = await Promise.all(
-    materialRows.map(async (row) => {
+    (materialRows ?? []).map(async (row) => {
       const { namematerial } = (
         await pool.query(
           "SELECT nameMaterial FROM MATERIAL WHERE idMaterial = $1",
@@ -50,8 +56,9 @@ const getItem = async (itemUrlName) => {
       [plushyRow.idplushy],
     )
   ).rows;
+
   const categories = await Promise.all(
-    categoryRows.map(async (row) => {
+    (categoryRows ?? []).map(async (row) => {
       const {
         namecategory,
         formnamecategory,
