@@ -10,7 +10,8 @@
   <h3 class="mt-2 font-medium"><%= name %></h3>
   <p class="text-xl font-bold"><%= formatPrice(price) %></p>
   <div class="mt-2 flex flex-wrap gap-1">
-    <% tags.forEach(tag => { %> <%- include('tag', {...tag}) %> <% }); %>
+    <% categories.forEach(category => { %> <%- include('tag', {...category}) %>
+    <% }); %>
   </div>
   <small class="text-neutral-text-muted absolute right-0 bottom-0 px-1 py-0.5"
     ><%= amountAvailable %> available</small
