@@ -31,10 +31,14 @@
       <section
         class="border-border-dark from-primary to-primary-dark fixed top-22 overflow-y-scroll h-[calc(100vh-105px)] w-[200px] rounded-r-xl border-y-2 border-r-2 bg-linear-to-b p-1 font-semibold"
       >
-        <form action="/inventory" method="post">
+        <form action="/inventory" class="accent-secondary" method="post">
           <% filters.forEach((filter) => { %>
             <%- include("partials/filter.ejs", {...filter}) %>
           <% }); %>
+          <div class="px-2">
+            <label for="price-option">Price</label>
+            <input class="w-full" type="range" name="price-option" id="price-option" min="0" max="50" step="1" value="10">
+          </div>
           <div class="flex w-full justify-center mt-4">
             <button
               class="bg-secondary text-text-dark border-border-dark hover:border-border-light cursor-pointer rounded-4xl border-2 px-8 py-2 shadow-sm transition-colors"
