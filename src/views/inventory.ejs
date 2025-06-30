@@ -11,21 +11,6 @@
       rel="stylesheet"
     />
     <title>Inventory | Y2Plush</title>
-    <script>
-      const toggleFilter = (e, categoryId) => {
-        const list = document.getElementById(categoryId);
-        const svg = e.target.closest('BUTTON').querySelector("svg");
-        svg.classList.toggle("-rotate-180")
-        list.classList.toggle("max-h-0");
-        list.classList.toggle("max-h-96");
-        list.classList.toggle("p-0");
-        list.classList.toggle("py-2");
-      }
-
-      const updatePriceFilterValue = () => {
-
-      }
-    </script>
   </head>
   <body
     class="font-montserrat text-text-light fill-text-light from-secondary to-secondary-dark min-h-screen w-full bg-linear-to-b before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-[url('/images/wallpapers/homepage-bgi.png')] before:bg-repeat before:opacity-[0.03] before:content-['']"
@@ -33,32 +18,31 @@
     <%- include("partials/navbar.ejs") %>
     <main>
       <section
-        class="border-border-dark from-primary to-primary-dark fixed top-22 overflow-y-scroll h-[calc(100vh-105px)] w-[200px] rounded-r-xl border-y-2 border-r-2 bg-linear-to-b p-1 font-semibold"
+        class="border-border-dark from-primary to-primary-dark fixed top-22 h-[calc(100vh-105px)] w-[200px] overflow-y-scroll rounded-r-xl border-y-2 border-r-2 bg-linear-to-b p-1 font-semibold"
       >
-        <form action="/inventory" class="accent-secondary" method="post">
-          <% filters.forEach((filter) => { %>
-            <%- include("partials/filter.ejs", {...filter}) %>
-          <% }); %>
-          <div class="px-2 my-2">
-            <label for="price-option">Price: </label>
-            <span class="font-medium">&lt; 70€</span>
-            <input onchange="" class="w-full mt-1" type="range" name="price-option" id="price-option" min="0" max="50" step="1" value="10">
-          </div>
-          <div class="flex w-full justify-center mt-4">
-            <button
-              class="bg-secondary text-text-dark border-border-dark hover:border-border-light cursor-pointer rounded-4xl border-2 px-8 py-2 shadow-sm transition-colors"
-              type="submit"
-            >
-              Apply
-            </button>
-          </div>
-        </form>
+        <%- include("partials/category.ejs") %>
       </section>
-      <section class="ml-[200px] mt-[67px] p-6 flex flex-wrap gap-10">
-        <% items.forEach((item) => { %>
-          <%- include("partials/itemCard.ejs", {...item}) %>
-        <% }); %>
+      <section class="mt-[67px] ml-[200px] flex flex-wrap gap-10 p-6">
+        <% items.forEach((item) => { %> <%- include("partials/itemCard.ejs",
+        {...item}) %> <% }); %>
       </section>
     </main>
+    <script>
+      const toggleFilter = (e, categoryId) => {
+        const list = document.getElementById(categoryId);
+        const svg = e.target.closest("BUTTON").querySelector("svg");
+        svg.classList.toggle("-rotate-180");
+        list.classList.toggle("max-h-0");
+        list.classList.toggle("max-h-96");
+        list.classList.toggle("p-0");
+        list.classList.toggle("py-2");
+      };
+
+      const updatePriceFilterValue = (e) => {
+        const filterPriceValue = document.getElementById("filter-price-value");
+        const { value, max } = e.target;
+        filterPriceValue.textContent = ((value !== max) ? "<" : ">").concat(` ${value}€`);
+      };
+    </script>
   </body>
 </html>

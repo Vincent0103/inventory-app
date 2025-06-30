@@ -1,0 +1,28 @@
+<form action="/inventory" class="accent-secondary" method="post">
+  <% filters.forEach((filter) => { %> <%- include("filter.ejs", {...filter}) %>
+  <% }); %>
+  <div class="my-2 px-2">
+    <label for="price-option">Price: </label>
+    <span id="filter-price-value" class="font-medium">&lt; 70€</span>
+    <input
+      oninput="updatePriceFilterValue(event)"
+      ondrag=""
+      class="mt-1 w-full"
+      type="range"
+      name="price-option"
+      id="price-option"
+      min="5"
+      max="50"
+      step="5"
+      value="10"
+    />
+  </div>
+  <div class="mt-4 flex w-full justify-center">
+    <button
+      class="bg-secondary text-text-dark border-border-dark hover:border-border-light cursor-pointer rounded-4xl border-2 px-8 py-2 shadow-sm transition-colors"
+      type="submit"
+    >
+      Apply
+    </button>
+  </div>
+</form>
