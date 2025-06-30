@@ -5,4 +5,6 @@ const toTitleCase = (str) => {
   );
 }
 
-export { toTitleCase };
+const formatPrice = (n) => n.toString().replace(/\./, ",").concat("€");
+
+export { toTitleCase, formatPrice };

@@ -8,7 +8,7 @@
     alt="<%= imgAlt %>"
   />
   <h3 class="font-medium mt-2"><%= name %></h3>
-  <p class="font-bold text-xl"><%= price %></p>
+  <p class="font-bold text-xl"><%= formatPrice(price) %></p>
   <div class="flex flex-wrap mt-2 gap-1">
     <% tags.forEach(tag => { %>
       <%- include('tag', {...tag}) %>

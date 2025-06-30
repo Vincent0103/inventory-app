@@ -1,5 +1,5 @@
 import { getItem } from "../db/queries";
-import { toTitleCase } from "../utilities";
+import { formatPrice, toTitleCase } from "../utilities";
 
 const inventoryController = (() => {
   const inventoryGet = (req, res) => {
@@ -34,7 +34,7 @@ const inventoryController = (() => {
           imgAlt: "Black gloomy bear plushy",
           urlName: "black-gloomy-bear",
           name: "Black gloomy bear",
-          price: "19€",
+          price: 19,
           tags: [
             { tag: "Y2K", bgColor: "#602100", textColor: "#fff", borderColor: "#4D1A00" },
             { tag: "GOTHIC", bgColor: "#000000", textColor: "#fff", borderColor: "#494949" },
@@ -47,7 +47,7 @@ const inventoryController = (() => {
           imgAlt: "Black halloween bear plushy",
           urlName: "black-halloween-bear",
           name: "Black halloween bear",
-          price: "28,99€",
+          price: 28.99,
           tags: [
             { tag: "Y2K", bgColor: "#602100", textColor: "#fff", borderColor: "#4D1A00" },
             { tag: "COTTAGECORE", bgColor: "#593800", textColor: "#fff", borderColor: "#332000" },
@@ -61,7 +61,7 @@ const inventoryController = (() => {
           imgAlt: "Black white gloomy bear plushy",
           urlName: "black-white-gloomy-bear",
           name: "Black white gloomy bear",
-          price: "38,99€",
+          price: 38.99,
           tags: [
             { tag: "Y2K", bgColor: "#602100", textColor: "#fff", borderColor: "#4D1A00" },
             { tag: "GOTHIC", bgColor: "#000000", textColor: "#fff", borderColor: "#494949" },
@@ -74,7 +74,7 @@ const inventoryController = (() => {
           imgAlt: "Frown pink thing plushy",
           urlName: "frown-pink-thing",
           name: "Frown pink thing",
-          price: "5,99€",
+          price: 5.99,
           tags: [
             { tag: "PASTEL EMO", bgColor: "#75006B", textColor: "#fff", borderColor: "#52004B" },
           ],
@@ -83,13 +83,14 @@ const inventoryController = (() => {
         },
       ],
       toTitleCase,
+      formatPrice
     });
   };
 
   const itemGet = (req, res) => {
     const { itemUrlName } = req.params;
     const item = getItem(itemUrlName);
-    res.render("item", {...item});
+    res.render("item", {...item, formatPrice});
   };
 
   const itemEditGet = (req, res) => { };
