@@ -83,7 +83,7 @@
         <small class="text-text-muted-dark"
           >Released at: <%= creationDate %></small
         >
-        <p class="text-text-dark text-md my-4"><%= bio %></p>
+        <p class="text-text-dark text-md my-4"><%= desc %></p>
         <span class="bold text-text-dark my-4 block text-2xl font-bold"
           ><%= formatPrice(price) %></span
         >
@@ -92,14 +92,21 @@
           %> <% }); %>
         </div>
         <div class="space-y-2 my-4">
-          <div class="flex flex-wrap gap-1 text-text-dark">
+          <div class="flex gap-1 text-text-dark">
             <p><b>Animal:</b> <%= animal %></p>
           </div>
-          <div class="flex flex-wrap gap-1 text-text-dark">
+          <div class="flex gap-1 text-text-dark">
             <p><b>Size:</b> <%= size %></p>
           </div>
-          <div class="flex flex-wrap gap-1 text-text-dark">
+          <div class="flex gap-1 text-text-dark">
             <p><b>Squishiness:</b> <%= squishiness %></p>
+          </div>
+          <div class="flex gap-1 text-text-dark">
+            <p><b>Materials:</b>
+              <% materials.forEach((material, i) => { %>
+                <%= material %><%= (i !== materials.length - 1) ? "," : "" %>
+              <% }); %>
+            </p>
           </div>
         </div>
         <div
