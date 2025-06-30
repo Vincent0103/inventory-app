@@ -36,11 +36,21 @@ const inventoryController = (() => {
           name: "Black gloomy bear",
           price: 19,
           tags: [
-            { tag: "Y2K", bgColor: "#602100", textColor: "#fff", borderColor: "#4D1A00" },
-            { tag: "GOTHIC", bgColor: "#000000", textColor: "#fff", borderColor: "#494949" },
+            {
+              tag: "Y2K",
+              bgColor: "#602100",
+              textColor: "#fff",
+              borderColor: "#4D1A00",
+            },
+            {
+              tag: "GOTHIC",
+              bgColor: "#000000",
+              textColor: "#fff",
+              borderColor: "#494949",
+            },
           ],
           animal: "bear",
-          amountAvailable: 9
+          amountAvailable: 9,
         },
         {
           imgSrc: "/images/plushies/black-halloween-bear.jpg",
@@ -49,12 +59,27 @@ const inventoryController = (() => {
           name: "Black halloween bear",
           price: 28.99,
           tags: [
-            { tag: "Y2K", bgColor: "#602100", textColor: "#fff", borderColor: "#4D1A00" },
-            { tag: "COTTAGECORE", bgColor: "#593800", textColor: "#fff", borderColor: "#332000" },
-            { tag: "PASTEL EMO", bgColor: "#75006B", textColor: "#fff", borderColor: "#52004B" },
+            {
+              tag: "Y2K",
+              bgColor: "#602100",
+              textColor: "#fff",
+              borderColor: "#4D1A00",
+            },
+            {
+              tag: "COTTAGECORE",
+              bgColor: "#593800",
+              textColor: "#fff",
+              borderColor: "#332000",
+            },
+            {
+              tag: "PASTEL EMO",
+              bgColor: "#75006B",
+              textColor: "#fff",
+              borderColor: "#52004B",
+            },
           ],
           animal: "bear",
-          amountAvailable: 4
+          amountAvailable: 4,
         },
         {
           imgSrc: "/images/plushies/black-white-gloomy-bear.jpg",
@@ -63,11 +88,21 @@ const inventoryController = (() => {
           name: "Black white gloomy bear",
           price: 38.99,
           tags: [
-            { tag: "Y2K", bgColor: "#602100", textColor: "#fff", borderColor: "#4D1A00" },
-            { tag: "GOTHIC", bgColor: "#000000", textColor: "#fff", borderColor: "#494949" },
+            {
+              tag: "Y2K",
+              bgColor: "#602100",
+              textColor: "#fff",
+              borderColor: "#4D1A00",
+            },
+            {
+              tag: "GOTHIC",
+              bgColor: "#000000",
+              textColor: "#fff",
+              borderColor: "#494949",
+            },
           ],
           animal: "bear",
-          amountAvailable: 2
+          amountAvailable: 2,
         },
         {
           imgSrc: "/images/plushies/frown-pink-thing.jpg",
@@ -76,25 +111,30 @@ const inventoryController = (() => {
           name: "Frown pink thing",
           price: 5.99,
           tags: [
-            { tag: "PASTEL EMO", bgColor: "#75006B", textColor: "#fff", borderColor: "#52004B" },
+            {
+              tag: "PASTEL EMO",
+              bgColor: "#75006B",
+              textColor: "#fff",
+              borderColor: "#52004B",
+            },
           ],
           animal: "unknown",
-          amountAvailable: 15
+          amountAvailable: 15,
         },
       ],
       toTitleCase,
-      formatPrice
+      formatPrice,
     });
   };
 
-  const itemGet = (req, res) => {
+  const itemGet = async (req, res) => {
     const { itemUrlName } = req.params;
-    const item = getItem(itemUrlName);
-    res.render("item", {...item, formatPrice});
+    const item = await getItem(itemUrlName);
+    res.render("item", { ...item, formatPrice });
   };
 
-  const itemEditGet = (req, res) => { };
-  const itemEditPost = [null, (req, res) => { }];
+  const itemEditGet = (req, res) => {};
+  const itemEditPost = [null, (req, res) => {}];
 
   return { itemGet, itemEditGet, itemEditPost, inventoryGet };
 })();

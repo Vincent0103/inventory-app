@@ -21,7 +21,6 @@
   --color-neutral-text-dark: oklch(0.1591 0 0);
   --color-neutral-text-light: oklch(0.9612 0 0);
   --color-neutral-text-muted: oklch(0.4202 0 0);
-
 }
 
 @layer components {
@@ -45,7 +44,11 @@
   }
 
   .radial-gradient-fade {
-    background: radial-gradient(circle at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    background: radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
   }
 }
 

@@ -1,5 +1,5 @@
 <a
-  class="text-sm relative bg-neutral-bg shadow-md p-1.5 border-neutral-border text-neutral-text-dark h-96 w-52 max-h-96 border-2 font-medium hover:brightness-90 cursor-pointer"
+  class="bg-neutral-bg border-neutral-border text-neutral-text-dark relative h-96 max-h-96 w-52 cursor-pointer border-2 p-1.5 text-sm font-medium shadow-md hover:brightness-90"
   href="/inventory/<%= urlName %>"
 >
   <img
@@ -7,12 +7,12 @@
     src="<%= imgSrc %>"
     alt="<%= imgAlt %>"
   />
-  <h3 class="font-medium mt-2"><%= name %></h3>
-  <p class="font-bold text-xl"><%= formatPrice(price) %></p>
-  <div class="flex flex-wrap mt-2 gap-1">
-    <% tags.forEach(tag => { %>
-      <%- include('tag', {...tag}) %>
-    <% }); %>
+  <h3 class="mt-2 font-medium"><%= name %></h3>
+  <p class="text-xl font-bold"><%= formatPrice(price) %></p>
+  <div class="mt-2 flex flex-wrap gap-1">
+    <% tags.forEach(tag => { %> <%- include('tag', {...tag}) %> <% }); %>
   </div>
-  <small class="absolute bottom-0 right-0 py-0.5 px-1 text-neutral-text-muted"><%= amountAvailable %> available</small>
+  <small class="text-neutral-text-muted absolute right-0 bottom-0 px-1 py-0.5"
+    ><%= amountAvailable %> available</small
+  >
 </a>

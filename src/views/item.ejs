@@ -24,7 +24,7 @@
         aria-labelledby="back-to-inventory-link"
       >
         <a
-          class="transition-colors hover:border-border-dark bg-primary-dark border-border-light text-text-light fill-text-light flex w-min items-center rounded-md border-2 px-2 py-0.5 font-medium shadow-sm"
+          class="hover:border-border-dark bg-primary-dark border-border-light text-text-light fill-text-light flex w-min items-center rounded-md border-2 px-2 py-0.5 font-medium shadow-sm transition-colors"
           id="back-to-inventory-link"
           href="/inventory"
         >
@@ -64,10 +64,15 @@
         </div>
       </section>
       <section class="relative" aria-labelledby="product-details-heading">
-        <a 
-        class="transition-colors hover:border-border-dark flex absolute gap-1 top-0 right-0 p-2 rounded-md bg-primary cursor-pointer shadow-sm border-border-light text-text-light fill-text-light px-2 py-0.5 border-2 text-sm"
-        href="/inventory/<%= urlName %>/edit">
-          <svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <a
+          class="hover:border-border-dark bg-primary border-border-light text-text-light fill-text-light absolute top-0 right-0 flex cursor-pointer gap-1 rounded-md border-2 p-2 px-2 py-0.5 text-sm shadow-sm transition-colors"
+          href="/inventory/<%= urlName %>/edit"
+        >
+          <svg
+            class="size-5"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
             <path
               d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"
             />
@@ -88,24 +93,24 @@
           ><%= formatPrice(price) %></span
         >
         <div class="my-4 flex flex-wrap gap-1">
-          <% tags.forEach(tag => { %> <%- include('partials/tag.ejs', {...tag})
-          %> <% }); %>
+          <% categories.forEach((category) => { %> <%-
+          include('partials/tag.ejs', {...category}) %> <% }); %>
         </div>
-        <div class="space-y-2 my-4">
-          <div class="flex gap-1 text-text-dark">
+        <div class="my-4 space-y-2">
+          <div class="text-text-dark flex gap-1">
             <p><b>Animal:</b> <%= animal %></p>
           </div>
-          <div class="flex gap-1 text-text-dark">
+          <div class="text-text-dark flex gap-1">
             <p><b>Size:</b> <%= size %></p>
           </div>
-          <div class="flex gap-1 text-text-dark">
+          <div class="text-text-dark flex gap-1">
             <p><b>Squishiness:</b> <%= squishiness %></p>
           </div>
-          <div class="flex gap-1 text-text-dark">
-            <p><b>Materials:</b>
-              <% materials.forEach((material, i) => { %>
-                <%= material %><%= (i !== materials.length - 1) ? "," : "" %>
-              <% }); %>
+          <div class="text-text-dark flex gap-1">
+            <p>
+              <b>Materials:</b>
+              <% materials.forEach((material, i) => { %> <%= material %><%= (i
+              !== materials.length - 1) ? "," : "" %> <% }); %>
             </p>
           </div>
         </div>
@@ -113,7 +118,7 @@
           class="text-text-muted-light bg-text-light border-neutral-bg w-min rounded-md border-2 px-2 py-1 font-medium shadow-sm"
         >
           <span class="text-sm text-nowrap"
-            >Stocks left: <%= amountAvailable %></span
+            >Stocks left: <%= stocksLeft %></span
           >
         </div>
       </section>

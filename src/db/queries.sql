@@ -27,12 +27,12 @@ CREATE TABLE PLUSHY (
     idPlushy INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     namePlushy VARCHAR(255) NOT NULL,
     imgSrcPlushy TEXT,
-    imgAlt VARCHAR(255),
-    urlName TEXT NOT NULL,
+    imgAltPlushy VARCHAR(255),
+    urlNamePlushy TEXT NOT NULL,
     creationDatePlushy DATE,
     descPlushy TEXT,
     pricePlushy NUMERIC(10, 2) NOT NULL,
-    stocksLeft INTEGER,
+    stocksLeftPlushy INTEGER,
     idAnimal INTEGER,
     idSize INTEGER,
     idSquishiness INTEGER,
@@ -99,8 +99,8 @@ INSERT INTO SQUISHINESS (valueSquishiness)
 VALUES
 ('+'), ('++'), ('+++');
 
-INSERT INTO PLUSHY (namePlushy, imgSrcPlushy, imgAlt, urlName, creationDatePlushy, descPlushy,
-pricePlushy, stocksLeft, idAnimal, idSize, idSquishiness)
+INSERT INTO PLUSHY (namePlushy, imgSrcPlushy, imgAltPlushy, urlNamePlushy, creationDatePlushy, descPlushy,
+pricePlushy, stocksLeftPlushy, idAnimal, idSize, idSquishiness)
 VALUES 
 ('Black gloomy bear', '/images/plushies/black-gloomy-bear.jpg', 'Black gloomy bear plushy', 'black-gloomy-bear', '2023-02-19', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', 19, 9, 1, 3, 2),
 ('Black halloween bear', '/images/plushies/black-halloween-bear.jpg', 'Black halloween bear plushy', 'black-halloween-bear', '2024-05-11', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.', 28.99, 4, 1, 3, 2),

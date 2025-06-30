@@ -1,20 +1,30 @@
-<button onclick="toggleFilter(event, '<%= filterName %>-options')" type="button" class="flex cursor-pointer items-center gap-2">
+<button
+  onclick="toggleFilter(event, '<%= filterName %>-options')"
+  type="button"
+  class="flex cursor-pointer items-center gap-2"
+>
   <svg
     class="size-10 transition-transform"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    >
-    <path
-      d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"
-    />
+  >
+    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
   </svg>
   <h3 class="text-lg"><%= toTitleCase(filterName) %></h3>
 </button>
-<ul class="p-0 pl-8 space-y-1 font-normal max-h-0 overflow-hidden transition-all" id="<%= filterName %>-options">
+<ul
+  class="max-h-0 space-y-1 overflow-hidden p-0 pl-8 font-normal transition-all"
+  id="<%= filterName %>-options"
+>
   <% list.forEach((item) => { %>
-    <li class="space-x-2">
-      <input type="checkbox" name="<%= item.formName %>-filter" id="<%= item.formName %>-filter" aria-label="<%= item.name || toTitleCase(item.formName) %> <%= toTitleCase(filterChildName) %> filter">
-      <span><%= item.name || toTitleCase(item.formName) %></span>
-    </li>
+  <li class="space-x-2">
+    <input
+      type="checkbox"
+      name="<%= item.formName %>-filter"
+      id="<%= item.formName %>-filter"
+      aria-label="<%= item.name || toTitleCase(item.formName) %> <%= toTitleCase(filterChildName) %> filter"
+    />
+    <span><%= item.name || toTitleCase(item.formName) %></span>
+  </li>
   <% }); %>
 </ul>
