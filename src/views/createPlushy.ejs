@@ -23,6 +23,7 @@
         method="POST"
       >
         <h1 class="text-text-dark font-comico mb-6 text-3xl">Create Plushy</h1>
+        <%- include("partials/errors.ejs") %>
         <div class="flex flex-wrap gap-4">
           <div class="flex min-w-[200px] flex-1 flex-col gap-1">
             <label class="ml-2" for="name"
@@ -57,10 +58,18 @@
           >
           <input
             class="border-neutral-border h-9 w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
-            type="text"
+            type="url"
             name="img-url"
             id="img-url"
             required
+          />
+        </div>
+        <div class="w-full">
+          <img
+            class="mt-2 hidden h-full max-h-40 rounded object-cover shadow"
+            id="img-preview"
+            src=""
+            alt="Image preview of the url inputted"
           />
         </div>
         <div class="flex flex-col gap-1">
@@ -225,5 +234,29 @@
         </button>
       </form>
     </main>
+    <script>
+      const imgUrlInput = document.getElementById("img-url");
+      const imgPreview = document.getElementById("img-preview");
+
+      const isImageUrl = (url) => /\.(jpeg|jpg|gif|png|webp|svg)$/i.test(url);
+
+      imgUrlInput.addEventListener("input", function () {
+        const url = imgUrlInput.value.trim();
+        if (url) {
+          if (isImageUrl(url)) {
+            imgPreview.src = url;
+            imgPreview.alt = "Image preview of the url inputted";
+          } else {
+            imgPreview.src = "/images/image-placeholder.png";
+            imgPreview.alt =
+              "Please enter a direct link to an image (jpg, png, gif, webp, svg)";
+          }
+          imgPreview.classList.remove("hidden");
+        } else {
+          imgPreview.src = "";
+          imgPreview.classList.add("hidden");
+        }
+      });
+    </script>
   </body>
 </html>
