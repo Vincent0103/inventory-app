@@ -13,23 +13,23 @@
     <title>Create Plushy | Y2Plush</title>
   </head>
   <body
-    class="font-montserrat text-text-light fill-text-light from-secondary to-secondary-dark min-h-screen w-full bg-linear-to-b before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-[url('/images/wallpapers/homepage-bgi.png')] before:bg-repeat before:opacity-[0.03] before:content-['']"
+    class="font-montserrat text-text-light fill-text-light from-secondary-dark to-secondary min-h-screen w-full bg-linear-to-b before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-[url('/images/wallpapers/homepage-bgi.png')] before:bg-repeat before:opacity-[0.03] before:content-['']"
   >
     <%- include("partials/navbar.ejs") %>
     <main class="mt-[67px] flex items-center justify-center p-6">
       <form
-        class="border-border-dark text-neutral-text-dark space-y-2 rounded-xl border-4 bg-gradient-to-b from-[#FFD6FF] from-0% via-white via-20% to-white to-100% p-8 font-medium"
+        class="border-border-dark text-neutral-text-dark space-y-4 rounded-xl border-4 bg-gradient-to-b from-[#FFD6FF] from-0% via-white via-20% to-white to-100% p-8 font-medium"
         action="/create"
         method="POST"
       >
         <h1 class="text-text-dark font-comico mb-6 text-3xl">Create Plushy</h1>
         <div class="flex flex-wrap gap-4">
-          <div class="flex flex-col gap-1">
+          <div class="flex min-w-[200px] flex-1 flex-col gap-1">
             <label class="ml-2" for="name"
               >Name<span class="text-red-500">*</span></label
             >
             <input
-              class="border-neutral-border w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
+              class="border-neutral-border h-9 w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
               type="text"
               name="name"
               id="name"
@@ -37,16 +37,16 @@
               required
             />
           </div>
-          <div class="flex flex-col gap-1">
+          <div class="flex min-w-[200px] flex-1 flex-col gap-1">
             <label class="ml-2" for="creation-date"
               >Creation Date<span class="text-red-500">*</span></label
             >
             <input
-              class="border-neutral-border w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
+              class="border-neutral-border h-9 w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
               type="date"
               name="creation-date"
               id="creation-date"
-              value="<%= new Date().toISOString().split(0, 10); %>"
+              value="<%= new Date().toISOString().split('T')[0] %>"
               required
             />
           </div>
@@ -56,7 +56,7 @@
             >Image URL<span class="text-red-500">*</span></label
           >
           <input
-            class="border-neutral-border w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
+            class="border-neutral-border h-9 w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
             type="text"
             name="img-url"
             id="img-url"
@@ -73,12 +73,12 @@
           ></textarea>
         </div>
         <div class="flex flex-wrap gap-4">
-          <div class="relative flex flex-col gap-1">
+          <div class="relative flex min-w-[200px] flex-1 flex-col gap-1">
             <label class="ml-2" for="price"
               >Price (in €)<span class="text-red-500">*</span></label
             >
             <input
-              class="border-neutral-border w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
+              class="border-neutral-border h-9 w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
               type="number"
               name="price"
               id="price"
@@ -88,12 +88,12 @@
               required
             />
           </div>
-          <div class="flex flex-col gap-1">
+          <div class="flex min-w-[200px] flex-1 flex-col gap-1">
             <label class="ml-2" for="size"
               >Size<span class="text-red-500">*</span></label
             >
             <select
-              class="border-neutral-border w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
+              class="border-neutral-border h-9 w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
               name="size"
               id="size"
               required
@@ -106,97 +106,123 @@
             </select>
           </div>
         </div>
-        <div class="flex flex-col gap-1">
-          <fieldset class="space-y-1">
-            <legend>In which categories the plushy belongs to?</legend>
+        <fieldset
+          class="border-neutral-border space-y-1 rounded-md border-2 p-2"
+        >
+          <legend class="px-1">
+            In which categories the plushy belongs to?
+          </legend>
 
-            <div class="grid grid-cols-3 grid-rows-2">
-              <div>
-                <input type="checkbox" name="y2k-option" id="y2k-option" />
-                <label for="y2k-option">Y2K</label>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  name="japanese-style-option"
-                  id="japanese-style-option"
-                />
-                <label for="japanese-style-option">Japanese-style</label>
-              </div>
-              <div>
-                <input type="checkbox" name="cottagecore" id="cottagecore" />
-                <label for="cottagecore">Cottagecore</label>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  name="gothic-option"
-                  id="gothic-option"
-                />
-                <label for="gothic-option">Gothic</label>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  name="pastel-emo-option"
-                  id="pastel-emo-option"
-                />
-                <label for="pastel-emo-option">Pastel Emo</label>
-              </div>
-              <div>
-                <input type="checkbox" name="retro-option" id="retro-option" />
-                <label for="retro-option">Retro</label>
-              </div>
+          <div class="grid grid-cols-3 grid-rows-2 space-x-3">
+            <div>
+              <input type="checkbox" name="y2k-option" id="y2k-option" />
+              <label for="y2k-option">Y2K</label>
             </div>
-          </fieldset>
-          <label class="ml-2" for="categories"
-            >In which categories the plushy belongs to?</label
-          >
-          <select
-            class="border-neutral-border w-full rounded-md border-2 px-2 py-1"
-            name="categories"
-            id="categories"
-            multiple
-          >
-            <option value="y2k">Y2K</option>
-            <option value="japanese-style">Japanese-style</option>
-            <option value="cottagecore">Cottagecore</option>
-            <option value="gothic">Gothic</option>
-            <option value="pastel-emo">Pastel Emo</option>
-            <option value="retro">Retro</option>
-          </select>
-        </div>
-        <div class="flex flex-col gap-1">
-          <label for="materials">What material is the plushy made of?</label>
-          <select name="materials" id="materials" multiple>
-            <option value="plush">Plush</option>
-            <option value="felt">Felt</option>
-            <option value="cotton">Cotton</option>
-            <option value="polyester">Polyester</option>
-            <option value="minky">Minky</option>
-            <option value="fleece">Fleece</option>
-          </select>
-        </div>
+            <div class="">
+              <input
+                type="checkbox"
+                name="japanese-style-option"
+                id="japanese-style-option"
+              />
+              <label for="japanese-style-option">Japanese-style</label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="cottagecore-option"
+                id="cottagecore-option"
+              />
+              <label for="cottagecore-option">Cottagecore</label>
+            </div>
+            <div>
+              <input type="checkbox" name="gothic-option" id="gothic-option" />
+              <label for="gothic-option">Gothic</label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="pastel-emo-option"
+                id="pastel-emo-option"
+              />
+              <label for="pastel-emo-option">Pastel Emo</label>
+            </div>
+            <div>
+              <input type="checkbox" name="retro-option" id="retro-option" />
+              <label for="retro-option">Retro</label>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset
+          class="border-neutral-border space-y-1 rounded-md border-2 p-2"
+        >
+          <legend class="px-1">What material is the plushy made of?</legend>
+
+          <div class="grid grid-cols-3 grid-rows-2">
+            <div>
+              <input type="checkbox" name="plush-option" id="plush-option" />
+              <label for="plush-option">Plush</label>
+            </div>
+            <div>
+              <input type="checkbox" name="felt-option" id="felt-option" />
+              <label for="felt-option">Felt</label>
+            </div>
+            <div>
+              <input type="checkbox" name="cotton-option" id="cotton-option" />
+              <label for="cotton-option">Cotton</label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="polyester-option"
+                id="polyester-option"
+              />
+              <label for="polyester-option">Polyester</label>
+            </div>
+            <div>
+              <input type="checkbox" name="minky-option" id="minky-option" />
+              <label for="minky-option">Minky</label>
+            </div>
+            <div>
+              <input type="checkbox" name="fleece-option" id="fleece-option" />
+              <label for="fleece-option">Fleece</label>
+            </div>
+          </div>
+        </fieldset>
         <div class="flex flex-wrap gap-4">
-          <div class="flex flex-col gap-2">
+          <div class="flex min-w-[200px] flex-1 flex-col gap-1">
             <label for="squishiness"
               >How Squishy is it?<span class="text-red-500">*</span></label
             >
-            <select name="squishiness" id="squishiness">
+            <select
+              class="border-neutral-border h-9 w-full space-x-3 rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
+              name="squishiness"
+              id="squishiness"
+            >
               <option value="solid">Solid</option>
               <option value="kinda-squishy">Kinda Squishy</option>
               <option value="pretty-squishy">Pretty Squishy</option>
               <option value="really-squishy">Really Squishy</option>
             </select>
           </div>
-          <div class="flex flex-col gap-2">
+          <div class="flex min-w-[200px] flex-1 flex-col gap-1">
             <label for="stocks-left"
               >Stocks left<span class="text-red-500">*</span></label
             >
-            <input type="number" name="stocks-left" id="stocks-left" min="0" />
+            <input
+              class="border-neutral-border h-9 w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
+              type="number"
+              name="stocks-left"
+              id="stocks-left"
+              min="0"
+            />
           </div>
         </div>
-        <button class="mx-auto" type="submit">Create</button>
+        <button
+          class="text-text-light bg-primary-dark mx-auto mt-6 block cursor-pointer rounded-md border-2 border-pink-950 px-3 py-1 text-xl font-semibold transition-colors hover:border-pink-300"
+          type="submit"
+        >
+          Create
+        </button>
       </form>
     </main>
   </body>
