@@ -3,7 +3,9 @@ const usersController = (() => {
     res.render("index");
   };
 
-  const createItemGet = (req, res) => {};
+  const createItemGet = (req, res) => {
+    res.render("createPlushy");
+  };
   const createItemPost = [null, (req, res) => {}];
 
   return { homepageGet, createItemGet, createItemPost };

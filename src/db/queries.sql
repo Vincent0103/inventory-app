@@ -34,7 +34,7 @@ CREATE TABLE PLUSHY (
     pricePlushy NUMERIC(10, 2) NOT NULL,
     stocksLeftPlushy INTEGER,
     idAnimal INTEGER,
-    idSize INTEGER,
+    idSize INTEGER NOT NULL,
     idSquishiness INTEGER,
     CONSTRAINT fk_plushy_animal FOREIGN KEY (idAnimal) REFERENCES Animal(idAnimal),
     CONSTRAINT fk_plushy_size FOREIGN KEY (idSize) REFERENCES Size(idSize),

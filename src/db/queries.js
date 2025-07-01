@@ -147,7 +147,7 @@ const getItem = async (itemUrlName) => {
     }),
   );
 
-  const categories = await getCategories(plushyRow.idPlushy);
+  const categories = await getCategories(plushyRow.idplushy);
 
   const item = {
     id: plushyRow.idplushy,

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Create Plushy | Y2Plush</title>
+  </head>
+  <body
+    class="font-montserrat text-text-light fill-text-light from-secondary to-secondary-dark min-h-screen w-full bg-linear-to-b before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-[url('/images/wallpapers/homepage-bgi.png')] before:bg-repeat before:opacity-[0.03] before:content-['']"
+  >
+    <%- include("partials/navbar.ejs") %>
+    <main class="mt-[67px] flex items-center justify-center p-6">
+      <form
+        class="border-border-dark text-neutral-text-dark space-y-2 rounded-xl border-4 bg-gradient-to-b from-[#FFD6FF] from-0% via-white via-20% to-white to-100% p-8 font-medium"
+        action="/create"
+        method="POST"
+      >
+        <h1 class="text-text-dark font-comico mb-6 text-3xl">Create Plushy</h1>
+        <div class="flex flex-wrap gap-4">
+          <div class="flex flex-col gap-1">
+            <label class="ml-2" for="name"
+              >Name<span class="text-red-500">*</span></label
+            >
+            <input
+              class="border-neutral-border w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
+              type="text"
+              name="name"
+              id="name"
+              maxlength="255"
+              required
+            />
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="ml-2" for="creation-date"
+              >Creation Date<span class="text-red-500">*</span></label
+            >
+            <input
+              class="border-neutral-border w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
+              type="date"
+              name="creation-date"
+              id="creation-date"
+              value="<%= new Date().toISOString().split(0, 10); %>"
+              required
+            />
+          </div>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="ml-2" for="img-url"
+            >Image URL<span class="text-red-500">*</span></label
+          >
+          <input
+            class="border-neutral-border w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
+            type="text"
+            name="img-url"
+            id="img-url"
+            required
+          />
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="ml-2" for="desc">Description</label>
+          <textarea
+            class="border-neutral-border w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-5% to-[#F7F7F7] to-100% px-2 py-1"
+            name="desc"
+            id="desc"
+            rows="4"
+          ></textarea>
+        </div>
+        <div class="flex flex-wrap gap-4">
+          <div class="relative flex flex-col gap-1">
+            <label class="ml-2" for="price"
+              >Price (in €)<span class="text-red-500">*</span></label
+            >
+            <input
+              class="border-neutral-border w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
+              type="number"
+              name="price"
+              id="price"
+              min="0"
+              step="0.01"
+              value="0"
+              required
+            />
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="ml-2" for="size"
+              >Size<span class="text-red-500">*</span></label
+            >
+            <select
+              class="border-neutral-border w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
+              name="size"
+              id="size"
+              required
+            >
+              <option value="XS">XS</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1">
+          <fieldset class="space-y-1">
+            <legend>In which categories the plushy belongs to?</legend>
+
+            <div class="grid grid-cols-3 grid-rows-2">
+              <div>
+                <input type="checkbox" name="y2k-option" id="y2k-option" />
+                <label for="y2k-option">Y2K</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  name="japanese-style-option"
+                  id="japanese-style-option"
+                />
+                <label for="japanese-style-option">Japanese-style</label>
+              </div>
+              <div>
+                <input type="checkbox" name="cottagecore" id="cottagecore" />
+                <label for="cottagecore">Cottagecore</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  name="gothic-option"
+                  id="gothic-option"
+                />
+                <label for="gothic-option">Gothic</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  name="pastel-emo-option"
+                  id="pastel-emo-option"
+                />
+                <label for="pastel-emo-option">Pastel Emo</label>
+              </div>
+              <div>
+                <input type="checkbox" name="retro-option" id="retro-option" />
+                <label for="retro-option">Retro</label>
+              </div>
+            </div>
+          </fieldset>
+          <label class="ml-2" for="categories"
+            >In which categories the plushy belongs to?</label
+          >
+          <select
+            class="border-neutral-border w-full rounded-md border-2 px-2 py-1"
+            name="categories"
+            id="categories"
+            multiple
+          >
+            <option value="y2k">Y2K</option>
+            <option value="japanese-style">Japanese-style</option>
+            <option value="cottagecore">Cottagecore</option>
+            <option value="gothic">Gothic</option>
+            <option value="pastel-emo">Pastel Emo</option>
+            <option value="retro">Retro</option>
+          </select>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="materials">What material is the plushy made of?</label>
+          <select name="materials" id="materials" multiple>
+            <option value="plush">Plush</option>
+            <option value="felt">Felt</option>
+            <option value="cotton">Cotton</option>
+            <option value="polyester">Polyester</option>
+            <option value="minky">Minky</option>
+            <option value="fleece">Fleece</option>
+          </select>
+        </div>
+        <div class="flex flex-wrap gap-4">
+          <div class="flex flex-col gap-2">
+            <label for="squishiness"
+              >How Squishy is it?<span class="text-red-500">*</span></label
+            >
+            <select name="squishiness" id="squishiness">
+              <option value="solid">Solid</option>
+              <option value="kinda-squishy">Kinda Squishy</option>
+              <option value="pretty-squishy">Pretty Squishy</option>
+              <option value="really-squishy">Really Squishy</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="stocks-left"
+              >Stocks left<span class="text-red-500">*</span></label
+            >
+            <input type="number" name="stocks-left" id="stocks-left" min="0" />
+          </div>
+        </div>
+        <button class="mx-auto" type="submit">Create</button>
+      </form>
+    </main>
+  </body>
+</html>
