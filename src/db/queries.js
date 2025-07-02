@@ -1,3 +1,4 @@
+import { name } from "ejs";
 import pool from "./pool";
 
 const db = (() => {
@@ -172,7 +173,111 @@ const db = (() => {
     return item;
   };
 
-  return { getFilters, getCategories, getItems, getItem };
+  const addCategories = async (idPlushy, categories) => {
+    Promise.all(
+      categories.map(async (category) => {
+        const { rows } = await pool.query(
+          "SELECT idCategory FROM CATEGORY WHERE formNameCategory = $1",
+          [category],
+        );
+        console.log(rows);
+        await pool.query(
+          "INSERT INTO CATEGORYPLUSHY (idPlushy, nameCategory) VALUES ($1, $2)",
+          [idPlushy, rows[0].idcategory],
+        );
+      }),
+    );
+  };
+
+  const addMaterials = async (idPlushy, materials) => {
+    Promise.all(
+      materials.map(async (material) => {
+        const { rows } = await pool.query(
+          "SELECT idMaterial FROM MATERIAL WHERE nameMaterial = $1",
+          [material],
+        );
+        await pool.query(
+          "INSERT INTO MATERIALPLUSHY (idPlushy, nameMaterial) VALUES ($1, $2)",
+          [idPlushy, rows[0].idmaterial],
+        );
+      }),
+    );
+  };
+
+  const addItem = async (item) => {
+    const {
+      name,
+      imgSrc,
+      imgAlt,
+      urlName,
+      creationDate,
+      desc,
+      price,
+      selectedCategories: categories,
+      selectedMaterials: materials,
+      stocksLeft,
+      idSize,
+      idSquishiness,
+    } = item;
+
+    const { rows } = await pool.query(
+      `INSERT INTO PLUSHY
+    (namePlushy, imgSrcPlushy, imgAltPlushy, urlNamePlushy, creationDatePlushy,
+    descPlushy, pricePlushy, stocksLeftPlushy, idSize, idSquishiness)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    RETURNING idPlushy`,
+      [
+        name,
+        imgSrc,
+        imgAlt,
+        urlName,
+        creationDate,
+        desc,
+        price,
+        stocksLeft,
+        idSize,
+        idSquishiness,
+      ],
+    );
+
+    if (!rows)
+      throw new Error(
+        "Failed to add new plushy: could not retrieve its id from the database.",
+      );
+    const idPlushy = rows[0].idplushy;
+
+    addCategories(idPlushy, categories);
+    addMaterials(idPlushy, materials);
+  };
+
+  const getIdFromSquishiness = async (value) => {
+    const row = (
+      await pool.query(
+        "SELECT idSquishiness FROM SQUISHINESS WHERE valueSquishiness = $1",
+        [value],
+      )
+    ).rows[0];
+
+    return row.idsquishiness;
+  };
+
+  const getIdFromSize = async (value) => {
+    const row = (
+      await pool.query("SELECT idSize FROM SIZE WHERE valueSize = $1", [value])
+    ).rows[0];
+
+    return row.idsize;
+  };
+
+  return {
+    getFilters,
+    getCategories,
+    getItems,
+    getItem,
+    addItem,
+    getIdFromSquishiness,
+    getIdFromSize,
+  };
 })();
 
 export default db;

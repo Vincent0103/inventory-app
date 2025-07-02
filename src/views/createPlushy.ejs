@@ -48,6 +48,7 @@
               type="date"
               name="creationDate"
               id="creationDate"
+              max="<%= new Date().toISOString().split('T')[0] %>"
               value="<%= new Date().toISOString().split('T')[0] %>"
               required
             />
@@ -204,10 +205,10 @@
               required
             >
               <option value="" selected disabled>Select squishiness</option>
-              <option value="not-squishy">Not squishy</option>
-              <option value="kinda-squishy">Kinda squishy</option>
-              <option value="pretty-squishy">Pretty squishy</option>
-              <option value="really-squishy">Really squishy</option>
+              <option value="Not squishy">Not squishy</option>
+              <option value="Kinda squishy">Kinda squishy</option>
+              <option value="Pretty squishy">Pretty squishy</option>
+              <option value="Really squishy">Really squishy</option>
             </select>
           </div>
           <div class="flex min-w-[200px] flex-1 flex-col gap-1">

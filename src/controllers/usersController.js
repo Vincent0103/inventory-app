@@ -1,4 +1,5 @@
 import db from "../db/queries";
+import { toUrlName } from "../utilities";
 import { body, validationResult } from "express-validator";
 
 const usersController = (() => {
@@ -10,7 +11,8 @@ const usersController = (() => {
     res.render("createPlushy");
   };
 
-  const alphaErr = "must only contain letters.";
+  const wordAndWhitespaceErr =
+    "must only contain letters, numbers, underscores or spaces";
   const lengthErr = (maxLength) =>
     `must be between 1 and ${maxLength} characters`;
   const dateErr = "must be in the format DD/MM/YYYY";
@@ -25,8 +27,8 @@ const usersController = (() => {
   const validatePlushy = [
     body("name")
       .trim()
-      .isAlpha()
-      .withMessage(`Name ${alphaErr}`)
+      .matches(/^[\w\s]+$/)
+      .withMessage(`Name ${wordAndWhitespaceErr}`)
       .isLength({ min: 1, max: 255 })
       .withMessage(`Name ${lengthErr(255)}`),
     body("creationDate")
@@ -66,10 +68,10 @@ const usersController = (() => {
     body("squishiness")
       .trim()
       .isIn([
-        "not-squishy",
-        "kinda-squishy",
-        "pretty-squishy",
-        "really-squishy",
+        "Not squishy",
+        "Kinda squishy",
+        "Pretty squishy",
+        "Really squishy",
       ])
       .withMessage(`Squishiness ${squishinessErr}`),
     body("stocksLeft")
@@ -80,7 +82,7 @@ const usersController = (() => {
 
   const createItemPost = [
     validatePlushy,
-    (req, res) => {
+    async (req, res) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).render("createPlushy", {
@@ -101,8 +103,31 @@ const usersController = (() => {
         stocksLeft,
       } = req.body;
 
-      const categoriesSelected = [].concat(categories || []);
-      const materialSelected = [].concat(materials || []);
+      const imgAlt = `'${name}' user created plushy`;
+      const idSquishiness = await db.getIdFromSquishiness(squishiness);
+      const idSize = await db.getIdFromSize(size);
+
+      const selectedCategories = [].concat(categories || []);
+      const selectedMaterials = [].concat(materials || []);
+
+      const urlName = toUrlName(name);
+      const item = {
+        name,
+        imgUrl,
+        imgAlt,
+        urlName,
+        creationDate,
+        desc,
+        price,
+        selectedCategories,
+        selectedMaterials,
+        stocksLeft,
+        idSize,
+        idSquishiness,
+      };
+
+      await db.addItem(item);
+      res.redirect("/");
     },
   ];
 
