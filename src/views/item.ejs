@@ -106,8 +106,8 @@
           <div class="text-text-dark flex gap-1">
             <p>
               <b>Materials:</b>
-              <% materials.forEach((material, i) => { %> <%= material %><%= (i
-              !== materials.length - 1) ? "," : "" %> <% }); %>
+              <% materials.forEach((material, i) => { %> <%= material.name %><%=
+              (i !== materials.length - 1) ? "," : "" %> <% }); %>
             </p>
           </div>
         </div>

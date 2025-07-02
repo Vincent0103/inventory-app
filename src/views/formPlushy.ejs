@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
-    <title>Create Plushy | Y2Plush</title>
+    <title><%= title %> | Y2Plush</title>
   </head>
   <body
     class="font-montserrat text-text-light fill-text-light from-secondary-dark to-secondary min-h-screen w-full bg-linear-to-b before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-[url('/images/wallpapers/homepage-bgi.png')] before:bg-repeat before:opacity-[0.03] before:content-['']"
@@ -20,10 +20,10 @@
     <main class="mt-[67px] flex items-center justify-center p-6">
       <form
         class="border-border-dark text-neutral-text-dark space-y-4 rounded-xl border-4 bg-gradient-to-b from-[#FFD6FF] from-0% via-white via-20% to-white to-100% p-8 font-medium"
-        action="/create"
+        action="<%= action %>"
         method="POST"
       >
-        <h1 class="text-text-dark font-comico mb-6 text-3xl">Create Plushy</h1>
+        <h1 class="text-text-dark font-comico mb-6 text-3xl"><%= title %></h1>
         <%- include("partials/errors.ejs") %>
         <div class="flex flex-wrap gap-4">
           <div class="flex min-w-[200px] flex-1 flex-col gap-1">
@@ -35,6 +35,9 @@
               type="text"
               name="name"
               id="name"
+              <% if (locals.nameValue) { %>
+                value="<%= nameValue %>"
+              <% } %>
               maxlength="255"
               required
             />
@@ -49,7 +52,11 @@
               name="creationDate"
               id="creationDate"
               max="<%= new Date().toISOString().split('T')[0] %>"
-              value="<%= new Date().toISOString().split('T')[0] %>"
+              <% if (locals.creationDateValue) { %>
+                value="<%= creationDateValue %>"
+              <% } else { %>
+                value="<%= new Date().toISOString().split('T')[0] %>"
+              <% } %>
               required
             />
           </div>
@@ -63,6 +70,9 @@
             type="url"
             name="imgUrl"
             id="imgUrl"
+            <% if (locals.imgUrlValue) { %>
+              value="<%= imgUrlValue %>"
+            <% } %>
             required
           />
         </div>
@@ -70,8 +80,13 @@
           <img
             class="mt-2 hidden h-full max-h-40 rounded object-cover shadow"
             id="imgPreview"
-            src=""
-            alt="Image preview of the url inputted"
+            <% if (locals.imgUrlValue && locals.imgAltValue) { %>
+              src="<%= imgUrlValue %>"
+              alt="<%= imgAltValue %>"
+            <% } else { %>
+              src=""
+              alt="Image preview of the url inputted"
+            <% } %>
           />
         </div>
         <div class="relative flex flex-col gap-1">
@@ -82,12 +97,17 @@
             id="desc"
             rows="4"
             maxlength="500"
-          ></textarea>
+          ><% if (locals.descValue) { %><%= descValue %><% } %></textarea>
           <small
             id="descCharacterCount"
             class="text-neutral-text-muted pointer-events-none absolute right-0 bottom-0 px-2 py-0.5"
-            >500</small
-          >
+            >
+            <% if (locals.descValue) {%>
+              <%= 500 - descValue.length %>
+            <%} else {%>
+              500
+            <% } %>
+          </small>
         </div>
         <div class="flex flex-wrap gap-4">
           <div class="relative flex min-w-[200px] flex-1 flex-col gap-1">
@@ -101,6 +121,9 @@
               id="price"
               min="0"
               step="0.01"
+              <% if (locals.priceValue) { %>
+                value="<%= priceValue %>"
+              <% } %>
               required
             />
           </div>
@@ -114,12 +137,12 @@
               id="size"
               required
             >
-              <option value="" selected disabled>Select a size</option>
-              <option value="XS">XS</option>
-              <option value="S">S</option>
-              <option value="M">M</option>
-              <option value="L">L</option>
-              <option value="XL">XL</option>
+              <option value="" disabled <% if (!locals.sizeValue) { %>selected<% } %>>Select a size</option>
+              <option value="XS" <% if (locals.sizeValue && sizeValue === "XS") { %>selected<% } %>>XS</option>
+              <option value="S" <% if (locals.sizeValue && sizeValue === "S") { %>selected<% } %>>S</option>
+              <option value="M" <% if (locals.sizeValue && sizeValue === "M") { %>selected<% } %>>M</option>
+              <option value="L" <% if (locals.sizeValue && sizeValue === "L") { %>selected<% } %>>L</option>
+              <option value="XL" <% if (locals.sizeValue && sizeValue === "XL") { %>selected<% } %>>XL</option>
             </select>
           </div>
         </div>
@@ -132,7 +155,7 @@
 
           <div class="grid grid-cols-3 grid-rows-2 space-x-3">
             <div>
-              <input type="checkbox" name="categories" value="y2k" id="y2k" />
+              <input type="checkbox" name="categories" value="y2k" id="y2k" <% if (locals.categoriesValue && categoriesValue.includes("y2k")) { %> checked <% } %> />
               <label for="y2k">Y2K</label>
             </div>
             <div>
@@ -145,19 +168,19 @@
               <label for="japanese-style">Japanese-style</label>
             </div>
             <div>
-              <input type="checkbox" name="categories" value="cottagecore" id="cottagecore" />
+              <input type="checkbox" name="categories" value="cottagecore" id="cottagecore" <% if (locals.categoriesValue && categoriesValue.includes("cottagecore")) { %> checked <% } %> />
               <label for="cottagecore">Cottagecore</label>
             </div>
             <div>
-              <input type="checkbox" name="categories" value="gothic" id="gothic" />
+              <input type="checkbox" name="categories" value="gothic" id="gothic" <% if (locals.categoriesValue && categoriesValue.includes("gothic")) { %> checked <% } %> />
               <label for="gothic">Gothic</label>
             </div>
             <div>
-              <input type="checkbox" name="categories" value="pastel-emo" id="pastel-emo" />
+              <input type="checkbox" name="categories" value="pastel-emo" id="pastel-emo" <% if (locals.categoriesValue && categoriesValue.includes("pastel-emo")) { %> checked <% } %> />
               <label for="pastel-emo">Pastel Emo</label>
             </div>
             <div>
-              <input type="checkbox" name="categories" value="retro" id="retro" />
+              <input type="checkbox" name="categories" value="retro" id="retro" <% if (locals.categoriesValue && categoriesValue.includes("retro")) { %> checked <% } %> />
               <label for="retro">Retro</label>
             </div>
         </fieldset>
@@ -168,27 +191,27 @@
 
           <div class="grid grid-cols-3 grid-rows-2">
             <div>
-              <input type="checkbox" name="materials" value="plush" id="plush" />
+              <input type="checkbox" name="materials" value="plush" id="plush" <% if (locals.materialsValue && materialsValue.includes("plush")) { %> checked <% } %> />
               <label for="plush">Plush</label>
             </div>
             <div>
-              <input type="checkbox" name="materials" value="felt" id="felt" />
+              <input type="checkbox" name="materials" value="felt" id="felt" <% if (locals.materialsValue && materialsValue.includes("felt")) { %> checked <% } %> />
               <label for="felt">Felt</label>
             </div>
             <div>
-              <input type="checkbox" name="materials" value="cotton" id="cotton" />
+              <input type="checkbox" name="materials" value="cotton" id="cotton" <% if (locals.materialsValue && materialsValue.includes("cotton")) { %> checked <% } %> />
               <label for="cotton">Cotton</label>
             </div>
             <div>
-              <input type="checkbox" name="materials" value="polyester" id="polyester" />
+              <input type="checkbox" name="materials" value="polyester" id="polyester" <% if (locals.materialsValue && materialsValue.includes("polyester")) { %> checked <% } %> />
               <label for="polyester">Polyester</label>
             </div>
             <div>
-              <input type="checkbox" name="materials" value="minky" id="minky" />
+              <input type="checkbox" name="materials" value="minky" id="minky" <% if (locals.materialsValue && materialsValue.includes("minky")) { %> checked <% } %> />
               <label for="minky">Minky</label>
             </div>
             <div>
-              <input type="checkbox" name="materials" value="fleece" id="fleece" />
+              <input type="checkbox" name="materials" value="fleece" id="fleece" <% if (locals.materialsValue && materialsValue.includes("fleece")) { %> checked <% } %> />
               <label for="fleece">Fleece</label>
             </div>
           </div>
@@ -204,11 +227,12 @@
               id="squishiness"
               required
             >
-              <option value="" selected disabled>Select squishiness</option>
-              <option value="Not squishy">Not squishy</option>
-              <option value="Kinda squishy">Kinda squishy</option>
-              <option value="Pretty squishy">Pretty squishy</option>
-              <option value="Really squishy">Really squishy</option>
+
+              <option value="" disabled <% if (!locals.squishinessValue) { %>selected<% } %>>Select squishiness</option>
+              <option value="Not squishy" <% if (locals.squishinessValue && squishinessValue === "Not squishy") { %>selected<% } %>>Not squishy</option>
+              <option value="Kinda squishy" <% if (locals.squishinessValue && squishinessValue === "Kinda squishy") { %>selected<% } %>>Kinda squishy</option>
+              <option value="Pretty squishy" <% if (locals.squishinessValue && squishinessValue === "Pretty squishy") { %>selected<% } %>>Pretty squishy</option>
+              <option value="Really squishy" <% if (locals.squishinessValue && squishinessValue === "Really squishy") { %>selected<% } %>>Really squishy</option>
             </select>
           </div>
           <div class="flex min-w-[200px] flex-1 flex-col gap-1">
@@ -221,6 +245,9 @@
               name="stocksLeft"
               id="stocksLeft"
               min="0"
+              <% if (locals.stocksLeftValue) { %>
+                value="<%= stocksLeftValue %>"
+              <% } %>
               required
             />
           </div>
@@ -229,7 +256,7 @@
           class="text-text-light bg-primary-dark mx-auto mt-6 block cursor-pointer rounded-md border-2 border-pink-950 px-3 py-1 text-xl font-semibold transition-colors hover:border-pink-300"
           type="submit"
         >
-          Create
+          <%= submitBtnTextContent %>
         </button>
       </form>
     </main>

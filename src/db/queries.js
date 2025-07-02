@@ -84,6 +84,29 @@ const db = (() => {
     return categories;
   };
 
+  const getMaterials = async (idPlushy) => {
+    const materialRows = (
+      await pool.query(
+        "SELECT idMaterial FROM MATERIALPLUSHY WHERE idPlushy = $1",
+        [idPlushy],
+      )
+    ).rows;
+
+    const materials = await Promise.all(
+      (materialRows ?? []).map(async (row) => {
+        const { namematerial, slugmaterial } = (
+          await pool.query(
+            "SELECT nameMaterial, slugMaterial FROM MATERIAL WHERE idMaterial = $1",
+            [row.idmaterial],
+          )
+        ).rows[0];
+        return { name: namematerial, slug: slugmaterial };
+      }),
+    );
+
+    return materials;
+  };
+
   const getItems = async () => {
     const plushyRows = (
       await pool.query(
@@ -132,26 +155,12 @@ const db = (() => {
     ).rows[0];
     const valuesquishiness = squishinessRow?.valuesquishiness ?? "";
 
-    const materialRows = (
-      await pool.query(
-        "SELECT idMaterial FROM MATERIALPLUSHY WHERE idPlushy = $1",
-        [plushyRow.idplushy],
-      )
-    ).rows;
-
-    const materials = await Promise.all(
-      (materialRows ?? []).map(async (row) => {
-        const { namematerial } = (
-          await pool.query(
-            "SELECT nameMaterial FROM MATERIAL WHERE idMaterial = $1",
-            [row.idmaterial],
-          )
-        ).rows[0];
-        return namematerial;
-      }),
-    );
-
     const categories = await getCategories(plushyRow.idplushy);
+    const materials = await getMaterials(plushyRow.idplushy);
+
+    const creationDateValue = plushyRow.creationdateplushy
+      .toISOString()
+      .split("T")[0];
 
     const item = {
       id: plushyRow.idplushy,
@@ -159,14 +168,14 @@ const db = (() => {
       imgAlt: plushyRow.imgaltplushy,
       slug: plushyRow.slugplushy,
       name: plushyRow.nameplushy,
+      desc: plushyRow.descplushy,
       price: plushyRow.priceplushy,
-      creationDate: plushyRow.creationdateplushy,
+      creationDate: creationDateValue,
+      stocksLeft: plushyRow.stocksleftplushy,
       size: valuesize,
       squishiness: valuesquishiness,
       materials,
-      desc: plushyRow.descplushy,
       categories,
-      stocksLeft: plushyRow.stocksleftplushy,
     };
 
     return item;

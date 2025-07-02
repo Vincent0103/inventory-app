@@ -8,7 +8,11 @@ const usersController = (() => {
   };
 
   const createItemGet = (req, res) => {
-    res.render("createPlushy");
+    res.render("formPlushy", {
+      title: "Create plushy",
+      action: "/create",
+      submitBtnTextContent: "Create",
+    });
   };
 
   const wordAndWhitespaceErr =
@@ -140,7 +144,7 @@ const usersController = (() => {
       };
 
       await db.addItem(item);
-      res.redirect("/");
+      res.redirect("/inventory");
     },
   ];
 
