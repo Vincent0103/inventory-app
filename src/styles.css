@@ -52,6 +52,19 @@
   }
 }
 
+@layer utilities {
+  #creation-page input:focus,
+  #creation-page textarea:focus,
+  #creation-page select:focus,
+  #creation-page button:focus {
+    @apply ring-primary ring-2 outline-none;
+  }
+  #creation-page input[type="checkbox"]:focus,
+  #creation-page input[type="radio"]:focus {
+    accent-color: #ec4899; /* Tailwind's pink-500 */
+  }
+}
+
 @font-face {
   font-family: "Comico";
   src:
