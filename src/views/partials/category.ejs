@@ -3,7 +3,18 @@
   <% }); %>
   <div class="my-2 px-2">
     <label for="price-option">Price: </label>
-    <span id="filter-price-value" class="font-medium">&lt; 20€</span>
+    <span id="filter-price-value" class="font-medium"
+      ><svg
+        class="inline size-4"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M18.5,2.27L5,10.14L18.5,18L19.5,16.27L8.97,10.14L19.5,4L18.5,2.27M5,20V22H20V20H5Z"
+        />
+      </svg>
+      20€</span
+    >
     <input
       oninput="updatePriceFilterValue(event)"
       ondrag=""

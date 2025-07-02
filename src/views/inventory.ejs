@@ -38,12 +38,19 @@
         list.classList.toggle("py-2");
       };
 
+      const greaterThanOrEqualSvg =
+        '<svg class="inline size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5,2.27L20,10.14L6.5,18L5.5,16.27L16.03,10.14L5.5,4L6.5,2.27M20,20V22H5V20H20Z" /></svg>';
+      const lessThanOrEqualSvg =
+        '<svg class="inline size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.5,2.27L5,10.14L18.5,18L19.5,16.27L8.97,10.14L19.5,4L18.5,2.27M5,20V22H20V20H5Z" /></svg>';
+
       const updatePriceFilterValue = (e) => {
         const filterPriceValue = document.getElementById("filter-price-value");
         const { value, max } = e.target;
-        filterPriceValue.textContent = (value !== max ? "<" : ">").concat(
-          ` ${value}€`,
-        );
+
+        filterPriceValue.innerHTML =
+          value !== max
+            ? `${lessThanOrEqualSvg} ${value}€`
+            : `${greaterThanOrEqualSvg} ${value}€`;
       };
     </script>
   </body>
