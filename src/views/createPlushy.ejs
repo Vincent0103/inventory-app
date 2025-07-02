@@ -72,14 +72,20 @@
             alt="Image preview of the url inputted"
           />
         </div>
-        <div class="flex flex-col gap-1">
+        <div class="relative flex flex-col gap-1">
           <label class="ml-2" for="desc">Description</label>
           <textarea
             class="border-neutral-border w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-5% to-[#F7F7F7] to-100% px-2 py-1"
             name="desc"
             id="desc"
             rows="4"
+            maxlength="500"
           ></textarea>
+          <small
+            id="desc-character-count"
+            class="text-neutral-text-muted pointer-events-none absolute right-0 bottom-0 px-2 py-0.5"
+            >500</small
+          >
         </div>
         <div class="flex flex-wrap gap-4">
           <div class="relative flex min-w-[200px] flex-1 flex-col gap-1">
@@ -93,7 +99,6 @@
               id="price"
               min="0"
               step="0.01"
-              value="0"
               required
             />
           </div>
@@ -107,6 +112,7 @@
               id="size"
               required
             >
+              <option value="" selected disabled>Select a size</option>
               <option value="XS">XS</option>
               <option value="S">S</option>
               <option value="M">M</option>
@@ -206,11 +212,13 @@
               class="border-neutral-border h-9 w-full space-x-3 rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
               name="squishiness"
               id="squishiness"
+              required
             >
-              <option value="solid">Solid</option>
-              <option value="kinda-squishy">Kinda Squishy</option>
-              <option value="pretty-squishy">Pretty Squishy</option>
-              <option value="really-squishy">Really Squishy</option>
+              <option value="" selected disabled>Select squishiness</option>
+              <option value="not-squishy">Not squishy</option>
+              <option value="kinda-squishy">Kinda squishy</option>
+              <option value="pretty-squishy">Pretty squishy</option>
+              <option value="really-squishy">Really squishy</option>
             </select>
           </div>
           <div class="flex min-w-[200px] flex-1 flex-col gap-1">
@@ -223,6 +231,7 @@
               name="stocks-left"
               id="stocks-left"
               min="0"
+              required
             />
           </div>
         </div>
@@ -240,7 +249,7 @@
 
       const isImageUrl = (url) => /\.(jpeg|jpg|gif|png|webp|svg)$/i.test(url);
 
-      imgUrlInput.addEventListener("input", function () {
+      imgUrlInput.addEventListener("input", () => {
         const url = imgUrlInput.value.trim();
         if (url) {
           if (isImageUrl(url)) {
@@ -256,6 +265,17 @@
           imgPreview.src = "";
           imgPreview.classList.add("hidden");
         }
+      });
+
+      const descInput = document.getElementById("desc");
+      const descCharacterCount = document.getElementById(
+        "desc-character-count",
+      );
+      const maxLength = descInput.maxLength;
+
+      descInput.addEventListener("input", () => {
+        const currentLength = descInput.value.length;
+        descCharacterCount.textContent = maxLength - currentLength;
       });
     </script>
   </body>
