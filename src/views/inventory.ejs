@@ -18,7 +18,7 @@
     <%- include("partials/navbar.ejs") %>
     <main>
       <section
-        class="border-border-dark from-primary to-primary-dark fixed top-22 h-[calc(100vh-105px)] w-[200px] overflow-y-scroll rounded-r-xl border-y-2 border-r-2 bg-linear-to-b p-1 font-semibold"
+        class="border-border-dark from-primary to-primary-dark fixed top-22 h-[calc(100vh-105px)] w-[200px] overflow-y-scroll rounded-r-xl border-y-2 border-r-2 bg-linear-to-b px-1 py-4 font-semibold"
       >
         <%- include("partials/category.ejs") %>
       </section>
@@ -41,7 +41,9 @@
       const updatePriceFilterValue = (e) => {
         const filterPriceValue = document.getElementById("filter-price-value");
         const { value, max } = e.target;
-        filterPriceValue.textContent = ((value !== max) ? "<" : ">").concat(` ${value}€`);
+        filterPriceValue.textContent = (value !== max ? "<" : ">").concat(
+          ` ${value}€`,
+        );
       };
     </script>
   </body>

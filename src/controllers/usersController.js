@@ -1,3 +1,4 @@
+import db from "../db/queries";
 import { body, validationResult } from "express-validator";
 
 const usersController = (() => {
@@ -87,7 +88,21 @@ const usersController = (() => {
         });
       }
 
-      res.redirect("/inventory");
+      const {
+        name,
+        creationDate,
+        imgUrl,
+        desc,
+        price,
+        size,
+        categories,
+        materials,
+        squishiness,
+        stocksLeft,
+      } = req.body;
+
+      const categoriesSelected = [].concat(categories || []);
+      const materialSelected = [].concat(materials || []);
     },
   ];
 
