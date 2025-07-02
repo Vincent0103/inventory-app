@@ -28,7 +28,7 @@ const usersController = (() => {
       .withMessage(`Name ${alphaErr}`)
       .isLength({ min: 1, max: 255 })
       .withMessage(`Name ${lengthErr(255)}`),
-    body("creation-date")
+    body("creationDate")
       .trim()
       .isDate()
       .withMessage(`Creation date ${dateErr}`)
@@ -38,14 +38,12 @@ const usersController = (() => {
         // Set time to 00:00:00 for both dates to compare only the date part
         inputDate.setHours(0, 0, 0, 0);
         today.setHours(0, 0, 0, 0);
-        console.log(inputDate, today);
-        console.log(inputDate > today);
         if (inputDate > today) {
           throw new Error("Creation date must be from the past or today");
         }
         return true;
       }),
-    body("img-url")
+    body("imgUrl")
       .trim()
       .isURL()
       .withMessage(`Image URL ${urlErr}`)
@@ -73,7 +71,7 @@ const usersController = (() => {
         "really-squishy",
       ])
       .withMessage(`Squishiness ${squishinessErr}`),
-    body("stocks-left")
+    body("stocksLeft")
       .trim()
       .isInt({ min: 0 })
       .withMessage(`Stocks left ${numberErr(0)}`),

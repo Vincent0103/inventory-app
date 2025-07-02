@@ -39,35 +39,35 @@
             />
           </div>
           <div class="flex min-w-[200px] flex-1 flex-col gap-1">
-            <label class="ml-2" for="creation-date"
+            <label class="ml-2" for="creationDate"
               >Creation Date<span class="text-red-500">*</span></label
             >
             <input
               class="border-neutral-border h-9 w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
               type="date"
-              name="creation-date"
-              id="creation-date"
+              name="creationDate"
+              id="creationDate"
               value="<%= new Date().toISOString().split('T')[0] %>"
               required
             />
           </div>
         </div>
         <div class="flex flex-col gap-1">
-          <label class="ml-2" for="img-url"
+          <label class="ml-2" for="imgUrl"
             >Image URL<span class="text-red-500">*</span></label
           >
           <input
             class="border-neutral-border h-9 w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
             type="url"
-            name="img-url"
-            id="img-url"
+            name="imgUrl"
+            id="imgUrl"
             required
           />
         </div>
         <div class="w-full">
           <img
             class="mt-2 hidden h-full max-h-40 rounded object-cover shadow"
-            id="img-preview"
+            id="imgPreview"
             src=""
             alt="Image preview of the url inputted"
           />
@@ -82,7 +82,7 @@
             maxlength="500"
           ></textarea>
           <small
-            id="desc-character-count"
+            id="descCharacterCount"
             class="text-neutral-text-muted pointer-events-none absolute right-0 bottom-0 px-2 py-0.5"
             >500</small
           >
@@ -130,40 +130,40 @@
 
           <div class="grid grid-cols-3 grid-rows-2 space-x-3">
             <div>
-              <input type="checkbox" name="y2k-option" id="y2k-option" />
-              <label for="y2k-option">Y2K</label>
+              <input type="checkbox" name="y2kOption" id="y2kOption" />
+              <label for="y2kOption">Y2K</label>
             </div>
             <div class="">
               <input
                 type="checkbox"
-                name="japanese-style-option"
-                id="japanese-style-option"
+                name="japaneseStyleOption"
+                id="japaneseStyleOption"
               />
-              <label for="japanese-style-option">Japanese-style</label>
+              <label for="japaneseStyleOption">Japanese-style</label>
             </div>
             <div>
               <input
                 type="checkbox"
-                name="cottagecore-option"
-                id="cottagecore-option"
+                name="cottagecoreOption"
+                id="cottagecoreOption"
               />
-              <label for="cottagecore-option">Cottagecore</label>
+              <label for="cottagecoreOption">Cottagecore</label>
             </div>
             <div>
-              <input type="checkbox" name="gothic-option" id="gothic-option" />
-              <label for="gothic-option">Gothic</label>
+              <input type="checkbox" name="gothicOption" id="gothicOption" />
+              <label for="gothicOption">Gothic</label>
             </div>
             <div>
               <input
                 type="checkbox"
-                name="pastel-emo-option"
-                id="pastel-emo-option"
+                name="pastelEmoOption"
+                id="pastelEmoOption"
               />
-              <label for="pastel-emo-option">Pastel Emo</label>
+              <label for="pastelEmoOption">Pastel Emo</label>
             </div>
             <div>
-              <input type="checkbox" name="retro-option" id="retro-option" />
-              <label for="retro-option">Retro</label>
+              <input type="checkbox" name="retroOption" id="retroOption" />
+              <label for="retroOption">Retro</label>
             </div>
           </div>
         </fieldset>
@@ -174,32 +174,32 @@
 
           <div class="grid grid-cols-3 grid-rows-2">
             <div>
-              <input type="checkbox" name="plush-option" id="plush-option" />
-              <label for="plush-option">Plush</label>
+              <input type="checkbox" name="plushOption" id="plushOption" />
+              <label for="plushOption">Plush</label>
             </div>
             <div>
-              <input type="checkbox" name="felt-option" id="felt-option" />
-              <label for="felt-option">Felt</label>
+              <input type="checkbox" name="feltOption" id="feltOption" />
+              <label for="feltOption">Felt</label>
             </div>
             <div>
-              <input type="checkbox" name="cotton-option" id="cotton-option" />
-              <label for="cotton-option">Cotton</label>
+              <input type="checkbox" name="cottonOption" id="cottonOption" />
+              <label for="cottonOption">Cotton</label>
             </div>
             <div>
               <input
                 type="checkbox"
-                name="polyester-option"
-                id="polyester-option"
+                name="polyesterOption"
+                id="polyesterOption"
               />
-              <label for="polyester-option">Polyester</label>
+              <label for="polyesterOption">Polyester</label>
             </div>
             <div>
-              <input type="checkbox" name="minky-option" id="minky-option" />
-              <label for="minky-option">Minky</label>
+              <input type="checkbox" name="minkyOption" id="minkyOption" />
+              <label for="minkyOption">Minky</label>
             </div>
             <div>
-              <input type="checkbox" name="fleece-option" id="fleece-option" />
-              <label for="fleece-option">Fleece</label>
+              <input type="checkbox" name="fleeceOption" id="fleeceOption" />
+              <label for="fleeceOption">Fleece</label>
             </div>
           </div>
         </fieldset>
@@ -222,14 +222,14 @@
             </select>
           </div>
           <div class="flex min-w-[200px] flex-1 flex-col gap-1">
-            <label for="stocks-left"
+            <label for="stocksLeft"
               >Stocks left<span class="text-red-500">*</span></label
             >
             <input
               class="border-neutral-border h-9 w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
               type="number"
-              name="stocks-left"
-              id="stocks-left"
+              name="stocksLeft"
+              id="stocksLeft"
               min="0"
               required
             />
@@ -244,8 +244,8 @@
       </form>
     </main>
     <script>
-      const imgUrlInput = document.getElementById("img-url");
-      const imgPreview = document.getElementById("img-preview");
+      const imgUrlInput = document.getElementById("imgUrl");
+      const imgPreview = document.getElementById("imgPreview");
 
       const isImageUrl = (url) => /\.(jpeg|jpg|gif|png|webp|svg)$/i.test(url);
 
@@ -268,9 +268,7 @@
       });
 
       const descInput = document.getElementById("desc");
-      const descCharacterCount = document.getElementById(
-        "desc-character-count",
-      );
+      const descCharacterCount = document.getElementById("descCharacterCount");
       const maxLength = descInput.maxLength;
 
       descInput.addEventListener("input", () => {
