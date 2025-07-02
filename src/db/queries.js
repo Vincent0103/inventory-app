@@ -179,7 +179,6 @@ const db = (() => {
           "SELECT idCategory FROM CATEGORY WHERE slugCategory = $1",
           [category],
         );
-        console.log(rows);
         await pool.query(
           "INSERT INTO CATEGORYPLUSHY (idPlushy, idCategory) VALUES ($1, $2)",
           [idPlushy, rows[0].idcategory],

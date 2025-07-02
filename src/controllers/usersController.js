@@ -13,9 +13,11 @@ const usersController = (() => {
 
   const wordAndWhitespaceErr =
     "must only contain letters, numbers, underscores or spaces";
+  const uniqueErr = "already exists, please choose another one";
   const lengthErr = (maxLength) =>
     `must be between 1 and ${maxLength} characters`;
   const dateErr = "must be in the format DD/MM/YYYY";
+  const pastOrPresentDateErr = "must be from the past or today";
   const urlErr = "must be a valid URL (e.g: https://example.com";
   const imgErr =
     "must end with a valid image extension (jpg, jpeg, png, gif, webp, svg)";
@@ -30,7 +32,18 @@ const usersController = (() => {
       .matches(/^[\w\s]+$/)
       .withMessage(`Name ${wordAndWhitespaceErr}`)
       .isLength({ min: 1, max: 255 })
-      .withMessage(`Name ${lengthErr(255)}`),
+      .withMessage(`Name ${lengthErr(255)}`)
+      .custom(async (value) => {
+        let rows;
+        try {
+          rows = await db.getItem(toSlug(value));
+        } catch {
+          return true;
+        }
+        if (rows || rows?.length > 0) {
+          throw new Error(`Name ${uniqueErr}`);
+        }
+      }),
     body("creationDate")
       .trim()
       .isDate()
@@ -42,7 +55,7 @@ const usersController = (() => {
         inputDate.setHours(0, 0, 0, 0);
         today.setHours(0, 0, 0, 0);
         if (inputDate > today) {
-          throw new Error("Creation date must be from the past or today");
+          throw new Error(`Creation date ${pastOrPresentDateErr}`);
         }
         return true;
       }),
