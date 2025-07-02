@@ -21,7 +21,7 @@ CREATE TABLE PLUSHY (
     namePlushy VARCHAR(255) NOT NULL,
     imgSrcPlushy TEXT,
     imgAltPlushy VARCHAR(255),
-    urlNamePlushy TEXT NOT NULL,
+    slugPlushy TEXT NOT NULL,
     creationDatePlushy DATE,
     descPlushy TEXT,
     pricePlushy NUMERIC(10, 2) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE PLUSHY (
 CREATE TABLE CATEGORY (
     idCategory INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     nameCategory VARCHAR(255) NOT NULL,
-    formNameCategory VARCHAR(255),
+    slugCategory VARCHAR(255) NOT NULL,
     bgColorCategory VARCHAR(7),
     borderColorCategory VARCHAR(7),
     textWhite BOOLEAN DEFAULT FALSE
@@ -51,7 +51,8 @@ CREATE TABLE CATEGORYPLUSHY (
 
 CREATE TABLE MATERIAL (
     idMaterial INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    nameMaterial VARCHAR(255) NOT NULL
+    nameMaterial VARCHAR(255) NOT NULL,
+    slugMaterial VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE MATERIALPLUSHY (
@@ -62,7 +63,7 @@ CREATE TABLE MATERIALPLUSHY (
     CONSTRAINT fk_materialplushy_material FOREIGN KEY (idMaterial) REFERENCES Material(idMaterial) ON DELETE CASCADE
 );
 
-INSERT INTO CATEGORY (nameCategory, formNameCategory, bgColorCategory, borderColorCategory, textWhite)
+INSERT INTO CATEGORY (nameCategory, slugCategory, bgColorCategory, borderColorCategory, textWhite)
 VALUES
 ('Y2K', 'y2k', '#602100', '#4D1A00', TRUE),
 ('Japanese-style', 'japanese-style', '#750002', '#4D0001', TRUE),
@@ -72,10 +73,10 @@ VALUES
 ('Retro', 'retro', '#00FC22', '#00C71B', FALSE);
 
 
-INSERT INTO MATERIAL (nameMaterial)
+INSERT INTO MATERIAL (nameMaterial, slugMaterial)
 VALUES
-('Plush'), ('Felt'), ('Cotton'), ('Polyester'),
-('Minky'), ('Fleece');
+('Plush', 'plush'), ('Felt', 'felt'), ('Cotton', 'cotton'),
+('Polyester', 'polyester'), ('Minky', 'minky'), ('Fleece', 'fleece');
 
 INSERT INTO SIZE (valueSize)
 VALUES
@@ -85,7 +86,7 @@ INSERT INTO SQUISHINESS (valueSquishiness)
 VALUES
 ('Not squishy'), ('Kinda squishy'), ('Pretty squishy'), ('Really squishy');
 
-INSERT INTO PLUSHY (namePlushy, imgSrcPlushy, imgAltPlushy, urlNamePlushy, creationDatePlushy, descPlushy,
+INSERT INTO PLUSHY (namePlushy, imgSrcPlushy, imgAltPlushy, slugPlushy, creationDatePlushy, descPlushy,
 pricePlushy, stocksLeftPlushy, idSize, idSquishiness)
 VALUES 
 ('Black gloomy bear', '/images/plushies/black-gloomy-bear.jpg', 'Black gloomy bear plushy', 'black-gloomy-bear', '2023-02-19', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', 19, 9, 3, 2),

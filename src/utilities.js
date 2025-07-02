@@ -5,7 +5,7 @@ const toTitleCase = (str) => {
   );
 };
 
-function toUrlName(str) {
+function toSlug(str) {
   return str
     .toLowerCase()
     .trim()
@@ -17,4 +17,4 @@ function toUrlName(str) {
 
 const formatPrice = (n) => n.toString().replace(/\./, ",").concat("€");
 
-export { toTitleCase, formatPrice, toUrlName };
+export { toTitleCase, formatPrice, toSlug };

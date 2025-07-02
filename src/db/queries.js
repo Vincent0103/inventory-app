@@ -1,23 +1,24 @@
-import { name } from "ejs";
 import pool from "./pool";
 
 const db = (() => {
   const getFilters = async () => {
     const categoryRows = (
-      await pool.query("SELECT nameCategory, formNameCategory FROM CATEGORY")
+      await pool.query("SELECT nameCategory, slugCategory FROM CATEGORY")
     ).rows;
     const categories = await Promise.all(
       (categoryRows ?? []).map((category) => ({
         name: category.namecategory,
-        formName: category.formnamecategory,
+        slug: category.slugcategory,
       })),
     );
 
-    const materialRows = (await pool.query("SELECT nameMaterial FROM MATERIAL"))
-      .rows;
+    const materialRows = (
+      await pool.query("SELECT nameMaterial, slugMaterial FROM MATERIAL")
+    ).rows;
     const materials = await Promise.all(
       (materialRows ?? []).map((material) => ({
         name: material.namematerial,
+        slug: material.slugmaterial,
       })),
     );
 
@@ -59,20 +60,20 @@ const db = (() => {
       (categoryRows ?? []).map(async (row) => {
         const {
           namecategory,
-          formnamecategory,
+          slugcategory,
           bgcolorcategory,
           bordercolorcategory,
           textwhite,
         } = (
           await pool.query(
-            "SELECT nameCategory, formNameCategory, bgColorCategory, borderColorCategory, textWhite FROM CATEGORY WHERE idCategory = $1",
+            "SELECT nameCategory, slugCategory, bgColorCategory, borderColorCategory, textWhite FROM CATEGORY WHERE idCategory = $1",
             [row.idcategory],
           )
         ).rows[0];
 
         return {
           name: namecategory,
-          formName: formnamecategory,
+          slug: slugcategory,
           bgColor: bgcolorcategory,
           borderColor: bordercolorcategory,
           textColor: textwhite ? "#FFFFFF" : "#000000",
@@ -86,7 +87,7 @@ const db = (() => {
   const getItems = async () => {
     const plushyRows = (
       await pool.query(
-        "SELECT idPlushy, imgSrcPlushy, imgAltPlushy, urlNamePlushy, namePlushy, pricePlushy, stocksLeftPlushy FROM PLUSHY",
+        "SELECT idPlushy, imgSrcPlushy, imgAltPlushy, slugPlushy, namePlushy, pricePlushy, stocksLeftPlushy FROM PLUSHY",
       )
     ).rows;
 
@@ -97,7 +98,7 @@ const db = (() => {
         return {
           imgSrc: plushyRow.imgsrcplushy,
           imgAlt: plushyRow.imgaltplushy,
-          urlName: plushyRow.urlnameplushy,
+          slug: plushyRow.slugplushy,
           name: plushyRow.nameplushy,
           price: plushyRow.priceplushy,
           categories,
@@ -109,14 +110,12 @@ const db = (() => {
     return items;
   };
 
-  const getItem = async (itemUrlName) => {
+  const getItem = async (itemSlug) => {
     const plushyRow = (
-      await pool.query("SELECT * FROM PLUSHY WHERE urlNamePlushy = $1", [
-        itemUrlName,
-      ])
+      await pool.query("SELECT * FROM PLUSHY WHERE slugPlushy = $1", [itemSlug])
     ).rows[0];
 
-    if (!plushyRow) throw new Error(`Item of url ${itemUrlName} is not found`);
+    if (!plushyRow) throw new Error(`Item of url ${itemSlug} is not found`);
 
     const sizeRow = (
       await pool.query("SELECT valueSize FROM SIZE WHERE idSize = $1", [
@@ -158,7 +157,7 @@ const db = (() => {
       id: plushyRow.idplushy,
       imgSrc: plushyRow.imgsrcplushy,
       imgAlt: plushyRow.imgaltplushy,
-      urlName: plushyRow.urlnameplushy,
+      slug: plushyRow.slugplushy,
       name: plushyRow.nameplushy,
       price: plushyRow.priceplushy,
       creationDate: plushyRow.creationdateplushy,
@@ -177,12 +176,12 @@ const db = (() => {
     Promise.all(
       categories.map(async (category) => {
         const { rows } = await pool.query(
-          "SELECT idCategory FROM CATEGORY WHERE formNameCategory = $1",
+          "SELECT idCategory FROM CATEGORY WHERE slugCategory = $1",
           [category],
         );
         console.log(rows);
         await pool.query(
-          "INSERT INTO CATEGORYPLUSHY (idPlushy, nameCategory) VALUES ($1, $2)",
+          "INSERT INTO CATEGORYPLUSHY (idPlushy, idCategory) VALUES ($1, $2)",
           [idPlushy, rows[0].idcategory],
         );
       }),
@@ -193,11 +192,11 @@ const db = (() => {
     Promise.all(
       materials.map(async (material) => {
         const { rows } = await pool.query(
-          "SELECT idMaterial FROM MATERIAL WHERE nameMaterial = $1",
+          "SELECT idMaterial FROM MATERIAL WHERE slugMaterial = $1",
           [material],
         );
         await pool.query(
-          "INSERT INTO MATERIALPLUSHY (idPlushy, nameMaterial) VALUES ($1, $2)",
+          "INSERT INTO MATERIALPLUSHY (idPlushy, idMaterial) VALUES ($1, $2)",
           [idPlushy, rows[0].idmaterial],
         );
       }),
@@ -209,7 +208,7 @@ const db = (() => {
       name,
       imgSrc,
       imgAlt,
-      urlName,
+      slug,
       creationDate,
       desc,
       price,
@@ -222,7 +221,7 @@ const db = (() => {
 
     const { rows } = await pool.query(
       `INSERT INTO PLUSHY
-    (namePlushy, imgSrcPlushy, imgAltPlushy, urlNamePlushy, creationDatePlushy,
+    (namePlushy, imgSrcPlushy, imgAltPlushy, slugPlushy, creationDatePlushy,
     descPlushy, pricePlushy, stocksLeftPlushy, idSize, idSquishiness)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
     RETURNING idPlushy`,
@@ -230,7 +229,7 @@ const db = (() => {
         name,
         imgSrc,
         imgAlt,
-        urlName,
+        slug,
         creationDate,
         desc,
         price,

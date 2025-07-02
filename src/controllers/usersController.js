@@ -1,5 +1,5 @@
 import db from "../db/queries";
-import { toUrlName } from "../utilities";
+import { toSlug } from "../utilities";
 import { body, validationResult } from "express-validator";
 
 const usersController = (() => {
@@ -110,12 +110,12 @@ const usersController = (() => {
       const selectedCategories = [].concat(categories || []);
       const selectedMaterials = [].concat(materials || []);
 
-      const urlName = toUrlName(name);
+      const slug = toSlug(name);
       const item = {
         name,
-        imgUrl,
+        imgSrc: imgUrl,
         imgAlt,
-        urlName,
+        slug,
         creationDate,
         desc,
         price,

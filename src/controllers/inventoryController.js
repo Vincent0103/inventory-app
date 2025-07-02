@@ -14,8 +14,8 @@ const inventoryController = (() => {
   };
 
   const itemGet = async (req, res) => {
-    const { itemUrlName } = req.params;
-    const item = await db.getItem(itemUrlName);
+    const { itemSlug } = req.params;
+    const item = await db.getItem(itemSlug);
     res.render("item", { ...item, formatPrice });
   };
 

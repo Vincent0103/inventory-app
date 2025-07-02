@@ -22,9 +22,9 @@
       type="checkbox"
       name="<%= item.formName %>-filter"
       id="<%= item.formName %>-filter"
-      aria-label="<%= item.name || toTitleCase(item.formName) %> <%= toTitleCase(filterChildName) %> filter"
+      aria-label="<%= item.name %> <%= toTitleCase(filterChildName) %> filter"
     />
-    <span><%= item.name || toTitleCase(item.formName) %></span>
+    <span><%= item.name %></span>
   </li>
   <% }); %>
 </ul>
