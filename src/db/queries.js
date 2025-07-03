@@ -320,6 +320,7 @@ const db = (() => {
     if (!rows) throw new Error(`Could not fetch idPlushy from slug ${slug}`);
 
     const idPlushy = rows[0].idplushy;
+
     await pool.query("DELETE FROM CATEGORYPLUSHY WHERE idPlushy = $1", [
       idPlushy,
     ]);
@@ -329,6 +330,24 @@ const db = (() => {
 
     addCategories(idPlushy, categories);
     addMaterials(idPlushy, materials);
+  };
+
+  const deleteItem = async (itemSlug) => {
+    const { rows } = await pool.query(
+      "SELECT idPlushy FROM PLUSHY WHERE slugPlushy = $1",
+      [itemSlug],
+    );
+    if (!rows)
+      throw new Error(`Could not fetch idPlushy from slug ${itemSlug}`);
+
+    const idPlushy = rows[0].idplushy;
+    await pool.query("DELETE FROM CATEGORYPLUSHY WHERE idPlushy = $1", [
+      idPlushy,
+    ]);
+    await pool.query("DELETE FROM MATERIALPLUSHY WHERE idPlushy = $1", [
+      idPlushy,
+    ]);
+    await pool.query("DELETE FROM PLUSHY WHERE idPlushy = $1", [idPlushy]);
   };
 
   const getIdFromSquishiness = async (value) => {
@@ -358,6 +377,7 @@ const db = (() => {
     hasItem,
     addItem,
     editItem,
+    deleteItem,
     getIdFromSquishiness,
     getIdFromSize,
   };

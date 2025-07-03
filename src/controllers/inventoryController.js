@@ -96,7 +96,13 @@ const inventoryController = (() => {
     },
   ];
 
-  return { itemGet, itemEditGet, itemEditPost, inventoryGet };
+  const itemDeleteGet = async (req, res) => {
+    const { itemSlug } = req.params;
+    await db.deleteItem(itemSlug);
+    res.redirect("/inventory");
+  };
+
+  return { itemGet, itemEditGet, itemEditPost, itemDeleteGet, inventoryGet };
 })();
 
 export default inventoryController;
