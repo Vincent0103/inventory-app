@@ -15,7 +15,8 @@
   <body
     class="font-montserrat text-text-light fill-text-light from-secondary to-secondary-dark min-h-screen w-full bg-linear-to-b before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-[url('/images/wallpapers/homepage-bgi.png')] before:bg-repeat before:opacity-[0.03] before:content-['']"
   >
-    <%- include("partials/navbar.ejs") %>
+    <%- include("partials/deletePopup.ejs", { slug }) %> <%-
+    include("partials/navbar.ejs") %>
     <main
       class="fixed top-22 grid h-[600px] w-full grid-cols-[2fr_3fr] grid-rows-[auto_1fr] justify-center gap-x-10 gap-y-4 px-8"
     >
@@ -80,9 +81,10 @@
             </svg>
             <span class="font-medium">Edit</span>
           </a>
-          <a
+          <button
+            type="button"
             class="flex cursor-pointer gap-1 rounded-md border-2 border-red-700 bg-red-500 fill-white px-2 py-0.5 text-sm text-white shadow-sm transition-colors hover:border-red-900"
-            href="/inventory/<%= slug %>/delete"
+            onclick="onDeleteBtnClick()"
           >
             <svg
               class="size-5"
@@ -94,7 +96,7 @@
               />
             </svg>
             <span class="font-medium">Delete</span>
-          </a>
+          </button>
         </div>
         <h2
           id="product-details-heading"
@@ -137,5 +139,19 @@
         </div>
       </section>
     </main>
+    <script>
+      const deletePopup = document.getElementById("delete-popup");
+
+      const onDeleteBtnClick = () => {
+        console.log("doing");
+        deletePopup.style.opacity = 1;
+        deletePopup.style.pointerEvents = "auto";
+      };
+
+      const onDeletePopupNoBtnClick = () => {
+        deletePopup.style.opacity = 0;
+        deletePopup.style.pointerEvents = "none";
+      };
+    </script>
   </body>
 </html>

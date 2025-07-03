@@ -1,0 +1,27 @@
+<div
+  id="delete-popup"
+  class="pointer-events-none absolute inset-0 z-20 flex h-screen w-screen items-center justify-center bg-black/60 opacity-0 backdrop-blur-lg transition-opacity"
+>
+  <div
+    class="space-y-2 rounded-lg border-2 border-[#4D4D4D] bg-gradient-to-b from-[#1A1A1A] to-[#0D0D0D] p-6 shadow-xl"
+  >
+    <h1 class="text-xl font-bold text-[#F2F2F2]">Are you sure?</h1>
+    <small class="text-lg text-[#F2F2F2]"
+      >You are about to delete the plushy.</small
+    >
+    <div class="mt-6 flex gap-4 font-bold text-[#F2F2F2]">
+      <a
+        class="rounded-sm border-2 border-[#F07577] bg-[#E51A1D] px-3 py-1 shadow-md"
+        href="/inventory/<%= slug %>/delete"
+        >Yes</a
+      >
+      <a
+        id="delete-popup-no-btn"
+        class="rounded-sm border-2 border-[#4D4D4D] bg-[#1A1A1A] px-3 py-1 shadow-md"
+        href="#"
+        onclick="onDeletePopupNoBtnClick()"
+        >No</a
+      >
+    </div>
+  </div>
+</div>
