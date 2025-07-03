@@ -1,5 +1,6 @@
 import db from "../db/queries";
-import { formatPrice, toSlug, toTitleCase } from "../utilities";
+import { formatPrice, toSlug, toTitleCase, validatePlushy } from "../utilities";
+import { validationResult } from "express-validator";
 
 const inventoryController = (() => {
   const inventoryGet = async (req, res) => {
@@ -39,7 +40,61 @@ const inventoryController = (() => {
       submitBtnTextContent: "Edit",
     });
   };
-  const itemEditPost = [null, (req, res) => {}];
+
+  const itemEditPost = [
+    validatePlushy,
+    async (req, res) => {
+      const pastSlug = req.params.itemSlug;
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).render("formPlushy", {
+          title: "Edit plushy",
+          action: `/inventory/${toSlug(req.body.name)}/edit`,
+          errors: errors.array(),
+          submitBtnTextContent: "Edit",
+        });
+      }
+
+      const {
+        name,
+        creationDate,
+        imgUrl,
+        desc,
+        price,
+        size,
+        categories,
+        materials,
+        squishiness,
+        stocksLeft,
+      } = req.body;
+
+      const imgAlt = `'${name}' user created plushy`;
+      const idSquishiness = await db.getIdFromSquishiness(squishiness);
+      const idSize = await db.getIdFromSize(size);
+
+      const selectedCategories = [].concat(categories || []);
+      const selectedMaterials = [].concat(materials || []);
+
+      const slug = toSlug(name);
+      const item = {
+        name,
+        imgSrc: imgUrl,
+        imgAlt,
+        slug,
+        creationDate,
+        desc,
+        price,
+        selectedCategories,
+        selectedMaterials,
+        stocksLeft,
+        idSize,
+        idSquishiness,
+      };
+
+      await db.editItem(pastSlug, item);
+      res.redirect(`/inventory/${slug}`);
+    },
+  ];
 
   return { itemGet, itemEditGet, itemEditPost, inventoryGet };
 })();

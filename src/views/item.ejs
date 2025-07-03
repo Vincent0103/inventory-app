@@ -64,21 +64,38 @@
         </div>
       </section>
       <section class="relative" aria-labelledby="product-details-heading">
-        <a
-          class="hover:border-border-dark bg-primary border-border-light text-text-light fill-text-light absolute top-0 right-0 flex cursor-pointer gap-1 rounded-md border-2 p-2 px-2 py-0.5 text-sm shadow-sm transition-colors"
-          href="/inventory/<%= slug %>/edit"
-        >
-          <svg
-            class="size-5"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
+        <div class="absolute top-0 right-0 flex gap-1">
+          <a
+            class="hover:border-border-dark bg-primary border-border-light text-text-light fill-text-light flex cursor-pointer gap-1 rounded-md border-2 px-2 py-0.5 text-sm shadow-sm transition-colors"
+            href="/inventory/<%= slug %>/edit"
           >
-            <path
-              d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"
-            />
-          </svg>
-          <span class="font-medium">Edit</span>
-        </a>
+            <svg
+              class="size-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"
+              />
+            </svg>
+            <span class="font-medium">Edit</span>
+          </a>
+          <a
+            class="flex cursor-pointer gap-1 rounded-md border-2 border-red-700 bg-red-500 fill-white px-2 py-0.5 text-sm text-white shadow-sm transition-colors hover:border-red-900"
+            href="/inventory/<%= slug %>/delete"
+          >
+            <svg
+              class="size-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
+              />
+            </svg>
+            <span class="font-medium">Delete</span>
+          </a>
+        </div>
         <h2
           id="product-details-heading"
           class="text-text-dark text-3xl font-bold"

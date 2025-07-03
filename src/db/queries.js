@@ -181,6 +181,14 @@ const db = (() => {
     return item;
   };
 
+  const hasItem = async (itemSlug) => {
+    const plushyRow = (
+      await pool.query("SELECT * FROM PLUSHY WHERE slugPlushy = $1", [itemSlug])
+    ).rows[0];
+
+    return !!plushyRow;
+  };
+
   const addCategories = async (idPlushy, categories) => {
     Promise.all(
       categories.map(async (category) => {
@@ -257,6 +265,72 @@ const db = (() => {
     addMaterials(idPlushy, materials);
   };
 
+  const editItem = async (pastSlug, item) => {
+    const {
+      name,
+      imgSrc,
+      imgAlt,
+      slug,
+      creationDate,
+      desc,
+      price,
+      selectedCategories: categories,
+      selectedMaterials: materials,
+      stocksLeft,
+      idSize,
+      idSquishiness,
+    } = item;
+
+    await pool.query(
+      `
+      UPDATE PLUSHY
+      SET
+        namePlushy = $1,
+        imgSrcPlushy = $2,
+        imgAltPlushy = $3,
+        slugPlushy = $4,
+        creationDatePlushy = $5,
+        descPlushy = $6,
+        pricePlushy = $7,
+        stocksLeftPlushy = $8,
+        idSize = $9,
+        idSquishiness = $10
+      WHERE
+        slugPlushy = $11
+    `,
+      [
+        name,
+        imgSrc,
+        imgAlt,
+        slug,
+        creationDate,
+        desc,
+        price,
+        stocksLeft,
+        idSize,
+        idSquishiness,
+        pastSlug,
+      ],
+    );
+
+    const { rows } = await pool.query(
+      "SELECT idPlushy FROM PLUSHY WHERE slugPlushy = $1",
+      [slug],
+    );
+    if (!rows) throw new Error(`Could not fetch idPlushy from slug ${slug}`);
+
+    const idPlushy = rows[0].idplushy;
+    await pool.query("DELETE FROM CATEGORYPLUSHY WHERE idPlushy = $1", [
+      idPlushy,
+    ]);
+    await pool.query("DELETE FROM MATERIALPLUSHY WHERE idPlushy = $1", [
+      idPlushy,
+    ]);
+
+    addCategories(idPlushy, categories);
+    addMaterials(idPlushy, materials);
+  };
+
   const getIdFromSquishiness = async (value) => {
     const row = (
       await pool.query(
@@ -281,7 +355,9 @@ const db = (() => {
     getCategories,
     getItems,
     getItem,
+    hasItem,
     addItem,
+    editItem,
     getIdFromSquishiness,
     getIdFromSize,
   };

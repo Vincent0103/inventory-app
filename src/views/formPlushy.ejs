@@ -78,7 +78,7 @@
         </div>
         <div class="w-full">
           <img
-            class="mt-2 hidden h-full max-h-40 rounded object-cover shadow"
+            class="mt-2 <% if (!locals.imgUrlValue) { %> hidden <% } %> h-full max-h-40 rounded object-cover shadow"
             id="imgPreview"
             <% if (locals.imgUrlValue && locals.imgAltValue) { %>
               src="<%= imgUrlValue %>"
@@ -102,7 +102,7 @@
             id="descCharacterCount"
             class="text-neutral-text-muted pointer-events-none absolute right-0 bottom-0 px-2 py-0.5"
             >
-            <% if (locals.descValue) {%>
+            <% if (locals.descValue) { %>
               <%= 500 - descValue.length %>
             <%} else {%>
               500
@@ -164,6 +164,7 @@
                 name="categories"
                 value="japanese-style"
                 id="japanese-style"
+                <% if (locals.categoriesValue && categoriesValue.includes("japanese-style")) { %> checked <% } %>
               />
               <label for="japanese-style">Japanese-style</label>
             </div>
