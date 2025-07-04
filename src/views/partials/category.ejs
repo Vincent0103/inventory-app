@@ -1,4 +1,4 @@
-<form action="/inventory" class="accent-secondary" method="post">
+<form action="/inventory" class="accent-secondary" method="get">
   <% filters.forEach((filter) => { %> <%- include("filter.ejs", {...filter}) %>
   <% }); %>
   <div class="my-2 px-2">
@@ -20,8 +20,8 @@
       ondrag=""
       class="mt-1 w-full"
       type="range"
-      name="price-option"
-      id="price-option"
+      name="price"
+      id="price"
       min="5"
       max="50"
       step="5"

@@ -8,7 +8,7 @@ const db = (() => {
     const categories = await Promise.all(
       (categoryRows ?? []).map((category) => ({
         name: category.namecategory,
-        slug: category.slugcategory,
+        value: category.slugcategory,
       })),
     );
 
@@ -18,7 +18,7 @@ const db = (() => {
     const materials = await Promise.all(
       (materialRows ?? []).map((material) => ({
         name: material.namematerial,
-        slug: material.slugmaterial,
+        value: material.slugmaterial,
       })),
     );
 
@@ -26,6 +26,7 @@ const db = (() => {
     const sizes = await Promise.all(
       (sizeRows ?? []).map((size) => ({
         name: size.valuesize,
+        value: size.valuesize,
       })),
     );
 
@@ -369,6 +370,90 @@ const db = (() => {
     return row.idsize;
   };
 
+  const getItemByFilters = async (filters) => {
+    const { price } = filters;
+    const arrayFilters = [filters.categories, filters.materials, filters.sizes];
+
+    // Make filters be always arrays even if its undefined or is a string
+    const [categories, materials, sizes] = arrayFilters.map((filter) =>
+      [].concat(filter || []),
+    );
+    const params = [];
+    let query = `
+      SELECT DISTINCT P.idPlushy, namePlushy, imgSrcPlushy, imgAltPlushy, slugPlushy, pricePlushy, stocksLeftPlushy FROM PLUSHY P
+      INNER JOIN CATEGORYPLUSHY CP ON P.idPlushy = CP.idPlushy
+      INNER JOIN CATEGORY C ON CP.idCategory = C.idCategory
+      INNER JOIN MATERIALPLUSHY MP ON P.idPlushy = MP.idPlushy
+      INNER JOIN MATERIAL M ON MP.idMaterial = M.idMaterial
+      INNER JOIN SIZE S ON P.idSize = S.idSize
+      WHERE 1=1
+    `;
+
+    if (categories.length > 0) {
+      const categoryPlaceholders = categories
+        .map((_, i) => `$${i + 1}`)
+        .join(", ");
+      params.push(...categories);
+      query += ` AND C.slugCategory IN (${categoryPlaceholders})`;
+    }
+    if (materials.length > 0) {
+      const materialPlaceholders = materials
+        .map((_, i) => `$${params.length + i + 1}`)
+        .join(", ");
+      params.push(...materials);
+      query += ` AND M.slugMaterial IN (${materialPlaceholders})`;
+    }
+    if (sizes.length > 0) {
+      const sizePlaceholders = sizes
+        .map((_, i) => `$${params.length + i + 1}`)
+        .join(", ");
+      params.push(...sizes);
+      query += ` AND S.valueSize IN (${sizePlaceholders})`;
+    }
+    if (price) {
+      const MAX_PRICE = 50;
+      const pricePlaceholder = `$${params.length + 1}`;
+      params.push(price);
+      const priceCondition = parseInt(price, 10) < MAX_PRICE ? "<=" : ">=";
+      query += ` AND P.pricePlushy ${priceCondition} ${pricePlaceholder}`;
+    }
+
+    query += `
+      GROUP BY P.idPlushy, slugPlushy, namePlushy, pricePlushy
+      HAVING 1=1
+    `;
+
+    if (categories.length > 0) {
+      params.push(categories.length);
+      query += ` AND COUNT(DISTINCT slugCategory) = $${params.length}`;
+    }
+    if (materials.length > 0) {
+      params.push(materials.length);
+      query += ` AND COUNT(DISTINCT slugMaterial) = $${params.length}`;
+    }
+    query += ";";
+
+    const { rows } = await pool.query(query, params);
+
+    const items = await Promise.all(
+      (rows ?? []).map(async (row) => {
+        const categories = await getCategories(row.idplushy);
+
+        return {
+          imgSrc: row.imgsrcplushy,
+          imgAlt: row.imgaltplushy,
+          slug: row.slugplushy,
+          name: row.nameplushy,
+          price: row.priceplushy,
+          categories,
+          amountAvailable: row.stocksleftplushy,
+        };
+      }),
+    );
+
+    return items;
+  };
+
   return {
     getFilters,
     getCategories,
@@ -380,6 +465,7 @@ const db = (() => {
     deleteItem,
     getIdFromSquishiness,
     getIdFromSize,
+    getItemByFilters,
   };
 })();
 

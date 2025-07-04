@@ -20,8 +20,9 @@
   <li class="space-x-2">
     <input
       type="checkbox"
-      name="<%= item.formName %>-filter"
-      id="<%= item.formName %>-filter"
+      name="<%= filterName %>"
+      value="<%= item.value %>"
+      id="<%= item.value %>"
       aria-label="<%= item.name %> <%= toTitleCase(filterChildName) %> filter"
     />
     <span><%= item.name %></span>

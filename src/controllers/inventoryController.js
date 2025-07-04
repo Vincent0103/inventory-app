@@ -5,7 +5,17 @@ import { validationResult } from "express-validator";
 const inventoryController = (() => {
   const inventoryGet = async (req, res) => {
     const filters = await db.getFilters();
-    const items = await db.getItems();
+    if (Object.keys(req.query).length === 0) {
+      const items = await db.getItems();
+      return res.render("inventory", {
+        filters,
+        items,
+        toTitleCase,
+        formatPrice,
+      });
+    }
+
+    const items = await db.getItemByFilters(req.query);
     res.render("inventory", {
       filters,
       items,
