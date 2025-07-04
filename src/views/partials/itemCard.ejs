@@ -9,9 +9,15 @@
   />
   <h3 class="mt-2 font-medium"><%= name %></h3>
   <p class="text-xl font-bold"><%= formatPrice(price) %></p>
-  <div class="mt-2 flex flex-wrap gap-1">
-    <% categories.forEach(category => { %> <%- include('tag', {...category}) %>
-    <% }); %>
+  <div class="mt-1 flex flex-wrap gap-1">
+    <% categories.slice(0, 2).forEach((category, index) => { %> <%-
+    include('tag', {...category}) %> <% }); %> <% if (categories.length > 2) {
+    %>
+    <span
+      class="text-neutral-text-muted ml-1 self-center text-sm font-semibold tracking-wider"
+      >+<%= categories.length - 2 %></span
+    >
+    <% } %>
   </div>
   <small class="text-neutral-text-muted absolute right-0 bottom-0 px-1 py-0.5"
     ><%= amountAvailable %> available</small
