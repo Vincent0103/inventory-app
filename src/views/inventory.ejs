@@ -18,10 +18,27 @@
     <%- include("partials/navbar.ejs") %>
     <main>
       <section
-        class="border-border-dark from-primary to-primary-dark fixed top-22 hidden h-[calc(100vh-105px)] w-[200px] overflow-y-scroll rounded-r-xl border-y-2 border-r-2 bg-linear-to-b px-1 py-4 font-semibold sm:block"
+        id="filter-container"
+        class="sm:border-border-dark from-primary to-primary-dark pointer-events-none fixed inset-0 z-20 block h-screen w-screen overflow-y-scroll bg-linear-to-b px-1 py-4 font-semibold opacity-0 transition-opacity sm:pointer-events-auto sm:top-22 sm:z-0 sm:h-[calc(100vh-105px)] sm:w-[200px] sm:rounded-r-xl sm:border-y-2 sm:border-r-2 sm:opacity-100"
       >
         <%- include("partials/category.ejs") %>
       </section>
+
+      <!-- filter button for mobiles -->
+      <button
+        type="button"
+        onclick="onFilterCloseMobileBtnClick()"
+        class="border-border-dark from-primary to-primary-dark fixed right-6 bottom-4 z-10 h-8 w-9 cursor-pointer rounded-md border-2 bg-linear-to-b shadow-lg sm:hidden"
+      >
+        <svg
+          class="size-full"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <path d="M6,13H18V11H6M3,6V8H21V6M10,18H14V16H10V18Z" />
+        </svg>
+      </button>
+      <
       <section
         class="mt-[50px] grid grid-cols-2 justify-items-center gap-5 p-6 sm:mt-[67px] sm:ml-[200px] md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
       >
@@ -53,6 +70,25 @@
           value !== max
             ? `${lessThanOrEqualSvg} ${value}€`
             : `${greaterThanOrEqualSvg} ${value}€`;
+      };
+
+      const onFilterCloseMobileBtnClick = () => {
+        const filterContainer = document.getElementById("filter-container");
+        const filterCloseMobileBtn = document.getElementById(
+          "filter-close-mobile-btn",
+        );
+
+        if (filterContainer.classList.contains("pointer-events-none")) {
+          filterContainer.classList.remove("pointer-events-none");
+          filterContainer.classList.remove("opacity-0");
+          filterContainer.classList.add("pointer-events-auto");
+          filterContainer.classList.add("opacity-100");
+        } else {
+          filterContainer.classList.remove("pointer-events-auto");
+          filterContainer.classList.remove("opacity-100");
+          filterContainer.classList.add("pointer-events-none");
+          filterContainer.classList.add("opacity-0");
+        }
       };
     </script>
   </body>
