@@ -1,5 +1,5 @@
 <a
-  class="bg-neutral-bg border-neutral-border text-neutral-text-dark relative h-96 max-h-96 w-52 cursor-pointer border-2 p-1.5 text-sm font-medium shadow-md hover:brightness-90"
+  class="bg-neutral-bg border-neutral-border text-neutral-text-dark relative h-72 max-h-96 w-40 cursor-pointer border-2 p-1.5 text-sm font-medium shadow-md hover:brightness-90 sm:h-96 sm:w-52"
   href="/inventory/<%= slug %>"
 >
   <img
@@ -7,14 +7,14 @@
     src="<%= imgSrc %>"
     alt="<%= imgAlt %>"
   />
-  <h3 class="mt-2 font-medium"><%= name %></h3>
-  <p class="text-xl font-bold"><%= formatPrice(price) %></p>
+  <h3 class="mt-2 text-xs font-medium sm:text-sm"><%= name %></h3>
+  <p class="text-md font-bold sm:text-xl"><%= formatPrice(price) %></p>
   <div class="mt-1 flex flex-wrap gap-1">
     <% categories.slice(0, 2).forEach((category, index) => { %> <%-
     include('tag', {...category}) %> <% }); %> <% if (categories.length > 2) {
     %>
     <span
-      class="text-neutral-text-muted ml-1 self-center text-sm font-semibold tracking-wider"
+      class="text-neutral-text-muted self-center text-xs font-semibold tracking-wider sm:ml-1 sm:text-sm"
       >+<%= categories.length - 2 %></span
     >
     <% } %>

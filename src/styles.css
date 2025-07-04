@@ -53,13 +53,13 @@
   }
 
   @media (max-width: 64rem) {
-    .navlink {
+    nav .navlink {
       padding: 4px 12px;
     }
   }
 
   @media (max-width: 40rem) {
-    .navlink {
+    nav .navlink {
       height: 30px;
     }
   }

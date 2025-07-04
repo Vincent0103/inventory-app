@@ -18,12 +18,12 @@
     <%- include("partials/navbar.ejs") %>
     <main>
       <section
-        class="border-border-dark from-primary to-primary-dark fixed top-22 h-[calc(100vh-105px)] w-[200px] overflow-y-scroll rounded-r-xl border-y-2 border-r-2 bg-linear-to-b px-1 py-4 font-semibold"
+        class="border-border-dark from-primary to-primary-dark fixed top-22 hidden h-[calc(100vh-105px)] w-[200px] overflow-y-scroll rounded-r-xl border-y-2 border-r-2 bg-linear-to-b px-1 py-4 font-semibold sm:block"
       >
         <%- include("partials/category.ejs") %>
       </section>
       <section
-        class="mt-[67px] ml-[200px] grid grid-cols-1 justify-items-center gap-5 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+        class="mt-[50px] grid grid-cols-2 justify-items-center gap-5 p-6 sm:mt-[67px] sm:ml-[200px] md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
       >
         <% items.forEach((item) => { %> <%- include("partials/itemCard.ejs",
         {...item}) %> <% }); %>
