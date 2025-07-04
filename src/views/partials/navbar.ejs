@@ -2,27 +2,29 @@
   class="bg-secondary fixed top-0 right-0 z-10 flex w-full items-end justify-center"
 >
   <div
-    class="from-primary to-primary-dark border-border-dark fill-text-light text-text-light mx-3 mt-4 box-border flex w-full items-center justify-between rounded-4xl border-2 bg-linear-to-b px-6 py-1.5 shadow-lg"
+    class="from-primary to-primary-dark border-border-dark fill-text-light text-text-light mx-1.5 mt-4 box-border flex w-full items-center justify-between rounded-4xl border-2 bg-linear-to-b px-3 py-0.5 shadow-lg sm:mx-3 sm:px-6 sm:py-1.5"
   >
-    <section><h1 class="font-comico">Y2Plush</h1></section>
+    <section class="hidden sm:block">
+      <h1 class="font-comico">Y2Plush</h1>
+    </section>
     <section>
-      <ul class="flex list-none gap-5" role="menubar">
+      <ul class="flex list-none gap-3 sm:gap-5" role="menubar">
         <li>
-          <a class="navlink shadow-sm" href="/">
+          <a class="navlink sm:shadow-sm" href="/">
             <svg
-              class="size-6"
+              class="size-5 sm:size-6"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
             >
               <path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" />
             </svg>
-            <span>Home</span>
+            <span class="hidden lg:block">Home</span>
           </a>
         </li>
         <li>
-          <a class="navlink shadow-sm" href="/inventory">
+          <a class="navlink sm:shadow-sm" href="/inventory">
             <svg
-              class="size-6"
+              class="size-5 sm:size-6"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
             >
@@ -30,13 +32,13 @@
                 d="M18 16H16V15H8V16H6V15H2V20H22V15H18V16M20 8H17V6C17 4.9 16.1 4 15 4H9C7.9 4 7 4.9 7 6V8H4C2.9 8 2 8.9 2 10V14H6V12H8V14H16V12H18V14H22V10C22 8.9 21.1 8 20 8M15 8H9V6H15V8Z"
               />
             </svg>
-            <span>Inventory</span>
+            <span class="hidden lg:block">Inventory</span>
           </a>
         </li>
         <li>
-          <a class="navlink shadow-sm" href="/create">
+          <a class="navlink sm:shadow-sm" href="/create">
             <svg
-              class="size-6"
+              class="size-5 sm:size-6"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
             >
@@ -44,20 +46,20 @@
                 d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z"
               />
             </svg>
-            <span>Create</span>
+            <span class="hidden lg:block">Create</span>
           </a>
         </li>
       </ul>
     </section>
     <section>
       <form
-        class="navlink bg-primary-dark focus-within:border-text-light shadow-sm transition-colors focus-within:border-2"
+        class="navlink bg-primary-dark focus-within:border-text-light my-0.5 transition-colors focus-within:border-2 sm:my-0 sm:shadow-sm"
         action="/inventory"
         method="GET"
         tabindex="-1"
       >
         <svg
-          class="size-6"
+          class="size-5 sm:size-6"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
         >
@@ -66,7 +68,7 @@
           />
         </svg>
         <input
-          class="text-white outline-none focus:ring-0 focus:outline-none"
+          class="w-15 text-white outline-none focus:ring-0 focus:outline-none sm:w-20 md:w-full"
           type="search"
           name="q"
           id="searchInput"
