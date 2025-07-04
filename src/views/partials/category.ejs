@@ -1,32 +1,56 @@
 <form action="/inventory" class="accent-secondary" method="get">
   <% filters.forEach((filter) => { %> <%- include("filter.ejs", {...filter}) %>
   <% }); %>
-  <div class="my-2 px-2">
-    <label for="price-option">Price: </label>
-    <span id="filter-price-value" class="font-medium"
-      ><svg
-        class="inline size-4"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
+  <div class="m-0.5">
+    <div class="bg-primary-dark rounded-md p-1.5">
+      <button
+        class="cursor-pointer"
+        type="button"
+        id="toggle-price-btn"
+        onclick="onTogglePriceBtnClick()"
       >
-        <path
-          d="M18.5,2.27L5,10.14L18.5,18L19.5,16.27L8.97,10.14L19.5,4L18.5,2.27M5,20V22H20V20H5Z"
+        <svg
+          class="size-5"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
+          />
+        </svg>
+      </button>
+      <div
+        class="text-neutral-text-muted fill-neutral-text-muted pointer-events-none"
+        id="price-input-container"
+      >
+        <label for="price-option">Price: </label>
+        <span id="filter-price-value" class="font-medium"
+          ><svg
+            class="inline size-4"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M18.5,2.27L5,10.14L18.5,18L19.5,16.27L8.97,10.14L19.5,4L18.5,2.27M5,20V22H20V20H5Z"
+            />
+          </svg>
+          20€</span
+        >
+        <input
+          oninput="updatePriceFilterValue(event)"
+          ondrag=""
+          class="mt-1 w-full"
+          type="range"
+          name="price"
+          id="price"
+          min="5"
+          max="50"
+          step="5"
+          value="20"
+          disabled
         />
-      </svg>
-      20€</span
-    >
-    <input
-      oninput="updatePriceFilterValue(event)"
-      ondrag=""
-      class="mt-1 w-full"
-      type="range"
-      name="price"
-      id="price"
-      min="5"
-      max="50"
-      step="5"
-      value="20"
-    />
+      </div>
+    </div>
   </div>
   <div class="mt-4 flex w-full justify-center">
     <button
@@ -37,3 +61,32 @@
     </button>
   </div>
 </form>
+<script>
+  const togglePriceBtn = document.getElementById("toggle-price-btn");
+
+  const priceInputContainer = document.getElementById("price-input-container");
+  const rangeInput = priceInputContainer.querySelector('input[type="range"]');
+
+  const toggleSwitchOffSvg = `<svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" /></svg>`;
+  const toggleSwitchOnSvg = `<svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,7H7A5,5 0 0,0 2,12A5,5 0 0,0 7,17H17A5,5 0 0,0 22,12A5,5 0 0,0 17,7M17,15A3,3 0 0,1 14,12A3,3 0 0,1 17,9A3,3 0 0,1 20,12A3,3 0 0,1 17,15Z" /></svg>`;
+
+  const onTogglePriceBtnClick = () => {
+    if (priceInputContainer.classList.contains("pointer-events-none")) {
+      togglePriceBtn.innerHTML = toggleSwitchOnSvg;
+      priceInputContainer.classList.remove("text-neutral-text-muted");
+      priceInputContainer.classList.remove("fill-neutral-text-muted");
+      priceInputContainer.classList.remove("pointer-events-none");
+      priceInputContainer.classList.add("text-secondary");
+      priceInputContainer.classList.add("pointer-events-auto");
+      rangeInput.disabled = false;
+    } else {
+      togglePriceBtn.innerHTML = toggleSwitchOffSvg;
+      priceInputContainer.classList.remove("text-secondary");
+      priceInputContainer.classList.remove("pointer-events-auto");
+      priceInputContainer.classList.add("text-neutral-text-muted");
+      priceInputContainer.classList.add("fill-neutral-text-muted");
+      priceInputContainer.classList.add("pointer-events-none");
+      rangeInput.disabled = true;
+    }
+  };
+</script>
