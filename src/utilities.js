@@ -103,4 +103,30 @@ const validatePlushy = (() => {
   return validation;
 })();
 
-export { toTitleCase, formatPrice, toSlug, validatePlushy };
+const getInventoryItemInfos = async (rows, getCategories) => {
+  const items = await Promise.all(
+    (rows ?? []).map(async (row) => {
+      const categories = await getCategories(row.idplushy);
+
+      return {
+        imgSrc: row.imgsrcplushy,
+        imgAlt: row.imgaltplushy,
+        slug: row.slugplushy,
+        name: row.nameplushy,
+        price: row.priceplushy,
+        categories,
+        amountAvailable: row.stocksleftplushy,
+      };
+    }),
+  );
+
+  return items;
+};
+
+export {
+  toTitleCase,
+  formatPrice,
+  toSlug,
+  validatePlushy,
+  getInventoryItemInfos,
+};

@@ -15,6 +15,16 @@ const inventoryController = (() => {
       });
     }
 
+    if ("q" in req.query) {
+      const items = await db.getItemByName(req.query.q);
+      return res.render("inventory", {
+        filters,
+        items,
+        toTitleCase,
+        formatPrice,
+      });
+    }
+
     const items = await db.getItemByFilters(req.query);
     res.render("inventory", {
       filters,

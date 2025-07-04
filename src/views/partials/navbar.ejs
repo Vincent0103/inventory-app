@@ -51,9 +51,10 @@
     </section>
     <section>
       <form
-        class="navlink bg-primary-dark shadow-sm"
-        action="/search"
+        class="navlink bg-primary-dark focus-within:border-text-light shadow-sm transition-colors focus-within:border-2"
+        action="/inventory"
         method="GET"
+        tabindex="-1"
       >
         <svg
           class="size-6"
@@ -65,6 +66,7 @@
           />
         </svg>
         <input
+          class="text-white outline-none focus:ring-0 focus:outline-none"
           type="search"
           name="q"
           id="searchInput"

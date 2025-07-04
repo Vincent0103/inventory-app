@@ -1,3 +1,4 @@
+import { getInventoryItemInfos } from "../utilities";
 import pool from "./pool";
 
 const db = (() => {
@@ -109,28 +110,11 @@ const db = (() => {
   };
 
   const getItems = async () => {
-    const plushyRows = (
-      await pool.query(
-        "SELECT idPlushy, imgSrcPlushy, imgAltPlushy, slugPlushy, namePlushy, pricePlushy, stocksLeftPlushy FROM PLUSHY",
-      )
-    ).rows;
-
-    const items = await Promise.all(
-      (plushyRows ?? []).map(async (plushyRow) => {
-        const categories = await getCategories(plushyRow.idplushy);
-
-        return {
-          imgSrc: plushyRow.imgsrcplushy,
-          imgAlt: plushyRow.imgaltplushy,
-          slug: plushyRow.slugplushy,
-          name: plushyRow.nameplushy,
-          price: plushyRow.priceplushy,
-          categories,
-          amountAvailable: plushyRow.stocksleftplushy,
-        };
-      }),
+    const { rows } = await pool.query(
+      "SELECT idPlushy, imgSrcPlushy, imgAltPlushy, slugPlushy, namePlushy, pricePlushy, stocksLeftPlushy FROM PLUSHY",
     );
 
+    const items = getInventoryItemInfos(rows, getCategories);
     return items;
   };
 
@@ -435,22 +419,18 @@ const db = (() => {
 
     const { rows } = await pool.query(query, params);
 
-    const items = await Promise.all(
-      (rows ?? []).map(async (row) => {
-        const categories = await getCategories(row.idplushy);
+    const items = getInventoryItemInfos(rows, getCategories);
+    return items;
+  };
 
-        return {
-          imgSrc: row.imgsrcplushy,
-          imgAlt: row.imgaltplushy,
-          slug: row.slugplushy,
-          name: row.nameplushy,
-          price: row.priceplushy,
-          categories,
-          amountAvailable: row.stocksleftplushy,
-        };
-      }),
+  const getItemByName = async (name) => {
+    const { rows } = await pool.query(
+      "SELECT * FROM PLUSHY WHERE LOWER(namePlushy) LIKE $1",
+      [`%${name.toLowerCase()}%`],
     );
+    if (!rows) throw new Error(`Could not find plushy of name ${name}`);
 
+    const items = getInventoryItemInfos(rows, getCategories);
     return items;
   };
 
@@ -466,6 +446,7 @@ const db = (() => {
     getIdFromSquishiness,
     getIdFromSize,
     getItemByFilters,
+    getItemByName,
   };
 })();
 
