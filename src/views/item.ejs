@@ -21,7 +21,7 @@
       class="fixed top-22 grid h-[600px] w-full grid-cols-[2fr_3fr] grid-rows-[auto_1fr] justify-center gap-x-10 gap-y-4 px-8"
     >
       <section
-        class="col-span-2 h-min"
+        class="col-span-2 flex h-min justify-between text-sm"
         aria-labelledby="back-to-inventory-link"
       >
         <a
@@ -30,7 +30,7 @@
           href="/inventory"
         >
           <svg
-            class="size-6"
+            class="size-5"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
           >
@@ -38,8 +38,41 @@
               d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"
             />
           </svg>
-          <span class="text-xs text-nowrap">Go back</span>
+          <span class="text-nowrap">Go back</span>
         </a>
+        <div class="flex items-center gap-1">
+          <a
+            class="hover:border-border-dark bg-primary border-border-light text-text-light fill-text-light flex cursor-pointer gap-1 rounded-md border-2 px-2 py-0.5 shadow-sm transition-colors"
+            href="/inventory/<%= slug %>/edit"
+          >
+            <svg
+              class="size-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"
+              />
+            </svg>
+            <span class="font-medium">Edit</span>
+          </a>
+          <button
+            type="button"
+            class="flex cursor-pointer gap-1 rounded-md border-2 border-red-700 bg-red-500 fill-white px-2 py-0.5 text-white shadow-sm transition-colors hover:border-red-900"
+            onclick="onDeleteBtnClick()"
+          >
+            <svg
+              class="size-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
+              />
+            </svg>
+            <span class="font-medium">Delete</span>
+          </button>
+        </div>
       </section>
       <section aria-labelledby="product-image-heading">
         <div
@@ -64,40 +97,7 @@
           />
         </div>
       </section>
-      <section class="relative" aria-labelledby="product-details-heading">
-        <div class="absolute top-0 right-0 flex gap-1">
-          <a
-            class="hover:border-border-dark bg-primary border-border-light text-text-light fill-text-light flex cursor-pointer gap-1 rounded-md border-2 px-2 py-0.5 text-sm shadow-sm transition-colors"
-            href="/inventory/<%= slug %>/edit"
-          >
-            <svg
-              class="size-5"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"
-              />
-            </svg>
-            <span class="font-medium">Edit</span>
-          </a>
-          <button
-            type="button"
-            class="flex cursor-pointer gap-1 rounded-md border-2 border-red-700 bg-red-500 fill-white px-2 py-0.5 text-sm text-white shadow-sm transition-colors hover:border-red-900"
-            onclick="onDeleteBtnClick()"
-          >
-            <svg
-              class="size-5"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
-              />
-            </svg>
-            <span class="font-medium">Delete</span>
-          </button>
-        </div>
+      <section aria-labelledby="product-details-heading">
         <h2
           id="product-details-heading"
           class="text-text-dark text-3xl font-bold"
