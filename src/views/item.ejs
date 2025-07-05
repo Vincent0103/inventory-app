@@ -16,7 +16,7 @@
     class="font-montserrat text-text-light fill-text-light from-secondary to-secondary-dark min-h-screen w-full bg-linear-to-b before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-[url('/images/wallpapers/homepage-bgi.png')] before:bg-repeat before:opacity-[0.03] before:content-['']"
   >
     <%- include("partials/deletePopup.ejs", { slug }) %> <%-
-    include("partials/navbar.ejs") %>
+    include("partials/navbar.ejs", { navBg: "secondary" }) %>
     <main
       class="fixed top-22 left-1/2 grid h-full max-h-[600px] w-full max-w-[1400px] -translate-x-1/2 grid-cols-[2fr_3fr] grid-rows-[auto_1fr] justify-center gap-x-10 gap-y-4 px-8"
     >

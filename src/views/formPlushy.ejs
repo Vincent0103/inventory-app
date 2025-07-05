@@ -16,7 +16,7 @@
     class="font-montserrat text-text-light fill-text-light from-secondary-dark to-secondary min-h-screen w-full bg-linear-to-b before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-[url('/images/wallpapers/homepage-bgi.png')] before:bg-repeat before:opacity-[0.03] before:content-['']"
     id="creation-page"
   >
-    <%- include("partials/navbar.ejs") %>
+    <%- include("partials/navbar.ejs", { navBg: "secondary-dark" }) %>
     <main class="mt-[67px] flex items-center justify-center p-6">
       <form
         class="border-border-dark text-neutral-text-dark space-y-4 rounded-xl border-4 bg-gradient-to-b from-[#FFD6FF] from-0% via-white via-20% to-white to-100% p-8 font-medium"
