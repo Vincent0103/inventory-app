@@ -1,6 +1,6 @@
 <% if (locals.isBigger) { %>
-<span
-  class="relative flex h-26 w-50 items-center justify-center rounded-xl border-4 p-2 text-xl font-bold shadow-lg"
+<div
+  class="relative flex h-26 w-full items-center justify-center rounded-xl border-4 p-2 text-xl font-bold shadow-lg"
   style="
     /* E6 is the hex representation of 0.9 opacity in rgba */
     background-color: <%= bgColor %>;
@@ -12,7 +12,7 @@
   <div class="absolute top-0 right-0 flex gap-1 p-2">
     <button class="cursor-pointer">
       <svg
-        class="size-4"
+        class="size-5"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >
@@ -23,7 +23,7 @@
     </button>
     <button class="cursor-pointer">
       <svg
-        class="size-4"
+        class="size-5"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >
@@ -34,7 +34,7 @@
     </button>
   </div>
   <h2 class="overflow-x-hidden text-nowrap text-ellipsis"><%= name %></h2>
-</span>
+</div>
 <% } else { %>
 <span
   class="rounded-md px-1 py-0.5 text-xs font-medium text-nowrap shadow-sm sm:px-2 sm:py-1"

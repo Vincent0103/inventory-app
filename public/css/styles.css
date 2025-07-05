@@ -373,23 +373,8 @@
   .h-9 {
     height: calc(var(--spacing) * 9);
   }
-  .h-18 {
-    height: calc(var(--spacing) * 18);
-  }
-  .h-24 {
-    height: calc(var(--spacing) * 24);
-  }
   .h-26 {
     height: calc(var(--spacing) * 26);
-  }
-  .h-28 {
-    height: calc(var(--spacing) * 28);
-  }
-  .h-32 {
-    height: calc(var(--spacing) * 32);
-  }
-  .h-64 {
-    height: calc(var(--spacing) * 64);
   }
   .h-72 {
     height: calc(var(--spacing) * 72);
@@ -420,12 +405,6 @@
   }
   .w-15 {
     width: calc(var(--spacing) * 15);
-  }
-  .w-20 {
-    width: calc(var(--spacing) * 20);
-  }
-  .w-28 {
-    width: calc(var(--spacing) * 28);
   }
   .w-40 {
     width: calc(var(--spacing) * 40);
@@ -472,8 +451,26 @@
   .list-none {
     list-style-type: none;
   }
+  .auto-cols-\[minmax\(0\,1fr\)\] {
+    grid-auto-columns: minmax(0,1fr);
+  }
+  .auto-cols-\[minmax\(200px\,1fr\)\] {
+    grid-auto-columns: minmax(200px,1fr);
+  }
+  .auto-cols-fr {
+    grid-auto-columns: minmax(0, 1fr);
+  }
+  .auto-cols-min {
+    grid-auto-columns: min-content;
+  }
   .grid-flow-col {
     grid-auto-flow: column;
+  }
+  .auto-rows-\[minmax\(200px\,1fr\)\] {
+    grid-auto-rows: minmax(200px,1fr);
+  }
+  .auto-rows-fr {
+    grid-auto-rows: minmax(0, 1fr);
   }
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -481,14 +478,17 @@
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  .grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
   .grid-cols-\[1fr\] {
     grid-template-columns: 1fr;
   }
+  .grid-cols-\[repeat\(auto-fit\,minmax\(200px\,1fr\)\)\] {
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  }
   .grid-rows-2 {
     grid-template-rows: repeat(2, minmax(0, 1fr));
-  }
-  .grid-rows-\[auto_1fr\] {
-    grid-template-rows: auto 1fr;
   }
   .grid-rows-\[auto_auto_1fr\] {
     grid-template-rows: auto auto 1fr;
@@ -510,9 +510,6 @@
   }
   .justify-center {
     justify-content: center;
-  }
-  .justify-end {
-    justify-content: flex-end;
   }
   .justify-items-center {
     justify-items: center;
@@ -577,6 +574,13 @@
       margin-block-end: calc(calc(var(--spacing) * 6) * calc(1 - var(--tw-space-y-reverse)));
     }
   }
+  .space-y-8 {
+    :where(& > :not(:last-child)) {
+      --tw-space-y-reverse: 0;
+      margin-block-start: calc(calc(var(--spacing) * 8) * var(--tw-space-y-reverse));
+      margin-block-end: calc(calc(var(--spacing) * 8) * calc(1 - var(--tw-space-y-reverse)));
+    }
+  }
   .gap-x-10 {
     column-gap: calc(var(--spacing) * 10);
   }
@@ -599,9 +603,6 @@
   }
   .self-center {
     align-self: center;
-  }
-  .justify-self-end {
-    justify-self: flex-end;
   }
   .overflow-hidden {
     overflow: hidden;
@@ -692,12 +693,6 @@
   }
   .bg-primary-dark {
     background-color: var(--color-primary-dark);
-  }
-  .bg-primary-dark\/90 {
-    background-color: color-mix(in srgb, oklch(0.3845 0.1586 332.64) 90%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      background-color: color-mix(in oklab, var(--color-primary-dark) 90%, transparent);
-    }
   }
   .bg-red-500 {
     background-color: var(--color-red-500);
@@ -837,9 +832,6 @@
   .px-3 {
     padding-inline: calc(var(--spacing) * 3);
   }
-  .px-6 {
-    padding-inline: calc(var(--spacing) * 6);
-  }
   .px-8 {
     padding-inline: calc(var(--spacing) * 8);
   }
@@ -855,26 +847,14 @@
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
   }
-  .py-3 {
-    padding-block: calc(var(--spacing) * 3);
-  }
   .py-4 {
     padding-block: calc(var(--spacing) * 4);
-  }
-  .py-5 {
-    padding-block: calc(var(--spacing) * 5);
   }
   .py-6 {
     padding-block: calc(var(--spacing) * 6);
   }
-  .pt-4 {
-    padding-top: calc(var(--spacing) * 4);
-  }
-  .pt-5 {
-    padding-top: calc(var(--spacing) * 5);
-  }
-  .pb-7 {
-    padding-bottom: calc(var(--spacing) * 7);
+  .py-10 {
+    padding-block: calc(var(--spacing) * 10);
   }
   .pl-8 {
     padding-left: calc(var(--spacing) * 8);
@@ -1150,6 +1130,20 @@
       }
     }
   }
+  .hover\:fill-black {
+    &:hover {
+      @media (hover: hover) {
+        fill: var(--color-black);
+      }
+    }
+  }
+  .hover\:fill-white {
+    &:hover {
+      @media (hover: hover) {
+        fill: var(--color-white);
+      }
+    }
+  }
   .hover\:brightness-90 {
     &:hover {
       @media (hover: hover) {
@@ -1261,11 +1255,6 @@
       max-height: 550px;
     }
   }
-  .sm\:w-20 {
-    @media (width >= 40rem) {
-      width: calc(var(--spacing) * 20);
-    }
-  }
   .sm\:w-32 {
     @media (width >= 40rem) {
       width: calc(var(--spacing) * 32);
@@ -1279,6 +1268,11 @@
   .sm\:w-\[200px\] {
     @media (width >= 40rem) {
       width: 200px;
+    }
+  }
+  .sm\:grid-cols-2 {
+    @media (width >= 40rem) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
   .sm\:grid-cols-3 {
@@ -1379,14 +1373,34 @@
       box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
     }
   }
-  .md\:w-full {
+  .md\:grid-cols-4 {
     @media (width >= 48rem) {
-      width: 100%;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
   .lg\:block {
     @media (width >= 64rem) {
       display: block;
+    }
+  }
+  .lg\:grid-cols-3 {
+    @media (width >= 64rem) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .lg\:grid-cols-5 {
+    @media (width >= 64rem) {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+  .xl\:grid-cols-4 {
+    @media (width >= 80rem) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  .xl\:grid-cols-5 {
+    @media (width >= 80rem) {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
     }
   }
 }
