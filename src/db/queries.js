@@ -401,20 +401,6 @@ const db = (() => {
       const priceCondition = parseInt(price, 10) < MAX_PRICE ? "<=" : ">=";
       query += ` AND P.pricePlushy ${priceCondition} ${pricePlaceholder}`;
     }
-
-    query += `
-      GROUP BY P.idPlushy, slugPlushy, namePlushy, pricePlushy
-      HAVING 1=1
-    `;
-
-    if (categories.length > 0) {
-      params.push(categories.length);
-      query += ` AND COUNT(DISTINCT slugCategory) = $${params.length}`;
-    }
-    if (materials.length > 0) {
-      params.push(materials.length);
-      query += ` AND COUNT(DISTINCT slugMaterial) = $${params.length}`;
-    }
     query += ";";
 
     const { rows } = await pool.query(query, params);
