@@ -13,15 +13,15 @@
     <title><%= name %> | Y2Plush</title>
   </head>
   <body
-    class="font-montserrat text-text-light fill-text-light from-secondary to-secondary-dark min-h-screen w-full bg-linear-to-b before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-[url('/images/wallpapers/homepage-bgi.png')] before:bg-repeat before:opacity-[0.03] before:content-['']"
+    class="font-montserrat text-text-light fill-text-light from-secondary to-secondary-dark h-full min-h-screen w-full bg-linear-to-b before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-[url('/images/wallpapers/homepage-bgi.png')] before:bg-repeat before:opacity-[0.03] before:content-['']"
   >
     <%- include("partials/deletePopup.ejs", { slug }) %> <%-
     include("partials/navbar.ejs", { navBg: "secondary" }) %>
     <main
-      class="fixed top-22 left-1/2 grid h-full max-h-[600px] w-full max-w-[1400px] -translate-x-1/2 grid-cols-[2fr_3fr] grid-rows-[auto_1fr] justify-center gap-x-10 gap-y-4 px-8"
+      class="mt-12 grid max-w-[1400px] grid-cols-[1fr] grid-rows-[auto_auto_1fr] justify-center gap-x-10 gap-y-4 p-8 sm:grid-cols-[2fr_3fr] sm:grid-rows-[auto_1fr]"
     >
       <section
-        class="col-span-2 flex h-min justify-between text-sm"
+        class="flex justify-between text-sm sm:col-span-2"
         aria-labelledby="back-to-inventory-link"
       >
         <a
@@ -38,7 +38,7 @@
               d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"
             />
           </svg>
-          <span class="text-nowrap">Go back</span>
+          <span class="hidden text-nowrap sm:block">Go back</span>
         </a>
         <div class="flex items-center gap-1">
           <a
@@ -54,7 +54,7 @@
                 d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"
               />
             </svg>
-            <span class="font-medium">Edit</span>
+            <span class="hidden font-medium sm:block">Edit</span>
           </a>
           <button
             type="button"
@@ -70,13 +70,13 @@
                 d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
               />
             </svg>
-            <span class="font-medium">Delete</span>
+            <span class="hidden font-medium sm:block">Delete</span>
           </button>
         </div>
       </section>
-      <section aria-labelledby="product-image-heading">
+      <section class="my-3" aria-labelledby="product-image-heading">
         <div
-          class="size-full overflow-hidden shadow-2xl"
+          class="size-full max-h-[300px] border-4 border-transparent shadow-lg sm:max-h-[550px] sm:border-[6px] sm:shadow-2xl"
           style="
             background:
               linear-gradient(white, white) padding-box,
@@ -86,7 +86,6 @@
                   oklch(0.5662 0.1959 332.44)
                 )
                 border-box;
-            border: 6px solid transparent;
           "
         >
           <img
