@@ -50,7 +50,30 @@ const db = (() => {
     ];
   };
 
-  const getCategories = async (idPlushy) => {
+  const getCategories = async () => {
+    const { rows } = await pool.query("SELECT * FROM CATEGORY");
+    if (!rows) throw new Error("Could not fetch categories");
+
+    return []
+      .concat(rows)
+      .map(
+        ({
+          namecategory,
+          slugcategory,
+          bgcolorcategory,
+          bordercolorcategory,
+          textwhite,
+        }) => ({
+          name: namecategory,
+          slug: slugcategory,
+          bgColor: bgcolorcategory,
+          borderColor: bordercolorcategory,
+          textColor: textwhite ? "#FFFFFF" : "#000000",
+        }),
+      );
+  };
+
+  const getCategoriesByPlushy = async (idPlushy) => {
     const categoryRows = (
       await pool.query(
         "SELECT idCategory FROM CATEGORYPLUSHY WHERE idPlushy = $1",
@@ -114,7 +137,7 @@ const db = (() => {
       "SELECT idPlushy, imgSrcPlushy, imgAltPlushy, slugPlushy, namePlushy, pricePlushy, stocksLeftPlushy FROM PLUSHY",
     );
 
-    const items = getInventoryItemInfos(rows, getCategories);
+    const items = getInventoryItemInfos(rows, getCategoriesByPlushy);
     return items;
   };
 
@@ -140,7 +163,7 @@ const db = (() => {
     ).rows[0];
     const valuesquishiness = squishinessRow?.valuesquishiness ?? "";
 
-    const categories = await getCategories(plushyRow.idplushy);
+    const categories = await getCategoriesByPlushy(plushyRow.idplushy);
     const materials = await getMaterials(plushyRow.idplushy);
 
     const creationDateValue = plushyRow.creationdateplushy
@@ -405,7 +428,7 @@ const db = (() => {
 
     const { rows } = await pool.query(query, params);
 
-    const items = getInventoryItemInfos(rows, getCategories);
+    const items = getInventoryItemInfos(rows, getCategoriesByPlushy);
     return items;
   };
 
@@ -416,13 +439,14 @@ const db = (() => {
     );
     if (!rows) throw new Error(`Could not find plushy of name ${name}`);
 
-    const items = getInventoryItemInfos(rows, getCategories);
+    const items = getInventoryItemInfos(rows, getCategoriesByPlushy);
     return items;
   };
 
   return {
     getFilters,
     getCategories,
+    getCategoriesByPlushy,
     getItems,
     getItem,
     hasItem,

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Categories | Y2Plush</title>
+  </head>
+  <body
+    class="font-montserrat text-text-light fill-text-light from-secondary to-secondary-dark min-h-screen w-full bg-linear-to-b bg-fixed before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-[url('/images/wallpapers/homepage-bgi.png')] before:bg-repeat before:opacity-[0.03] before:content-['']"
+  >
+    <%- include("partials/navbar.ejs", { navBg: "secondary" }) %>
+    <main class="mt-[70px] flex flex-col items-center px-8 py-6">
+      <div class="space-y-6">
+        <header>
+          <h1 class="font-comico text-text-dark text-3xl">CATEGORIES</h1>
+        </header>
+        <section class="flex flex-wrap gap-4">
+          <% categories.forEach((category) => { %> <%-
+          include('partials/tag.ejs', {...category, isBigger: true}) %> <% });
+          %>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

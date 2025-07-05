@@ -1,5 +1,6 @@
 import { body } from "express-validator";
 import db from "./db/queries";
+import hexRgb from "hex-rgb";
 
 const toTitleCase = (str) => {
   return str.replace(
@@ -103,10 +104,10 @@ const validatePlushy = (() => {
   return validation;
 })();
 
-const getInventoryItemInfos = async (rows, getCategories) => {
+const getInventoryItemInfos = async (rows, getCategoriesByPlushy) => {
   const items = await Promise.all(
     (rows ?? []).map(async (row) => {
-      const categories = await getCategories(row.idplushy);
+      const categories = await getCategoriesByPlushy(row.idplushy);
 
       return {
         imgSrc: row.imgsrcplushy,
@@ -123,10 +124,17 @@ const getInventoryItemInfos = async (rows, getCategories) => {
   return items;
 };
 
+const toHtmlRGBA = (hex, alphaHex) => {
+  return "rgba("
+    .concat(Object.values(hexRgb(hex.concat(alphaHex))).join(", "))
+    .concat(")");
+};
+
 export {
   toTitleCase,
   formatPrice,
   toSlug,
   validatePlushy,
   getInventoryItemInfos,
+  toHtmlRGBA,
 };

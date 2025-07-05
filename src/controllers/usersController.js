@@ -1,5 +1,5 @@
 import db from "../db/queries";
-import { toSlug, validatePlushy } from "../utilities";
+import { toSlug, validatePlushy, toHtmlRGBA } from "../utilities";
 import { validationResult } from "express-validator";
 
 const usersController = (() => {
@@ -69,7 +69,17 @@ const usersController = (() => {
     },
   ];
 
-  return { homepageGet, createItemGet, createItemPost };
+  const categoriesGet = async (req, res) => {
+    let categories = await db.getCategories();
+    const POINT_NINE_ALPHA_HEX = "E6";
+    categories = categories.map((category) => ({
+      ...category,
+      bgColor: toHtmlRGBA(category.bgColor, POINT_NINE_ALPHA_HEX),
+    }));
+    res.render("categories", { categories });
+  };
+
+  return { homepageGet, createItemGet, createItemPost, categoriesGet };
 })();
 
 export default usersController;
