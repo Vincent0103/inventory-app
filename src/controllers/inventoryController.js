@@ -44,6 +44,8 @@ const inventoryController = (() => {
     const { itemSlug } = req.params;
     const item = await db.getItem(itemSlug);
     res.render("formPlushy", {
+      hasGoBackBtn: true,
+      slug: itemSlug,
       title: "Edit plushy",
       action: `/inventory/${itemSlug}/edit`,
       nameValue: item.name,
@@ -68,6 +70,7 @@ const inventoryController = (() => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).render("formPlushy", {
+          hasGoBackBtn: true,
           title: "Edit plushy",
           action: `/inventory/${toSlug(req.body.name)}/edit`,
           errors: errors.array(),

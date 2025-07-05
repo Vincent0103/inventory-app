@@ -337,6 +337,9 @@
   .ml-6 {
     margin-left: calc(var(--spacing) * 6);
   }
+  .ml-\[200px\] {
+    margin-left: 200px;
+  }
   .box-border {
     box-sizing: border-box;
   }
@@ -1149,6 +1152,26 @@
     &:focus {
       --tw-outline-style: none;
       outline-style: none;
+    }
+  }
+  .min-\[660px\]\:grid-cols-2 {
+    @media (width >= 660px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .min-\[880px\]\:grid-cols-3 {
+    @media (width >= 880px) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .min-\[1120px\]\:grid-cols-4 {
+    @media (width >= 1120px) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  .min-\[1380px\]\:grid-cols-5 {
+    @media (width >= 1380px) {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
     }
   }
   .sm\:pointer-events-auto {
