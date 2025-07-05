@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title><%= title %> | Y2Plush</title>
+  </head>
+  <body
+    class="font-montserrat text-text-light fill-text-light from-secondary-dark to-secondary min-h-screen w-full bg-linear-to-b before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-[url('/images/wallpapers/homepage-bgi.png')] before:bg-repeat before:opacity-[0.03] before:content-['']"
+    id="creation-page"
+  >
+    <%- include("partials/navbar.ejs", { navBg: "secondary-dark" }) %>
+    <main class="mt-[67px] flex justify-center items-center p-6">
+      <div class="flex flex-col gap-4">
+        <% if (locals.hasGoBackBtn) { %>
+        <a
+          class="hover:border-border-dark bg-primary-dark border-border-light text-text-light fill-text-light flex w-min items-center rounded-md border-2 px-2 py-0.5 font-medium shadow-sm transition-colors"
+          id="back-to-inventory-link"
+          href="/inventory/<%= slug %>"
+        >
+          <svg
+            class="size-5"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"
+            />
+          </svg>
+          <span class="hidden text-nowrap sm:block">Go back</span>
+        </a> 
+        <% } %>
+        <form
+          class="border-border-dark text-neutral-text-dark space-y-4 rounded-xl border-4 bg-gradient-to-b from-[#FFD6FF] from-0% via-white via-20% to-white to-100% p-8 font-medium"
+          action="<%= action %>"
+          method="POST"
+        >
+          <h1 class="text-text-dark font-comico mb-6 text-3xl"><%= title %></h1>
+          <%- include("partials/errors.ejs") %>
+          <div class="flex min-w-[200px] flex-1 flex-col gap-1">
+            <label class="ml-2" for="name"
+              >Name<span class="text-red-500">*</span></label
+            >
+            <input
+              class="border-neutral-border h-9 w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
+              type="text"
+              name="name"
+              id="name"
+              <% if (locals.nameValue) { %>
+                value="<%= nameValue %>"
+              <% } %>
+              maxlength="255"
+              required
+            />
+          </div>
+          <div class="flex min-w-[200px] flex-1 flex-col gap-1">
+            <label class="ml-2" for="creationDate"
+              >Background color<span class="text-red-500">*</span></label
+            >
+            <input
+              class="border-neutral-border h-9 w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
+              type="color"
+              name="creationDate"
+              id="creationDate"
+              max="<%= new Date().toISOString().split('T')[0] %>"
+              <% if (locals.creationDateValue) { %>
+                value="<%= creationDateValue %>"
+              <% } else { %>
+                value="<%= new Date().toISOString().split('T')[0] %>"
+              <% } %>
+              required
+            />
+          </div>
+          <button
+            class="text-text-light bg-primary-dark mx-auto mt-6 block cursor-pointer rounded-md border-2 border-pink-950 px-3 py-1 text-xl font-semibold transition-colors hover:border-pink-300"
+            type="submit"
+          >
+            <%= submitBtnTextContent %>
+          </button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

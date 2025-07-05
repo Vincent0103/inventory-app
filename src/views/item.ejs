@@ -18,7 +18,7 @@
     <%- include("partials/deletePopup.ejs", { slug }) %> <%-
     include("partials/navbar.ejs", { navBg: "secondary" }) %>
     <main
-      class="mt-12 grid max-w-[1400px] grid-cols-[1fr] grid-rows-[auto_auto_1fr] justify-center gap-x-10 gap-y-4 p-8 sm:grid-cols-[2fr_3fr] sm:grid-rows-[auto_1fr]"
+      class="mx-auto mt-12 grid max-w-[1400px] grid-cols-[1fr] grid-rows-[auto_auto_1fr] justify-center gap-x-10 gap-y-4 p-8 sm:grid-cols-[2fr_3fr] sm:grid-rows-[auto_1fr]"
     >
       <section
         class="flex justify-between text-sm sm:col-span-2"
@@ -43,7 +43,7 @@
         <div class="flex items-center gap-1">
           <a
             class="hover:border-border-dark bg-primary border-border-light text-text-light fill-text-light flex cursor-pointer gap-1 rounded-md border-2 px-2 py-0.5 shadow-sm transition-colors"
-            href="/inventory/<%= slug %>/edit"
+            href="/inventory/edit/<%= slug %>"
           >
             <svg
               class="size-5"

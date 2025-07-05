@@ -1,13 +1,8 @@
-import db from "../db/queries";
-import { toSlug, validatePlushy, toHtmlRGBA } from "../utilities";
 import { validationResult } from "express-validator";
+import { toSlug, validatePlushy } from "../utilities";
 
-const usersController = (() => {
-  const homepageGet = (req, res) => {
-    res.render("index");
-  };
-
-  const createItemGet = (req, res) => {
+const creationController = (() => {
+  const createPlushyGet = (req, res) => {
     res.render("formPlushy", {
       title: "Create plushy",
       action: "/create/plushy",
@@ -15,7 +10,7 @@ const usersController = (() => {
     });
   };
 
-  const createItemPost = [
+  const createPlushyPost = [
     validatePlushy,
     async (req, res) => {
       const errors = validationResult(req);
@@ -69,17 +64,7 @@ const usersController = (() => {
     },
   ];
 
-  const categoriesGet = async (req, res) => {
-    let categories = await db.getCategories();
-    const POINT_NINE_ALPHA_HEX = "E6";
-    categories = categories.map((category) => ({
-      ...category,
-      bgColor: toHtmlRGBA(category.bgColor, POINT_NINE_ALPHA_HEX),
-    }));
-    res.render("categories", { categories });
-  };
-
-  return { homepageGet, createItemGet, createItemPost, categoriesGet };
+  return { createPlushyGet, createPlushyPost };
 })();
 
-export default usersController;
+export default creationController;
