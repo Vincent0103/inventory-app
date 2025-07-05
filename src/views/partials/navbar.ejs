@@ -49,8 +49,8 @@
             <span class="hidden lg:block">Categories</span>
           </a>
         </li>
-        <li>
-          <a class="navlink sm:shadow-sm" href="/create">
+        <li class="relative">
+          <button type="button" class="peer navlink sm:shadow-sm">
             <svg
               class="size-5 sm:size-6"
               xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +61,43 @@
               />
             </svg>
             <span class="hidden lg:block">Create</span>
-          </a>
+          </button>
+          <div
+            class="pointer-events-none absolute top-8 left-0 bg-transparent py-2 opacity-0 transition-opacity peer-hover:pointer-events-auto peer-hover:opacity-100 hover:pointer-events-auto hover:opacity-100"
+          >
+            <ul
+              class="bg-primary border-border-dark flex flex-col gap-2 rounded-2xl border-2 px-4 py-3 font-medium"
+            >
+              <li>
+                <a class="group flex gap-2" href="/create/plushy">
+                  <svg
+                    class="size-5 transition-transform group-hover:translate-x-0.5 sm:size-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+                    />
+                  </svg>
+                  <span>Plushy</span>
+                </a>
+              </li>
+              <li>
+                <a class="group flex gap-2" href="/create/category">
+                  <svg
+                    class="size-5 transition-transform group-hover:translate-x-0.5 sm:size-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+                    />
+                  </svg>
+                  <span>Category</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
     </section>

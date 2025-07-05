@@ -10,7 +10,7 @@ const usersController = (() => {
   const createItemGet = (req, res) => {
     res.render("formPlushy", {
       title: "Create plushy",
-      action: "/create",
+      action: "/create/plushy",
       submitBtnTextContent: "Create",
     });
   };
@@ -22,7 +22,7 @@ const usersController = (() => {
       if (!errors.isEmpty()) {
         return res.status(400).render("formPlushy", {
           title: "Create plushy",
-          action: "/create",
+          action: "/create/plushy",
           errors: errors.array(),
           submitBtnTextContent: "Create",
         });
