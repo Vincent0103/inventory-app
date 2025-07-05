@@ -23,7 +23,7 @@
         <a
           class="hover:border-border-dark bg-primary-dark border-border-light text-text-light fill-text-light flex w-min items-center rounded-md border-2 px-2 py-0.5 font-medium shadow-sm transition-colors"
           id="back-to-inventory-link"
-          href="/inventory/<%= slug %>"
+          href="/categories"
         >
           <svg
             class="size-5"
@@ -60,21 +60,39 @@
               required
             />
           </div>
-          <div class="flex min-w-[200px] flex-1 flex-col gap-1">
-            <label class="ml-2" for="creationDate"
+          <div class="flex flex-col gap-1">
+            <label class="ml-2 text-nowrap" for="backgroundColor"
               >Background color<span class="text-red-500">*</span></label
             >
             <input
               class="border-neutral-border h-9 w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
               type="color"
-              name="creationDate"
-              id="creationDate"
-              max="<%= new Date().toISOString().split('T')[0] %>"
-              <% if (locals.creationDateValue) { %>
-                value="<%= creationDateValue %>"
-              <% } else { %>
-                value="<%= new Date().toISOString().split('T')[0] %>"
-              <% } %>
+              name="backgroundColor"
+              id="backgroundColor"
+              required
+            />
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="ml-2" for="borderColor"
+              >Border color<span class="text-red-500">*</span></label
+            >
+            <input
+              class="border-neutral-border h-9 w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
+              type="color"
+              name="borderColor"
+              id="borderColor"
+              required
+            />
+          </div>
+          <div class="flex items-center gap-4">
+            <label class="ml-2" for="textColor"
+              >Should text be white?<span class="text-red-500">*</span></label
+            >
+            <input
+              class="border-neutral-border size-5 rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
+              type="checkbox"
+              name="textColor"
+              id="textColor"
               required
             />
           </div>

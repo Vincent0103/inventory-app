@@ -8,7 +8,7 @@ const indexController = (() => {
 
   const categoriesGet = async (req, res) => {
     let categories = await db.getCategories();
-    const POINT_NINE_ALPHA_HEX = "E6";
+    const POINT_NINE_ALPHA_HEX = "E9";
     categories = categories.map((category) => ({
       ...category,
       bgColor: toHtmlRGBA(category.bgColor, POINT_NINE_ALPHA_HEX),

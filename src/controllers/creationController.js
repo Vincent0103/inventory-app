@@ -64,7 +64,15 @@ const creationController = (() => {
     },
   ];
 
-  return { createPlushyGet, createPlushyPost };
+  const createCategoryGet = (req, res) => {
+    res.render("formCategory", {
+      title: "Create category",
+      action: "/create/category",
+      submitBtnTextContent: "Create",
+    });
+  };
+
+  return { createPlushyGet, createPlushyPost, createCategoryGet };
 })();
 
 export default creationController;
