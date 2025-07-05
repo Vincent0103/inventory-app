@@ -153,7 +153,7 @@
             In which categories the plushy belongs to?
           </legend>
 
-          <div class="grid grid-cols-3 grid-rows-2 space-x-3">
+          <div class="grid grid-cols-1 sm:grid-cols-3 grid-rows-2 space-x-3">
             <div>
               <input type="checkbox" name="categories" value="y2k" id="y2k" <% if (locals.categoriesValue && categoriesValue.includes("y2k")) { %> checked <% } %> />
               <label for="y2k">Y2K</label>
@@ -190,7 +190,7 @@
         >
           <legend class="px-1">What material is the plushy made of?</legend>
 
-          <div class="grid grid-cols-3 grid-rows-2">
+          <div class="grid grid-cols-1 sm:grid-cols-3 grid-rows-2">
             <div>
               <input type="checkbox" name="materials" value="plush" id="plush" <% if (locals.materialsValue && materialsValue.includes("plush")) { %> checked <% } %> />
               <label for="plush">Plush</label>
