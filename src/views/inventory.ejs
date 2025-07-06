@@ -64,7 +64,9 @@
 
       const updatePriceFilterValue = (e) => {
         const filterPriceValue = document.getElementById("filter-price-value");
-        const { value, max } = e.target;
+
+        // e is either sent via its event object or a query selector
+        const { value, max } = e?.target || e;
 
         filterPriceValue.innerHTML =
           value !== max

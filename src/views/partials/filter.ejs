@@ -4,7 +4,7 @@
   class="flex cursor-pointer items-center gap-2"
 >
   <svg
-    class="mx-1.5 size-6 transition-transform"
+    class="<% if (locals?.userInputs && !!userInputs[filterName]) { %> -rotate-180 <% } %> mx-1.5 size-6 transition-transform"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
   >
@@ -13,7 +13,7 @@
   <h3 class="text-md"><%= toTitleCase(filterName) %></h3>
 </button>
 <ul
-  class="max-h-0 space-y-1 overflow-hidden p-0 pl-8 font-normal transition-all"
+  class="<% if (locals?.userInputs && !!userInputs[filterName]) { %> max-h-96 py-2 <% } else { %> max-h-0 p-0 <% } %> space-y-1 overflow-hidden pl-8 font-normal transition-all"
   id="<%= filterName %>-options"
 >
   <% list.forEach((item) => { %>
@@ -24,6 +24,9 @@
       value="<%= item.value %>"
       id="<%= item.value %>"
       aria-label="<%= item.name %> <%= toTitleCase(filterChildName) %> filter"
+      <% if (locals?.userInputs && [].concat(userInputs[filterName]).includes(item.value)) { %>
+        checked
+      <% } %>
     />
     <span><%= item.name %></span>
   </li>

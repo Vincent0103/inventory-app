@@ -99,7 +99,7 @@
             <img
               class="mt-2 <% if (!locals?.userInputs?.imgSrc) { %> hidden <% } %> h-full max-h-40 rounded object-cover shadow"
               id="imgPreview"
-              <% if (locals?.userInputs?.imgSrc && locals?.userInputs?.imgAlt) { %>
+              <% if (locals?.userInputs?.imgSrc) { %>
                 src="<%= userInputs.imgSrc %>"
                 alt="<%= userInputs.imgAlt %>"
               <% } else { %>

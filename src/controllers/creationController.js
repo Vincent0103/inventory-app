@@ -1,6 +1,5 @@
 import db from "../db/queries";
 import { validationResult } from "express-validator";
-import { toSlug } from "../utilities";
 import utilityController from "./utilityController";
 
 const creationController = (() => {
@@ -24,6 +23,7 @@ const creationController = (() => {
           action: "/create/plushy",
           categories: await db.getCategories(),
           materials: await db.getMaterials(),
+          userInputs: req.body,
           errors: errors.array(),
           submitBtnTextContent: "Create",
         });
@@ -52,6 +52,7 @@ const creationController = (() => {
         return res.status(400).render("formCategory", {
           title: "Create category",
           action: "/create/category",
+          userInputs: req.body,
           errors: errors.array(),
           submitBtnTextContent: "Create",
         });
