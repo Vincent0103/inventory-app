@@ -54,8 +54,8 @@
                 type="text"
                 name="name"
                 id="name"
-                <% if (locals.nameValue) { %>
-                  value="<%= nameValue %>"
+                <% if (locals?.userInputs?.name) { %>
+                  value="<%= userInputs.name %>"
                 <% } %>
                 maxlength="255"
                 required
@@ -71,8 +71,8 @@
                 name="creationDate"
                 id="creationDate"
                 max="<%= new Date().toISOString().split('T')[0] %>"
-                <% if (locals.creationDateValue) { %>
-                  value="<%= creationDateValue %>"
+                <% if (locals?.userInputs?.creationDate) { %>
+                  value="<%= userInputs.creationDate %>"
                 <% } else { %>
                   value="<%= new Date().toISOString().split('T')[0] %>"
                 <% } %>
@@ -81,27 +81,27 @@
             </div>
           </div>
           <div class="flex flex-col gap-1">
-            <label class="ml-2" for="imgUrl"
+            <label class="ml-2" for="imgSrc"
               >Image URL<span class="text-red-500">*</span></label
             >
             <input
               class="border-neutral-border h-9 w-full rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
               type="url"
-              name="imgUrl"
-              id="imgUrl"
-              <% if (locals.imgUrlValue) { %>
-                value="<%= imgUrlValue %>"
+              name="imgSrc"
+              id="imgSrc"
+              <% if (locals?.userInputs?.imgSrc) { %>
+                value="<%= userInputs.imgSrc %>"
               <% } %>
               required
             />
           </div>
           <div class="w-full">
             <img
-              class="mt-2 <% if (!locals.imgUrlValue) { %> hidden <% } %> h-full max-h-40 rounded object-cover shadow"
+              class="mt-2 <% if (!locals?.userInputs?.imgSrc) { %> hidden <% } %> h-full max-h-40 rounded object-cover shadow"
               id="imgPreview"
-              <% if (locals.imgUrlValue && locals.imgAltValue) { %>
-                src="<%= imgUrlValue %>"
-                alt="<%= imgAltValue %>"
+              <% if (locals?.userInputs?.imgSrc && locals?.userInputs?.imgAlt) { %>
+                src="<%= userInputs.imgSrc %>"
+                alt="<%= userInputs.imgAlt %>"
               <% } else { %>
                 src=""
                 alt="Image preview of the url inputted"
@@ -116,14 +116,14 @@
               id="desc"
               rows="4"
               maxlength="500"
-            ><% if (locals.descValue) { %><%= descValue %><% } %></textarea>
+            ><% if (locals?.userInputs?.desc) { %><%= userInputs.desc %><% } %></textarea>
             <small
               id="descCharacterCount"
               class="text-neutral-text-muted pointer-events-none absolute right-0 bottom-0 px-2 py-0.5"
               >
-              <% if (locals.descValue) { %>
-                <%= 500 - descValue.length %>
-              <%} else {%>
+              <% if (locals?.userInputs?.desc) { %>
+                <%= 500 - userInputs.desc.length %>
+              <% } else { %>
                 500
               <% } %>
             </small>
@@ -140,8 +140,8 @@
                 id="price"
                 min="0"
                 step="0.01"
-                <% if (locals.priceValue) { %>
-                  value="<%= priceValue %>"
+                <% if (locals?.userInputs?.price) { %>
+                  value="<%= userInputs.price %>"
                 <% } %>
                 required
               />
@@ -156,12 +156,12 @@
                 id="size"
                 required
               >
-                <option value="" disabled <% if (!locals.sizeValue) { %>selected<% } %>>Select a size</option>
-                <option value="XS" <% if (locals.sizeValue && sizeValue === "XS") { %>selected<% } %>>XS</option>
-                <option value="S" <% if (locals.sizeValue && sizeValue === "S") { %>selected<% } %>>S</option>
-                <option value="M" <% if (locals.sizeValue && sizeValue === "M") { %>selected<% } %>>M</option>
-                <option value="L" <% if (locals.sizeValue && sizeValue === "L") { %>selected<% } %>>L</option>
-                <option value="XL" <% if (locals.sizeValue && sizeValue === "XL") { %>selected<% } %>>XL</option>
+                <option value="" disabled <% if (!locals?.userInputs?.size) { %>selected<% } %>>Select a size</option>
+                <option value="XS" <% if (locals?.userInputs?.size && userInputs.size === "XS") { %>selected<% } %>>XS</option>
+                <option value="S" <% if (locals?.userInputs?.size && userInputs.size === "S") { %>selected<% } %>>S</option>
+                <option value="M" <% if (locals?.userInputs?.size && userInputs.size === "M") { %>selected<% } %>>M</option>
+                <option value="L" <% if (locals?.userInputs?.size && userInputs.size === "L") { %>selected<% } %>>L</option>
+                <option value="XL" <% if (locals?.userInputs?.size && userInputs.size === "XL") { %>selected<% } %>>XL</option>
               </select>
             </div>
           </div>
@@ -173,36 +173,13 @@
             </legend>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 grid-rows-2 space-x-3">
-              <div>
-                <input type="checkbox" name="categories" value="y2k" id="y2k" <% if (locals.categoriesValue && categoriesValue.includes("y2k")) { %> checked <% } %> />
-                <label for="y2k">Y2K</label>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  name="categories"
-                  value="japanese-style"
-                  id="japanese-style"
-                  <% if (locals.categoriesValue && categoriesValue.includes("japanese-style")) { %> checked <% } %>
-                />
-                <label for="japanese-style">Japanese-style</label>
-              </div>
-              <div>
-                <input type="checkbox" name="categories" value="cottagecore" id="cottagecore" <% if (locals.categoriesValue && categoriesValue.includes("cottagecore")) { %> checked <% } %> />
-                <label for="cottagecore">Cottagecore</label>
-              </div>
-              <div>
-                <input type="checkbox" name="categories" value="gothic" id="gothic" <% if (locals.categoriesValue && categoriesValue.includes("gothic")) { %> checked <% } %> />
-                <label for="gothic">Gothic</label>
-              </div>
-              <div>
-                <input type="checkbox" name="categories" value="pastel-emo" id="pastel-emo" <% if (locals.categoriesValue && categoriesValue.includes("pastel-emo")) { %> checked <% } %> />
-                <label for="pastel-emo">Pastel Emo</label>
-              </div>
-              <div>
-                <input type="checkbox" name="categories" value="retro" id="retro" <% if (locals.categoriesValue && categoriesValue.includes("retro")) { %> checked <% } %> />
-                <label for="retro">Retro</label>
-              </div>
+              <% categories.forEach((category) => { %>
+                <div>
+                  <input type="checkbox" name="categories" value="<%= category.slug %>" id="<%= category.slug %>" <% if (locals?.userInputs?.categories && userInputs.categories.includes(category.slug)) { %> checked <% } %> />
+                  <label for="<%= category.slug %>"><%= category.name %></label>
+                </div>
+              <% }) %>
+            </div>
           </fieldset>
           <fieldset
             class="border-neutral-border space-y-1 rounded-md border-2 p-2"
@@ -210,30 +187,12 @@
             <legend class="px-1">What material is the plushy made of?</legend>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 grid-rows-2">
-              <div>
-                <input type="checkbox" name="materials" value="plush" id="plush" <% if (locals.materialsValue && materialsValue.includes("plush")) { %> checked <% } %> />
-                <label for="plush">Plush</label>
-              </div>
-              <div>
-                <input type="checkbox" name="materials" value="felt" id="felt" <% if (locals.materialsValue && materialsValue.includes("felt")) { %> checked <% } %> />
-                <label for="felt">Felt</label>
-              </div>
-              <div>
-                <input type="checkbox" name="materials" value="cotton" id="cotton" <% if (locals.materialsValue && materialsValue.includes("cotton")) { %> checked <% } %> />
-                <label for="cotton">Cotton</label>
-              </div>
-              <div>
-                <input type="checkbox" name="materials" value="polyester" id="polyester" <% if (locals.materialsValue && materialsValue.includes("polyester")) { %> checked <% } %> />
-                <label for="polyester">Polyester</label>
-              </div>
-              <div>
-                <input type="checkbox" name="materials" value="minky" id="minky" <% if (locals.materialsValue && materialsValue.includes("minky")) { %> checked <% } %> />
-                <label for="minky">Minky</label>
-              </div>
-              <div>
-                <input type="checkbox" name="materials" value="fleece" id="fleece" <% if (locals.materialsValue && materialsValue.includes("fleece")) { %> checked <% } %> />
-                <label for="fleece">Fleece</label>
-              </div>
+              <% materials.forEach((material) => { %>
+                <div>
+                  <input type="checkbox" name="materials" value="<%= material.slug %>" id="<%= material.slug %>" <% if (locals?.userInputs?.materials && userInputs.materials.includes(material.slug)) { %> checked <% } %> />
+                  <label for="<%= material.slug %>"><%= material.name %></label>
+                </div>
+              <% }) %>
             </div>
           </fieldset>
           <div class="flex flex-wrap gap-4">
@@ -248,11 +207,11 @@
                 required
               >
 
-                <option value="" disabled <% if (!locals.squishinessValue) { %>selected<% } %>>Select squishiness</option>
-                <option value="Not squishy" <% if (locals.squishinessValue && squishinessValue === "Not squishy") { %>selected<% } %>>Not squishy</option>
-                <option value="Kinda squishy" <% if (locals.squishinessValue && squishinessValue === "Kinda squishy") { %>selected<% } %>>Kinda squishy</option>
-                <option value="Pretty squishy" <% if (locals.squishinessValue && squishinessValue === "Pretty squishy") { %>selected<% } %>>Pretty squishy</option>
-                <option value="Really squishy" <% if (locals.squishinessValue && squishinessValue === "Really squishy") { %>selected<% } %>>Really squishy</option>
+                <option value="" disabled <% if (!locals?.userInputs?.squishiness) { %>selected<% } %>>Select squishiness</option>
+                <option value="Not squishy" <% if (locals?.userInputs?.squishiness && userInputs.squishiness === "Not squishy") { %>selected<% } %>>Not squishy</option>
+                <option value="Kinda squishy" <% if (locals?.userInputs?.squishiness && userInputs.squishiness === "Kinda squishy") { %>selected<% } %>>Kinda squishy</option>
+                <option value="Pretty squishy" <% if (locals?.userInputs?.squishiness && userInputs.squishiness === "Pretty squishy") { %>selected<% } %>>Pretty squishy</option>
+                <option value="Really squishy" <% if (locals?.userInputs?.squishiness && userInputs.squishiness === "Really squishy") { %>selected<% } %>>Really squishy</option>
               </select>
             </div>
             <div class="flex min-w-[200px] flex-1 flex-col gap-1">
@@ -265,8 +224,8 @@
                 name="stocksLeft"
                 id="stocksLeft"
                 min="0"
-                <% if (locals.stocksLeftValue) { %>
-                  value="<%= stocksLeftValue %>"
+                <% if (locals?.userInputs?.stocksLeft) { %>
+                  value="<%= userInputs.stocksLeft %>"
                 <% } %>
                 required
               />
@@ -282,13 +241,13 @@
       </div>
     </main>
     <script>
-      const imgUrlInput = document.getElementById("imgUrl");
+      const imgSrcInput = document.getElementById("imgSrc");
       const imgPreview = document.getElementById("imgPreview");
 
       const isImageUrl = (url) => /\.(jpeg|jpg|gif|png|webp|svg)$/i.test(url);
 
-      imgUrlInput.addEventListener("input", () => {
-        const url = imgUrlInput.value.trim();
+      imgSrcInput.addEventListener("input", () => {
+        const url = imgSrcInput.value.trim();
         if (url) {
           if (isImageUrl(url)) {
             imgPreview.src = url;

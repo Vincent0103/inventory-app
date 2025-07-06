@@ -1,4 +1,4 @@
-import { getInventoryPlushyInfos } from "../utilities";
+import utilityController from "../controllers/utilityController";
 import pool from "./pool";
 
 const db = (() => {
@@ -73,6 +73,16 @@ const db = (() => {
       );
   };
 
+  const getMaterials = async () => {
+    const { rows } = await pool.query("SELECT * FROM MATERIAL");
+    if (!rows) throw new Error("Could not fetch materials");
+
+    return [].concat(rows).map(({ namematerial, slugmaterial }) => ({
+      name: namematerial,
+      slug: slugmaterial,
+    }));
+  };
+
   const getCategoriesByPlushy = async (idPlushy) => {
     const categoryRows = (
       await pool.query(
@@ -109,7 +119,7 @@ const db = (() => {
     return categories;
   };
 
-  const getMaterials = async (idPlushy) => {
+  const getMaterialsByPlushy = async (idPlushy) => {
     const materialRows = (
       await pool.query(
         "SELECT idMaterial FROM MATERIALPLUSHY WHERE idPlushy = $1",
@@ -137,7 +147,10 @@ const db = (() => {
       "SELECT idPlushy, imgSrcPlushy, imgAltPlushy, slugPlushy, namePlushy, pricePlushy, stocksLeftPlushy FROM PLUSHY",
     );
 
-    const plushies = getInventoryPlushyInfos(rows, getCategoriesByPlushy);
+    const plushies = utilityController.getInventoryPlushiesInfos(
+      rows,
+      getCategoriesByPlushy,
+    );
     return plushies;
   };
 
@@ -166,7 +179,7 @@ const db = (() => {
     const valuesquishiness = squishinessRow?.valuesquishiness ?? "";
 
     const categories = await getCategoriesByPlushy(plushyRow.idplushy);
-    const materials = await getMaterials(plushyRow.idplushy);
+    const materials = await getMaterialsByPlushy(plushyRow.idplushy);
 
     const creationDateValue = plushyRow.creationdateplushy
       .toISOString()
@@ -286,8 +299,8 @@ const db = (() => {
       creationDate,
       desc,
       price,
-      selectedCategories: categories,
-      selectedMaterials: materials,
+      categories,
+      materials,
       stocksLeft,
       idSize,
       idSquishiness,
@@ -362,7 +375,7 @@ const db = (() => {
     await pool.query("DELETE FROM PLUSHY WHERE idPlushy = $1", [idPlushy]);
   };
 
-  const getPlushyByFilters = async (filters) => {
+  const getPlushiesByFilters = async (filters) => {
     const { price } = filters;
     const arrayFilters = [filters.categories, filters.materials, filters.sizes];
 
@@ -413,18 +426,24 @@ const db = (() => {
 
     const { rows } = await pool.query(query, params);
 
-    const plushies = getInventoryPlushyInfos(rows, getCategoriesByPlushy);
+    const plushies = utilityController.getInventoryPlushiesInfos(
+      rows,
+      getCategoriesByPlushy,
+    );
     return plushies;
   };
 
-  const getPlushyByName = async (name) => {
+  const getPlushiesByName = async (name) => {
     const { rows } = await pool.query(
       "SELECT * FROM PLUSHY WHERE LOWER(namePlushy) LIKE $1",
       [`%${name.toLowerCase()}%`],
     );
     if (!rows) throw new Error(`Could not find plushy of name ${name}`);
 
-    const plushies = getInventoryPlushyInfos(rows, getCategoriesByPlushy);
+    const plushies = utilityController.getInventoryPlushiesInfos(
+      rows,
+      getCategoriesByPlushy,
+    );
     return plushies;
   };
 
@@ -474,6 +493,7 @@ const db = (() => {
   return {
     getFilters,
     getCategories,
+    getMaterials,
     getCategoriesByPlushy,
     getPlushies,
     getPlushy,
@@ -481,8 +501,8 @@ const db = (() => {
     addPlushy,
     editPlushy,
     deletePlushy,
-    getPlushyByFilters,
-    getPlushyByName,
+    getPlushiesByFilters,
+    getPlushiesByName,
     getIdFromSquishiness,
     getIdFromSize,
     hasCategory,
