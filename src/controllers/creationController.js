@@ -32,7 +32,7 @@ const creationController = (() => {
       const plushy = await utilityController.getPlushyInfos(req.body);
 
       await db.addPlushy(plushy);
-      res.redirect("/inventory");
+      res.redirect(`/inventory/${plushy.slug}`);
     },
   ];
 
