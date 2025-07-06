@@ -377,13 +377,13 @@ const db = (() => {
   };
 
   const getPlushiesByFilters = async (filters) => {
-    const { price } = filters;
     const arrayFilters = [filters.categories, filters.materials, filters.sizes];
 
     // Make filters be always arrays even if its undefined or is a string
     const [categories, materials, sizes] = arrayFilters.map((filter) =>
       [].concat(filter || []),
     );
+
     const params = [];
     let query = `
       SELECT DISTINCT P.idPlushy, namePlushy, imgSrcPlushy, imgAltPlushy, slugPlushy, pricePlushy, stocksLeftPlushy FROM PLUSHY P
@@ -402,6 +402,7 @@ const db = (() => {
       params.push(...categories);
       query += ` AND C.slugCategory IN (${categoryPlaceholders})`;
     }
+
     if (materials.length > 0) {
       const materialPlaceholders = materials
         .map((_, i) => `$${params.length + i + 1}`)
@@ -409,6 +410,7 @@ const db = (() => {
       params.push(...materials);
       query += ` AND M.slugMaterial IN (${materialPlaceholders})`;
     }
+
     if (sizes.length > 0) {
       const sizePlaceholders = sizes
         .map((_, i) => `$${params.length + i + 1}`)
@@ -416,11 +418,18 @@ const db = (() => {
       params.push(...sizes);
       query += ` AND S.valueSize IN (${sizePlaceholders})`;
     }
+
+    let { price } = filters;
+    console.log(price);
     if (price) {
-      const MAX_PRICE = 50;
+      const MAX_PRICE = 55;
+      const MAX_PRICE_DIFFERENCE = 5;
+      price = parseInt(price, 10);
+
+      const priceCondition = price < MAX_PRICE ? "<=" : ">=";
       const pricePlaceholder = `$${params.length + 1}`;
-      params.push(price);
-      const priceCondition = parseInt(price, 10) < MAX_PRICE ? "<=" : ">=";
+      params.push(price < MAX_PRICE ? price : price - MAX_PRICE_DIFFERENCE);
+
       query += ` AND P.pricePlushy ${priceCondition} ${pricePlaceholder}`;
     }
     query += ";";

@@ -74,10 +74,13 @@
         // e is either sent via its event object or a query selector
         const { value, max } = e?.target || e;
 
+        // using this so we can do <= value and >= value
+        const RANGE_MAX_DIFFERENCE = 5;
+
         filterPriceValue.innerHTML =
           value !== max
             ? `${lessThanOrEqualSvg} ${value}€`
-            : `${greaterThanOrEqualSvg} ${value}€`;
+            : `${greaterThanOrEqualSvg} ${value - RANGE_MAX_DIFFERENCE}€`;
       };
 
       const onFilterCloseMobileBtnClick = () => {

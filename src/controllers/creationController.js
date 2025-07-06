@@ -61,7 +61,7 @@ const creationController = (() => {
       const category = await utilityController.getCategoryInfos(req.body);
 
       await db.addCategory(category);
-      res.redirect("/inventory");
+      res.redirect("/categories");
     },
   ];
 
