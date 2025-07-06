@@ -111,7 +111,7 @@ const validation = (() => {
       .custom(async (value, { req }) => {
         // if the past old slug is equal to the newly generated
         // slug then ask user to change name because of being non-unique
-        if (req.params.categorySlug === toSlug(req.body.category)) return true;
+        if (req.params.categorySlug === toSlug(req.body.name)) return true;
         const categoryExists = await db.hasCategory(toSlug(value));
         if (categoryExists) throw new Error(`Name ${uniqueErr}`);
       }),

@@ -1,3 +1,4 @@
+import db from "../db/queries";
 import { validationResult } from "express-validator";
 import { toSlug, validation } from "../utilities";
 
@@ -72,7 +73,41 @@ const creationController = (() => {
     });
   };
 
-  return { createPlushyGet, createPlushyPost, createCategoryGet };
+  const createCategoryPost = [
+    validation.category,
+    async (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).render("formCategory", {
+          title: "Create category",
+          action: "/create/category",
+          errors: errors.array(),
+          submitBtnTextContent: "Create",
+        });
+      }
+
+      const { name, backgroundColor, borderColor, textWhite } = req.body;
+
+      const slug = toSlug(name);
+      const category = {
+        name,
+        slug,
+        backgroundColor,
+        borderColor,
+        textWhite,
+      };
+
+      await db.addCategory(category);
+      res.redirect("/inventory");
+    },
+  ];
+
+  return {
+    createPlushyGet,
+    createPlushyPost,
+    createCategoryGet,
+    createCategoryPost,
+  };
 })();
 
 export default creationController;

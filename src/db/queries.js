@@ -447,7 +447,7 @@ const db = (() => {
     return row.idsize;
   };
 
-  const hasCategory = async (value) => {
+  const hasCategory = async (categorySlug) => {
     const categoryRow = (
       await pool.query("SELECT * FROM CATEGORY WHERE slugCategory = $1", [
         categorySlug,
@@ -455,6 +455,20 @@ const db = (() => {
     ).rows[0];
 
     return !!categoryRow;
+  };
+
+  const addCategory = async (category) => {
+    const { rows } = await pool.query(
+      `INSERT INTO CATEGORY
+      (nameCategory, slugCategory, bgColorCategory, borderColorCategory, textWhite)
+      VALUES ($1, $2, $3, $4, $5)`,
+      Object.values(category),
+    );
+
+    if (!rows)
+      throw new Error(
+        "Failed to add new category: could not retrieve its id from the database.",
+      );
   };
 
   return {
@@ -472,6 +486,7 @@ const db = (() => {
     getIdFromSquishiness,
     getIdFromSize,
     hasCategory,
+    addCategory,
   };
 })();
 
