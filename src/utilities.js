@@ -47,7 +47,7 @@ const validation = (() => {
       .custom(async (value, { req }) => {
         // if the past old slug is equal to the newly generated
         // slug then ask user to change name because of being non-unique
-        if (req.params.itemSlug === toSlug(req.body.name)) return true;
+        if (req.params.plushySlug === toSlug(req.body.name)) return true;
         const plushyExists = await db.hasPlushy(toSlug(value));
         if (plushyExists) throw new Error(`Name ${uniqueErr}`);
       }),
@@ -110,9 +110,9 @@ const validation = (() => {
       .custom(async (value, { req }) => {
         // if the past old slug is equal to the newly generated
         // slug then ask user to change name because of being non-unique
-        if (req.params.itemSlug === toSlug(req.body.category)) return true;
-        const plushyExists = await db.hasPlushy(toSlug(value));
-        if (plushyExists) throw new Error(`Name ${uniqueErr}`);
+        if (req.params.categorySlug === toSlug(req.body.category)) return true;
+        const categoryExists = await db.hasCategory(toSlug(value));
+        if (categoryExists) throw new Error(`Name ${uniqueErr}`);
       }),
     body("creationDate")
       .trim()
@@ -164,10 +164,6 @@ const validation = (() => {
   ];
 
   return { plushy, category };
-})();
-
-const validateCategory = (() => {
-  return validation;
 })();
 
 const getInventoryPlushyInfos = async (rows, getCategoriesByPlushy) => {

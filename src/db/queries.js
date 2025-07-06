@@ -362,25 +362,6 @@ const db = (() => {
     await pool.query("DELETE FROM PLUSHY WHERE idPlushy = $1", [idPlushy]);
   };
 
-  const getIdFromSquishiness = async (value) => {
-    const row = (
-      await pool.query(
-        "SELECT idSquishiness FROM SQUISHINESS WHERE valueSquishiness = $1",
-        [value],
-      )
-    ).rows[0];
-
-    return row.idsquishiness;
-  };
-
-  const getIdFromSize = async (value) => {
-    const row = (
-      await pool.query("SELECT idSize FROM SIZE WHERE valueSize = $1", [value])
-    ).rows[0];
-
-    return row.idsize;
-  };
-
   const getPlushyByFilters = async (filters) => {
     const { price } = filters;
     const arrayFilters = [filters.categories, filters.materials, filters.sizes];
@@ -447,6 +428,25 @@ const db = (() => {
     return plushies;
   };
 
+  const getIdFromSquishiness = async (value) => {
+    const row = (
+      await pool.query(
+        "SELECT idSquishiness FROM SQUISHINESS WHERE valueSquishiness = $1",
+        [value],
+      )
+    ).rows[0];
+
+    return row.idsquishiness;
+  };
+
+  const getIdFromSize = async (value) => {
+    const row = (
+      await pool.query("SELECT idSize FROM SIZE WHERE valueSize = $1", [value])
+    ).rows[0];
+
+    return row.idsize;
+  };
+
   return {
     getFilters,
     getCategories,
@@ -457,10 +457,10 @@ const db = (() => {
     addPlushy,
     editPlushy,
     deletePlushy,
-    getIdFromSquishiness,
-    getIdFromSize,
     getPlushyByFilters,
     getPlushyByName,
+    getIdFromSquishiness,
+    getIdFromSize,
   };
 })();
 
