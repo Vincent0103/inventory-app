@@ -7,7 +7,13 @@ const deleteController = (() => {
     res.redirect("/inventory");
   };
 
-  return { plushyDeleteGet };
+  const categoryDeleteGet = async (req, res) => {
+    const { categorySlug } = req.params;
+    await db.deleteCategory(categorySlug);
+    res.redirect("/categories");
+  };
+
+  return { plushyDeleteGet, categoryDeleteGet };
 })();
 
 export default deleteController;

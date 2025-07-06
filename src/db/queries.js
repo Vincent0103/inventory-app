@@ -490,6 +490,27 @@ const db = (() => {
       );
   };
 
+  const deleteCategory = async (categorySlug) => {
+    const { rows } = await pool.query(
+      "SELECT idCategory FROM CATEGORY WHERE slugCategory = $1",
+      [categorySlug],
+    );
+
+    if (!rows)
+      throw new Error(
+        `Couldn't fetch idCategory from CATEGORY with slug: ${categorySlug}`,
+      );
+
+    const idCategory = rows[0].idcategory;
+
+    await pool.query("DELETE FROM CATEGORYPLUSHY WHERE idCategory = $1", [
+      idCategory,
+    ]);
+    await pool.query("DELETE FROM CATEGORY WHERE idCategory = $1", [
+      idCategory,
+    ]);
+  };
+
   return {
     getFilters,
     getCategories,
@@ -507,6 +528,7 @@ const db = (() => {
     getIdFromSize,
     hasCategory,
     addCategory,
+    deleteCategory,
   };
 })();
 
