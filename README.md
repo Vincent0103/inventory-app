@@ -6,7 +6,7 @@ Y2Plush is a comprehensive inventory management system designed specifically for
 
 The application allows users to manage their plushy inventory with detailed categorization, filtering, and search capabilities. Users can create, edit, and delete plushies with rich metadata including size, squishiness levels, materials, categories, and stock tracking. The system also supports category management with custom color schemes and visual tags.
 
-The website has been meticulously designed with a focus on user experience and visual appeal, featuring a responsive design that works seamlessly across mobile, tablet, and desktop devices. The Y2K aesthetic is achieved through carefully chosen color palettes, gradients, and typography that evoke the nostalgic feel of the early 2000s.
+The website has been meticulously designed with a focus on user experience and visual appeal, featuring a responsive design that works seamlessly across mobile, tablet, and desktop devices. The Y2K aesthetic is achieved through carefully chosen color palettes, gradients, and typography.
 
 The most challenging aspect of this project was implementing the complex filtering system that allows users to filter plushies by multiple criteria simultaneously (categories, materials, sizes, and price ranges) while maintaining good performance with the PostgreSQL database. The search functionality with real-time input handling and the dynamic navbar background system also required careful attention to detail.
 
