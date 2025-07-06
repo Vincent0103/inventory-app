@@ -22,8 +22,8 @@ function toSlug(str) {
 const formatPrice = (n) => n.toString().replace(/\./, ",").concat("€");
 
 const validation = (() => {
-  const wordAndWhitespaceErr =
-    "must only contain letters, numbers, underscores or spaces";
+  const nameErr =
+    "must start and end with a letter, contain only letters, numbers, and spaces";
   const uniqueErr = "already exists, please choose another one";
   const lengthErr = (maxLength) =>
     `must be between 1 and ${maxLength} characters`;
@@ -36,12 +36,13 @@ const validation = (() => {
   const sizeErr = "must be a proper sizing (XS, S, M, L, XL)";
   const squishinessErr =
     "must select a valid squishiness option from the select dropdown";
+  const colorErr = "must be a valid hex color (e.g., #FF0000 or #F00)";
 
   const plushy = [
     body("name")
       .trim()
-      .matches(/^[\w\s]+$/)
-      .withMessage(`Name ${wordAndWhitespaceErr}`)
+      .matches(/^[a-zA-Z][a-zA-Z0-9\s]*[a-zA-Z]$/)
+      .withMessage(`Name ${nameErr}`)
       .isLength({ min: 1, max: 255 })
       .withMessage(`Name ${lengthErr(255)}`)
       .custom(async (value, { req }) => {
@@ -103,8 +104,8 @@ const validation = (() => {
   const category = [
     body("name")
       .trim()
-      .matches(/^[\w\s]+$/)
-      .withMessage(`Name ${wordAndWhitespaceErr}`)
+      .matches(/^[a-zA-Z][a-zA-Z0-9\s]*[a-zA-Z]$/)
+      .withMessage(`Name ${nameErr}`)
       .isLength({ min: 1, max: 255 })
       .withMessage(`Name ${lengthErr(255)}`)
       .custom(async (value, { req }) => {
@@ -114,53 +115,14 @@ const validation = (() => {
         const categoryExists = await db.hasCategory(toSlug(value));
         if (categoryExists) throw new Error(`Name ${uniqueErr}`);
       }),
-    body("creationDate")
+    body("backgroundColor")
       .trim()
-      .isDate()
-      .withMessage(`Creation date ${dateErr}`)
-      .custom((value) => {
-        const inputDate = new Date(value);
-        const today = new Date();
-        // Set time to 00:00:00 for both dates to compare only the date part
-        inputDate.setHours(0, 0, 0, 0);
-        today.setHours(0, 0, 0, 0);
-        if (inputDate > today) {
-          throw new Error(`Creation date ${pastOrPresentDateErr}`);
-        }
-        return true;
-      }),
-    body("imgUrl")
+      .matches(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/)
+      .withMessage(`Background color ${colorErr}`),
+    body("borderColor")
       .trim()
-      .isURL()
-      .withMessage(`Image URL ${urlErr}`)
-      .matches(/\.(jpeg|jpg|gif|png|webp|svg)$/i)
-      .withMessage(`Image URL ${imgErr}`),
-    body("desc")
-      .optional()
-      .trim()
-      .isLength({ min: 0, max: 500 })
-      .withMessage(`Description ${lengthErr(500)}`),
-    body("price")
-      .trim()
-      .isFloat({ min: 0 })
-      .withMessage(`Price ${numberErr(0)}`),
-    body("size")
-      .trim()
-      .isIn(["XS", "S", "M", "L", "XL"])
-      .withMessage(`Size ${sizeErr}`),
-    body("squishiness")
-      .trim()
-      .isIn([
-        "Not squishy",
-        "Kinda squishy",
-        "Pretty squishy",
-        "Really squishy",
-      ])
-      .withMessage(`Squishiness ${squishinessErr}`),
-    body("stocksLeft")
-      .trim()
-      .isInt({ min: 0 })
-      .withMessage(`Stocks left ${numberErr(0)}`),
+      .matches(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/)
+      .withMessage(`Border color ${colorErr}`),
   ];
 
   return { plushy, category };

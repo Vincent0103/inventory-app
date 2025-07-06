@@ -447,6 +447,16 @@ const db = (() => {
     return row.idsize;
   };
 
+  const hasCategory = async (value) => {
+    const categoryRow = (
+      await pool.query("SELECT * FROM CATEGORY WHERE slugCategory = $1", [
+        categorySlug,
+      ])
+    ).rows[0];
+
+    return !!categoryRow;
+  };
+
   return {
     getFilters,
     getCategories,
@@ -461,6 +471,7 @@ const db = (() => {
     getPlushyByName,
     getIdFromSquishiness,
     getIdFromSize,
+    hasCategory,
   };
 })();
 
