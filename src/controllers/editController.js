@@ -17,7 +17,7 @@ const editController = (() => {
       hasGoBackBtn: true,
       slug: plushySlug,
       title: "Edit plushy",
-      action: `/inventory/edit/${plushySlug}`,
+      action: `/edit/${plushySlug}`,
       categories: await db.getCategories(),
       materials: await db.getMaterials(),
       userInputs,

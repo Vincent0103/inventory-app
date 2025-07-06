@@ -1,5 +1,3 @@
-import { body } from "express-validator";
-import db from "./db/queries";
 import hexRgb from "hex-rgb";
 
 const toTitleCase = (str) => {
