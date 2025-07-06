@@ -510,6 +510,24 @@ const db = (() => {
     return category;
   };
 
+  const editCategory = async (pastSlug, category) => {
+    const { name, slug, bgColor, borderColor, textWhite } = category;
+    await pool.query(
+      `
+        UPDATE CATEGORY
+        SET
+          nameCategory = $1,
+          slugCategory = $2,
+          bgColorCategory = $3,
+          borderColorCategory = $4,
+          textWhite = $5
+        WHERE
+          slugCategory = $6
+      `,
+      [name, slug, bgColor, borderColor, textWhite, pastSlug],
+    );
+  };
+
   const deleteCategory = async (categorySlug) => {
     const { rows } = await pool.query(
       "SELECT idCategory FROM CATEGORY WHERE slugCategory = $1",
@@ -549,6 +567,7 @@ const db = (() => {
     hasCategory,
     addCategory,
     getCategory,
+    editCategory,
     deleteCategory,
   };
 })();

@@ -64,7 +64,28 @@ const editController = (() => {
     });
   };
 
-  const categoryEditPost = () => {};
+  const categoryEditPost = [
+    utilityController.validation.category,
+    async (req, res) => {
+      const pastSlug = req.params.categorySlug;
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).render("formCategory", {
+          hasGoBackBtn: true,
+          slug: pastSlug,
+          title: "Edit category",
+          action: `/edit/category/${toSlug(req.body.name)}`,
+          errors: errors.array(),
+          submitBtnTextContent: "Edit",
+        });
+      }
+
+      const category = await utilityController.getCategoryInfos(req.body);
+
+      await db.editCategory(pastSlug, category);
+      res.redirect(`/categories`);
+    },
+  ];
 
   return { plushyEditGet, plushyEditPost, categoryEditGet, categoryEditPost };
 })();

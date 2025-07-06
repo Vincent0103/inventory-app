@@ -153,7 +153,27 @@ const utilityController = (() => {
     return plushy;
   };
 
-  return { validation, getInventoryPlushiesInfos, getPlushyInfos };
+  const getCategoryInfos = async (reqBody) => {
+    const { name, backgroundColor, borderColor, textWhite } = reqBody;
+
+    const slug = toSlug(name);
+    const category = {
+      name,
+      slug,
+      bgColor: backgroundColor,
+      borderColor,
+      textWhite,
+    };
+
+    return category;
+  };
+
+  return {
+    validation,
+    getInventoryPlushiesInfos,
+    getPlushyInfos,
+    getCategoryInfos,
+  };
 })();
 
 export default utilityController;

@@ -53,8 +53,8 @@
               type="text"
               name="name"
               id="name"
-              <% if (locals.nameValue) { %>
-                value="<%= nameValue %>"
+              <% if (locals?.userInputs?.name) { %>
+                value="<%= userInputs?.name %>"
               <% } %>
               maxlength="255"
               required
@@ -69,6 +69,9 @@
               type="color"
               name="backgroundColor"
               id="backgroundColor"
+              <% if (locals?.userInputs?.bgColor) { %>
+                value="<%= userInputs?.bgColor %>"
+              <% } %>
               required
             />
           </div>
@@ -81,19 +84,20 @@
               type="color"
               name="borderColor"
               id="borderColor"
+              <% if (locals?.userInputs?.borderColor) { %>
+                value="<%= userInputs?.borderColor %>"
+              <% } %>
               required
             />
           </div>
           <div class="flex items-center gap-4">
-            <label class="ml-2" for="textWhite"
-              >Should text be white?<span class="text-red-500">*</span></label
-            >
+            <label class="ml-2" for="textWhite">Should text be white?</label>
             <input
               class="border-neutral-border size-5 rounded-md border-2 bg-gradient-to-b from-[#E5E5E5] from-0% via-[#F7F7F7] via-10% to-[#F7F7F7] to-100% px-2 py-1"
               type="checkbox"
               name="textWhite"
               id="textWhite"
-              required
+              <% if (locals?.userInputs?.textWhite) { %> checked <% } %>
             />
           </div>
           <button

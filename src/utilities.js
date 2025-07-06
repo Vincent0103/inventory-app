@@ -20,9 +20,11 @@ function toSlug(str) {
 const formatPrice = (n) => n.toString().replace(/\./, ",").concat("€");
 
 const toHtmlRGBA = (hex, alphaHex) => {
-  return "rgba("
-    .concat(Object.values(hexRgb(hex.concat(alphaHex))).join(", "))
-    .concat(")");
+  return hex && alphaHex
+    ? "rgba("
+        .concat(Object.values(hexRgb(hex.concat(alphaHex))).join(", "))
+        .concat(")")
+    : "rgba(0, 0, 0, 1)";
 };
 
 export { toTitleCase, formatPrice, toSlug, toHtmlRGBA };

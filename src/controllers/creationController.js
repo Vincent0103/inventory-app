@@ -57,16 +57,7 @@ const creationController = (() => {
         });
       }
 
-      const { name, backgroundColor, borderColor, textWhite } = req.body;
-
-      const slug = toSlug(name);
-      const category = {
-        name,
-        slug,
-        backgroundColor,
-        borderColor,
-        textWhite,
-      };
+      const category = await utilityController.getCategoryInfos(req.body);
 
       await db.addCategory(category);
       res.redirect("/inventory");
