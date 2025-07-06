@@ -50,7 +50,19 @@ const editController = (() => {
     },
   ];
 
-  const categoryEditGet = () => {};
+  const categoryEditGet = async (req, res) => {
+    const { categorySlug } = req.params;
+    const category = await db.getCategory(categorySlug);
+
+    res.render("formCategory", {
+      hasGoBackBtn: true,
+      slug: categorySlug,
+      title: "Edit category",
+      action: `/edit/category/${categorySlug}`,
+      userInputs: { ...category },
+      submitBtnTextContent: "Edit",
+    });
+  };
 
   const categoryEditPost = () => {};
 

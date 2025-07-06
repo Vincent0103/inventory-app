@@ -490,6 +490,26 @@ const db = (() => {
       );
   };
 
+  const getCategory = async (categorySlug) => {
+    const { rows } = await pool.query(
+      "SELECT * FROM CATEGORY WHERE slugCategory = $1",
+      [categorySlug],
+    );
+    if (!rows)
+      throw new Error(`Could not fetch category of slug: ${categorySlug}`);
+    const [row] = rows;
+
+    const category = {
+      name: row.namecategory,
+      slug: row.slugcategory,
+      bgColor: row.bgcolorcategory,
+      borderColor: row.bordercolorcategory,
+      textWhite: row.textwhite,
+    };
+
+    return category;
+  };
+
   const deleteCategory = async (categorySlug) => {
     const { rows } = await pool.query(
       "SELECT idCategory FROM CATEGORY WHERE slugCategory = $1",
@@ -528,6 +548,7 @@ const db = (() => {
     getIdFromSize,
     hasCategory,
     addCategory,
+    getCategory,
     deleteCategory,
   };
 })();
