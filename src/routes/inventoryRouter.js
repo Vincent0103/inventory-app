@@ -9,6 +9,6 @@ inventoryRouter.use("/edit", editRouter);
 inventoryRouter.use("/delete", deleteRouter);
 
 inventoryRouter.get("/", inventoryController.inventoryGet);
-inventoryRouter.get("/:itemSlug", inventoryController.itemGet);
+inventoryRouter.get("/:plushySlug", inventoryController.plushyGet);
 
 export default inventoryRouter;

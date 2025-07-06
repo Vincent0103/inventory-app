@@ -1,4 +1,4 @@
-import { getInventoryItemInfos } from "../utilities";
+import { getInventoryPlushyInfos } from "../utilities";
 import pool from "./pool";
 
 const db = (() => {
@@ -132,21 +132,23 @@ const db = (() => {
     return materials;
   };
 
-  const getItems = async () => {
+  const getPlushies = async () => {
     const { rows } = await pool.query(
       "SELECT idPlushy, imgSrcPlushy, imgAltPlushy, slugPlushy, namePlushy, pricePlushy, stocksLeftPlushy FROM PLUSHY",
     );
 
-    const items = getInventoryItemInfos(rows, getCategoriesByPlushy);
-    return items;
+    const plushies = getInventoryPlushyInfos(rows, getCategoriesByPlushy);
+    return plushies;
   };
 
-  const getItem = async (itemSlug) => {
+  const getPlushy = async (plushySlug) => {
     const plushyRow = (
-      await pool.query("SELECT * FROM PLUSHY WHERE slugPlushy = $1", [itemSlug])
+      await pool.query("SELECT * FROM PLUSHY WHERE slugPlushy = $1", [
+        plushySlug,
+      ])
     ).rows[0];
 
-    if (!plushyRow) throw new Error(`Item of url ${itemSlug} is not found`);
+    if (!plushyRow) throw new Error(`Plushy of url ${plushySlug} is not found`);
 
     const sizeRow = (
       await pool.query("SELECT valueSize FROM SIZE WHERE idSize = $1", [
@@ -170,7 +172,7 @@ const db = (() => {
       .toISOString()
       .split("T")[0];
 
-    const item = {
+    const plushy = {
       id: plushyRow.idplushy,
       imgSrc: plushyRow.imgsrcplushy,
       imgAlt: plushyRow.imgaltplushy,
@@ -186,12 +188,14 @@ const db = (() => {
       categories,
     };
 
-    return item;
+    return plushy;
   };
 
-  const hasItem = async (itemSlug) => {
+  const hasPlushy = async (plushySlug) => {
     const plushyRow = (
-      await pool.query("SELECT * FROM PLUSHY WHERE slugPlushy = $1", [itemSlug])
+      await pool.query("SELECT * FROM PLUSHY WHERE slugPlushy = $1", [
+        plushySlug,
+      ])
     ).rows[0];
 
     return !!plushyRow;
@@ -227,7 +231,7 @@ const db = (() => {
     );
   };
 
-  const addItem = async (item) => {
+  const addPlushy = async (plushy) => {
     const {
       name,
       imgSrc,
@@ -241,7 +245,7 @@ const db = (() => {
       stocksLeft,
       idSize,
       idSquishiness,
-    } = item;
+    } = plushy;
 
     const { rows } = await pool.query(
       `INSERT INTO PLUSHY
@@ -273,7 +277,7 @@ const db = (() => {
     addMaterials(idPlushy, materials);
   };
 
-  const editItem = async (pastSlug, item) => {
+  const editPlushy = async (pastSlug, plushy) => {
     const {
       name,
       imgSrc,
@@ -287,7 +291,7 @@ const db = (() => {
       stocksLeft,
       idSize,
       idSquishiness,
-    } = item;
+    } = plushy;
 
     await pool.query(
       `
@@ -340,13 +344,13 @@ const db = (() => {
     addMaterials(idPlushy, materials);
   };
 
-  const deleteItem = async (itemSlug) => {
+  const deletePlushy = async (plushySlug) => {
     const { rows } = await pool.query(
       "SELECT idPlushy FROM PLUSHY WHERE slugPlushy = $1",
-      [itemSlug],
+      [plushySlug],
     );
     if (!rows)
-      throw new Error(`Could not fetch idPlushy from slug ${itemSlug}`);
+      throw new Error(`Could not fetch idPlushy from slug ${plushySlug}`);
 
     const idPlushy = rows[0].idplushy;
     await pool.query("DELETE FROM CATEGORYPLUSHY WHERE idPlushy = $1", [
@@ -377,7 +381,7 @@ const db = (() => {
     return row.idsize;
   };
 
-  const getItemByFilters = async (filters) => {
+  const getPlushyByFilters = async (filters) => {
     const { price } = filters;
     const arrayFilters = [filters.categories, filters.materials, filters.sizes];
 
@@ -428,35 +432,35 @@ const db = (() => {
 
     const { rows } = await pool.query(query, params);
 
-    const items = getInventoryItemInfos(rows, getCategoriesByPlushy);
-    return items;
+    const plushies = getInventoryPlushyInfos(rows, getCategoriesByPlushy);
+    return plushies;
   };
 
-  const getItemByName = async (name) => {
+  const getPlushyByName = async (name) => {
     const { rows } = await pool.query(
       "SELECT * FROM PLUSHY WHERE LOWER(namePlushy) LIKE $1",
       [`%${name.toLowerCase()}%`],
     );
     if (!rows) throw new Error(`Could not find plushy of name ${name}`);
 
-    const items = getInventoryItemInfos(rows, getCategoriesByPlushy);
-    return items;
+    const plushies = getInventoryPlushyInfos(rows, getCategoriesByPlushy);
+    return plushies;
   };
 
   return {
     getFilters,
     getCategories,
     getCategoriesByPlushy,
-    getItems,
-    getItem,
-    hasItem,
-    addItem,
-    editItem,
-    deleteItem,
+    getPlushies,
+    getPlushy,
+    hasPlushy,
+    addPlushy,
+    editPlushy,
+    deletePlushy,
     getIdFromSquishiness,
     getIdFromSize,
-    getItemByFilters,
-    getItemByName,
+    getPlushyByFilters,
+    getPlushyByName,
   };
 })();
 

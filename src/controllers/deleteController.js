@@ -2,8 +2,8 @@ import db from "../db/queries";
 
 const deleteController = (() => {
   const plushyDeleteGet = async (req, res) => {
-    const { itemSlug } = req.params;
-    await db.deleteItem(itemSlug);
+    const { plushySlug } = req.params;
+    await db.deletePlushy(plushySlug);
     res.redirect("/inventory");
   };
 

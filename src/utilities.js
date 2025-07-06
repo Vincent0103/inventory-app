@@ -21,8 +21,7 @@ function toSlug(str) {
 
 const formatPrice = (n) => n.toString().replace(/\./, ",").concat("€");
 
-// pastSlug is used only when the user is editing posts
-const validatePlushy = (() => {
+const validation = (() => {
   const wordAndWhitespaceErr =
     "must only contain letters, numbers, underscores or spaces";
   const uniqueErr = "already exists, please choose another one";
@@ -38,7 +37,7 @@ const validatePlushy = (() => {
   const squishinessErr =
     "must select a valid squishiness option from the select dropdown";
 
-  const validation = [
+  const plushy = [
     body("name")
       .trim()
       .matches(/^[\w\s]+$/)
@@ -49,8 +48,8 @@ const validatePlushy = (() => {
         // if the past old slug is equal to the newly generated
         // slug then ask user to change name because of being non-unique
         if (req.params.itemSlug === toSlug(req.body.name)) return true;
-        const itemExists = await db.hasItem(toSlug(value));
-        if (itemExists) throw new Error(`Name ${uniqueErr}`);
+        const plushyExists = await db.hasPlushy(toSlug(value));
+        if (plushyExists) throw new Error(`Name ${uniqueErr}`);
       }),
     body("creationDate")
       .trim()
@@ -101,11 +100,78 @@ const validatePlushy = (() => {
       .withMessage(`Stocks left ${numberErr(0)}`),
   ];
 
+  const category = [
+    body("name")
+      .trim()
+      .matches(/^[\w\s]+$/)
+      .withMessage(`Name ${wordAndWhitespaceErr}`)
+      .isLength({ min: 1, max: 255 })
+      .withMessage(`Name ${lengthErr(255)}`)
+      .custom(async (value, { req }) => {
+        // if the past old slug is equal to the newly generated
+        // slug then ask user to change name because of being non-unique
+        if (req.params.itemSlug === toSlug(req.body.category)) return true;
+        const plushyExists = await db.hasPlushy(toSlug(value));
+        if (plushyExists) throw new Error(`Name ${uniqueErr}`);
+      }),
+    body("creationDate")
+      .trim()
+      .isDate()
+      .withMessage(`Creation date ${dateErr}`)
+      .custom((value) => {
+        const inputDate = new Date(value);
+        const today = new Date();
+        // Set time to 00:00:00 for both dates to compare only the date part
+        inputDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
+        if (inputDate > today) {
+          throw new Error(`Creation date ${pastOrPresentDateErr}`);
+        }
+        return true;
+      }),
+    body("imgUrl")
+      .trim()
+      .isURL()
+      .withMessage(`Image URL ${urlErr}`)
+      .matches(/\.(jpeg|jpg|gif|png|webp|svg)$/i)
+      .withMessage(`Image URL ${imgErr}`),
+    body("desc")
+      .optional()
+      .trim()
+      .isLength({ min: 0, max: 500 })
+      .withMessage(`Description ${lengthErr(500)}`),
+    body("price")
+      .trim()
+      .isFloat({ min: 0 })
+      .withMessage(`Price ${numberErr(0)}`),
+    body("size")
+      .trim()
+      .isIn(["XS", "S", "M", "L", "XL"])
+      .withMessage(`Size ${sizeErr}`),
+    body("squishiness")
+      .trim()
+      .isIn([
+        "Not squishy",
+        "Kinda squishy",
+        "Pretty squishy",
+        "Really squishy",
+      ])
+      .withMessage(`Squishiness ${squishinessErr}`),
+    body("stocksLeft")
+      .trim()
+      .isInt({ min: 0 })
+      .withMessage(`Stocks left ${numberErr(0)}`),
+  ];
+
+  return { plushy, category };
+})();
+
+const validateCategory = (() => {
   return validation;
 })();
 
-const getInventoryItemInfos = async (rows, getCategoriesByPlushy) => {
-  const items = await Promise.all(
+const getInventoryPlushyInfos = async (rows, getCategoriesByPlushy) => {
+  const plushies = await Promise.all(
     (rows ?? []).map(async (row) => {
       const categories = await getCategoriesByPlushy(row.idplushy);
 
@@ -121,7 +187,7 @@ const getInventoryItemInfos = async (rows, getCategoriesByPlushy) => {
     }),
   );
 
-  return items;
+  return plushies;
 };
 
 const toHtmlRGBA = (hex, alphaHex) => {
@@ -134,7 +200,7 @@ export {
   toTitleCase,
   formatPrice,
   toSlug,
-  validatePlushy,
-  getInventoryItemInfos,
+  validation,
+  getInventoryPlushyInfos,
   toHtmlRGBA,
 };

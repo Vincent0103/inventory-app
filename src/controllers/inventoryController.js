@@ -5,41 +5,41 @@ const inventoryController = (() => {
   const inventoryGet = async (req, res) => {
     const filters = await db.getFilters();
     if (Object.keys(req.query).length === 0) {
-      const items = await db.getItems();
+      const plushies = await db.getPlushies();
       return res.render("inventory", {
         filters,
-        items,
+        plushies,
         toTitleCase,
         formatPrice,
       });
     }
 
     if ("q" in req.query) {
-      const items = await db.getItemByName(req.query.q);
+      const plushies = await db.getPlushiesByName(req.query.q);
       return res.render("inventory", {
         filters,
-        items,
+        plushies,
         toTitleCase,
         formatPrice,
       });
     }
 
-    const items = await db.getItemByFilters(req.query);
+    const plushies = await db.getPlushiesByFilters(req.query);
     res.render("inventory", {
       filters,
-      items,
+      plushies,
       toTitleCase,
       formatPrice,
     });
   };
 
-  const itemGet = async (req, res) => {
-    const { itemSlug } = req.params;
-    const item = await db.getItem(itemSlug);
-    res.render("item", { ...item, formatPrice });
+  const plushyGet = async (req, res) => {
+    const { plushySlug } = req.params;
+    const plushy = await db.getPlushy(plushySlug);
+    res.render("plushy", { ...plushy, formatPrice });
   };
 
-  return { itemGet, inventoryGet };
+  return { plushyGet, inventoryGet };
 })();
 
 export default inventoryController;

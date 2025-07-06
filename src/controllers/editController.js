@@ -1,35 +1,35 @@
 import db from "../db/queries";
 import { validationResult } from "express-validator";
-import { toSlug, validatePlushy } from "../utilities";
+import { toSlug, validation } from "../utilities";
 
 const editController = (() => {
   const plushyEditGet = async (req, res) => {
-    const { itemSlug } = req.params;
-    const item = await db.getItem(itemSlug);
+    const { plushySlug } = req.params;
+    const plushy = await db.getPlushy(plushySlug);
     res.render("formPlushy", {
       hasGoBackBtn: true,
-      slug: itemSlug,
+      slug: plushySlug,
       title: "Edit plushy",
-      action: `/inventory/edit/${itemSlug}`,
-      nameValue: item.name,
-      creationDateValue: item.creationDate,
-      imgUrlValue: item.imgSrc,
-      imgAltValue: item.imgAlt,
-      descValue: item.desc,
-      priceValue: item.price,
-      sizeValue: item.size,
-      categoriesValue: item.categories.map(({ slug }) => slug),
-      materialsValue: item.materials.map(({ slug }) => slug),
-      squishinessValue: item.squishiness,
-      stocksLeftValue: item.stocksLeft,
+      action: `/inventory/edit/${plushySlug}`,
+      nameValue: plushy.name,
+      creationDateValue: plushy.creationDate,
+      imgUrlValue: plushy.imgSrc,
+      imgAltValue: plushy.imgAlt,
+      descValue: plushy.desc,
+      priceValue: plushy.price,
+      sizeValue: plushy.size,
+      categoriesValue: plushy.categories.map(({ slug }) => slug),
+      materialsValue: plushy.materials.map(({ slug }) => slug),
+      squishinessValue: plushy.squishiness,
+      stocksLeftValue: plushy.stocksLeft,
       submitBtnTextContent: "Edit",
     });
   };
 
   const plushyEditPost = [
-    validatePlushy,
+    validation.plushy,
     async (req, res) => {
-      const pastSlug = req.params.itemSlug;
+      const pastSlug = req.params.plushySlug;
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).render("formPlushy", {
@@ -62,7 +62,7 @@ const editController = (() => {
       const selectedMaterials = [].concat(materials || []);
 
       const slug = toSlug(name);
-      const item = {
+      const plushy = {
         name,
         imgSrc: imgUrl,
         imgAlt,
@@ -77,7 +77,7 @@ const editController = (() => {
         idSquishiness,
       };
 
-      await db.editItem(pastSlug, item);
+      await db.editPlushy(pastSlug, plushy);
       res.redirect(`/inventory/${slug}`);
     },
   ];

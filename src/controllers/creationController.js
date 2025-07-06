@@ -1,5 +1,5 @@
 import { validationResult } from "express-validator";
-import { toSlug, validatePlushy } from "../utilities";
+import { toSlug, validation } from "../utilities";
 
 const creationController = (() => {
   const createPlushyGet = (req, res) => {
@@ -11,7 +11,7 @@ const creationController = (() => {
   };
 
   const createPlushyPost = [
-    validatePlushy,
+    validation.plushy,
     async (req, res) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -44,7 +44,7 @@ const creationController = (() => {
       const selectedMaterials = [].concat(materials || []);
 
       const slug = toSlug(name);
-      const item = {
+      const plushy = {
         name,
         imgSrc: imgUrl,
         imgAlt,
@@ -59,7 +59,7 @@ const creationController = (() => {
         idSquishiness,
       };
 
-      await db.addItem(item);
+      await db.addPlushy(plushy);
       res.redirect("/inventory");
     },
   ];
