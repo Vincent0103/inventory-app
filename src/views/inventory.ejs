@@ -24,27 +24,33 @@
         <%- include("partials/category.ejs") %>
       </section>
 
-      <!-- filter button for mobiles -->
-      <button
-        type="button"
-        onclick="onFilterCloseMobileBtnClick()"
-        class="border-border-dark from-primary to-primary-dark fixed right-6 bottom-4 z-10 h-8 w-9 cursor-pointer rounded-md border-2 bg-linear-to-b shadow-lg sm:hidden"
-      >
-        <svg
-          class="size-full"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
+      <div class="mt-[55px] space-y-8 p-8 sm:mt-[60px] sm:ml-[200px]">
+        <header class="flex items-center justify-between sm:hidden">
+          <h1 class="font-comico text-text-dark text-4xl">Inventory</h1>
+
+          <!-- filter button for mobiles -->
+          <button
+            type="button"
+            onclick="onFilterCloseMobileBtnClick()"
+            class="border-border-dark from-primary to-primary-dark h-8 w-9 cursor-pointer rounded-md border-2 bg-linear-to-b shadow-lg"
+          >
+            <svg
+              class="size-full"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path d="M6,13H18V11H6M3,6V8H21V6M10,18H14V16H10V18Z" />
+            </svg>
+          </button>
+        </header>
+
+        <section
+          class="grid grid-cols-2 justify-items-center gap-5 min-[880px]:grid-cols-3 min-[1120px]:grid-cols-4 min-[1380px]:grid-cols-5"
         >
-          <path d="M6,13H18V11H6M3,6V8H21V6M10,18H14V16H10V18Z" />
-        </svg>
-      </button>
-      <
-      <section
-        class="mt-[35px] grid grid-cols-2 justify-items-center gap-5 p-6 min-[880px]:grid-cols-3 min-[1120px]:grid-cols-4 min-[1380px]:grid-cols-5 sm:mt-[45px] sm:ml-[200px]"
-      >
-        <% plushies.forEach((plushy) => { %> <%-
-        include("partials/plushyCard.ejs", {...plushy}) %> <% }); %>
-      </section>
+          <% plushies.forEach((plushy) => { %> <%-
+          include("partials/plushyCard.ejs", {...plushy}) %> <% }); %>
+        </section>
+      </div>
     </main>
     <script>
       const toggleFilter = (e, categoryId) => {
