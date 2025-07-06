@@ -6,6 +6,7 @@ const db = (() => {
     const categoryRows = (
       await pool.query("SELECT nameCategory, slugCategory FROM CATEGORY")
     ).rows;
+
     const categories = await Promise.all(
       (categoryRows ?? []).map((category) => ({
         name: category.namecategory,

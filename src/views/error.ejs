@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title><%= title %> - Inventory App</title>
+  </head>
+  <body
+    class="font-montserrat text-text-light fill-text-light from-secondary to-secondary-dark flex min-h-screen w-full items-center justify-center bg-linear-to-b bg-fixed before:pointer-events-none before:fixed before:inset-0 before:-z-10 before:bg-[url('/images/wallpapers/homepage-bgi.png')] before:bg-repeat before:opacity-[0.03] before:content-['']"
+  >
+    <header class="mx-auto max-w-md p-6 text-center">
+      <div class="mb-8">
+        <h1 class="font-comico mb-4 text-6xl font-bold text-red-600">
+          <%= statusCode %>
+        </h1>
+        <h2 class="font-comico text-text-dark mb-4 text-2xl font-semibold">
+          <%= title %>
+        </h2>
+        <p class="text-neutral-text-muted mb-6"><%= message %></p>
+      </div>
+
+      <div class="flex flex-col items-center justify-center space-y-4">
+        <a href="/" class="navlink w-min text-nowrap sm:shadow-sm"> Go Home </a>
+
+        <% if (locals.showBackButton) { %>
+        <button
+          onclick="history.back()"
+          class="navlink cursor-pointer sm:shadow-sm"
+        >
+          Go Back
+        </button>
+        <% } %>
+      </div>
+
+      <% if (locals.errors && errors.length > 0) { %>
+      <div class="mt-8 rounded-lg border border-red-200 bg-red-50 p-4">
+        <h3 class="mb-2 font-semibold text-red-800">Validation Errors:</h3>
+        <ul class="space-y-1 text-sm text-red-700">
+          <% errors.forEach((error) => { %>
+          <li class="flex items-start">
+            <span class="mr-2">•</span>
+            <span><%= error.msg %></span>
+          </li>
+          <% }); %>
+        </ul>
+      </div>
+      <% } %>
+    </header>
+  </body>
+</html>

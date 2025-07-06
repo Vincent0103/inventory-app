@@ -20,6 +20,32 @@ app.use("/delete", deleteRouter);
 app.use("/inventory", inventoryRouter);
 app.use("/create", creationRouter);
 
+// 404 handler - must be after all routes
+app.use((req, res) => {
+  res.status(404).render("error", {
+    statusCode: 404,
+    title: "Page Not Found",
+    message: "The page you're looking for doesn't exist.",
+    showBackButton: true,
+  });
+});
+
+app.use((err, req, res, next) => {
+  console.error(err);
+
+  const statusCode = err.status || 500;
+  const title = err.title || "Server Error";
+  const message = err.message || "Something went wrong on our end.";
+
+  res.status(statusCode).render("error", {
+    statusCode,
+    title,
+    message,
+    showBackButton: true,
+    errors: err.errors || [],
+  });
+});
+
 const { PORT } = process.env;
 app.listen(PORT, () => {
   console.log(`Express app listening at port ${PORT}`);
