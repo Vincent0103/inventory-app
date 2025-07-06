@@ -553,6 +553,9 @@
   .gap-1 {
     gap: calc(var(--spacing) * 1);
   }
+  .gap-1\.5 {
+    gap: calc(var(--spacing) * 1.5);
+  }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
   }
@@ -987,6 +990,12 @@
     font-size: var(--text-xs);
     line-height: var(--tw-leading, var(--text-xs--line-height));
   }
+  .text-\[85\%\] {
+    font-size: 85%;
+  }
+  .text-\[100\%\] {
+    font-size: 100%;
+  }
   .font-bold {
     --tw-font-weight: var(--font-weight-bold);
     font-weight: var(--font-weight-bold);
@@ -1054,6 +1063,9 @@
   }
   .text-white {
     color: var(--color-white);
+  }
+  .font-stretch-100\% {
+    font-stretch: 100%;
   }
   .underline {
     text-decoration-line: underline;
